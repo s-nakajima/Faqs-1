@@ -51,6 +51,7 @@ class FaqsController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function index($frameId = 0, $lang = '') {
+		$this->_initializeFrame($frameId);
 		return $this->render('Faqs/index');
 	}
 
