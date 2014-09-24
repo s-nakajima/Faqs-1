@@ -1,6 +1,11 @@
 
 <div class="panel panel-default">
 	<div class="panel-body">
+
+		<?php echo $this->element('Faqs/list_header'); ?>
+
+		<hr>
+
 		<?php $answer = 1; ?>
 		<div class="row">
 			<?php echo $this->element('Faqs/content_move_btn', array('size' => 1)); ?>
@@ -191,6 +196,8 @@
 		</div>
 
 		<hr>
+
+		<?php echo $this->element('Faqs/list_header'); ?>
 
 	</div>
 </div>
