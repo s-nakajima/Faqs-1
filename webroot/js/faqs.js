@@ -9,7 +9,7 @@ NetCommonsApp.controller('Faqs',
 
       var GET_FORM_URL = '/faqs/faqs/';
       $scope.frameId = 0;
-      $scope.answer = {};
+      $scope.answerIndex = {};
 
       $scope.visibleContainer = true;
       $scope.visibleHeaderBtn = true;
@@ -18,18 +18,25 @@ NetCommonsApp.controller('Faqs',
       $scope.htmlManage = '';
       $scope.visibleManage = false;
 
+      $scope.modalTitle = 'FAQ追加';
+
       $scope.htmlEdit = '';
       $scope.visibleEdit = false;
 
       $scope.htmlAddFaq = '';
       $scope.visibleAddFaq = true;
 
+      $scope.Form = {
+        'question': '',
+        'answer': ''
+      };
+
       $scope.initialize = function(frameId) {
         //$scope.initialize = function(frameId) {
         $scope.frameId = frameId;
 
         for (var i = 1; i < 10; i++) {
-          $scope.answer[i] = false;
+          $scope.answerIndex[i] = false;
         }
       };
 
@@ -52,12 +59,13 @@ NetCommonsApp.controller('Faqs',
       };
 
       $scope.showManage = function() {
-        $scope.visibleHeaderBtn = true;
-        $scope.visibleContainer = false;
-        $scope.visibleEdit = false;
-        $scope.visibleManage = true;
-        $scope.visibleAddFaq = false;
-        $scope.visibleAddFaqForm = false;
+        $('#nc-faqs-manage-modal-' + $scope.frameId).modal('show');
+//        $scope.visibleHeaderBtn = true;
+//        $scope.visibleContainer = false;
+//        $scope.visibleEdit = false;
+//        $scope.visibleManage = true;
+//        $scope.visibleAddFaq = false;
+//        $scope.visibleAddFaqForm = false;
       };
 
       $scope.postDisplayStyle = function() {
@@ -65,24 +73,44 @@ NetCommonsApp.controller('Faqs',
       };
 
       $scope.showAddFaq = function() {
-        //$('#nc-faqs-add-link-modal-' + $scope.frameId).modal('show');
+        $scope.Form.question = '';
+        $scope.Form.answer = '';
+        $('#nc-faqs-add-link-modal-' + $scope.frameId).modal('show');
+        $scope.modalTitle = 'FAQ追加';
 
-        $scope.visibleContainer = false;
-        $scope.visibleEdit = false;
-        $scope.visibleManage = false;
-        $scope.visibleAddFaq = false;
+//        $scope.visibleContainer = false;
+//        $scope.visibleEdit = false;
+//        $scope.visibleManage = false;
+//        $scope.visibleAddFaq = false;
+//
+//        $scope.visibleAddFaqForm = true;
+//        $scope.visibleHeaderBtn = false;
+      };
 
-        $scope.visibleAddFaqForm = true;
-        $scope.visibleHeaderBtn = false;
+      $scope.showEditFaq = function(modal, question, answer) {
+        $scope.Form.question = question;
+        $scope.Form.answer = answer;
+        $scope.modalTitle = 'FAQ編集';
+        if (modal) {
+          $('#nc-faqs-add-link-modal-' + $scope.frameId).modal('show');
+        } else {
+          $scope.visibleAddLinkForm2 = true;
+        }
+      };
+
+      $scope.closeEditFaq = function() {
+        $scope.visibleAddLinkForm2 = false;
+        $scope.Form.question = '';
+        $scope.Form.answer = '';
       };
 
       $scope.showAddCategory = function() {
         //$('#nc-faqs-add-link-modal-' + $scope.frameId).dismiss();
-        $('#nc-faqs-add-category-modal-' + $scope.frameId).modal('show');
+//        $('#nc-faqs-add-category-modal-' + $scope.frameId).modal('show');
       };
 
       $scope.changeAnswer = function(index) {
-        if ($scope.answer[index]) {
+        if ($scope.answerIndex[index]) {
           $scope.closeAnswer(index);
         } else {
           $scope.openAnswer(index);
@@ -90,11 +118,12 @@ NetCommonsApp.controller('Faqs',
       };
 
       $scope.openAnswer = function(index) {
-        $scope.answer[index] = true;
+        $scope.answerIndex[index] = true;
       };
 
       $scope.closeAnswer = function(index) {
-        $scope.answer[index] = false;
+        $scope.answerIndex[index] = false;
       };
+
 
     });

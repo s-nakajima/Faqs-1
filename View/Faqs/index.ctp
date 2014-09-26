@@ -1,34 +1,51 @@
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
-<div id="nc-faqs-add-link-modal-<?php echo (int)$frameId; ?>" class="modal fade">
-	<div class="ng-scope">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button data-dismiss="modal" class="close" type="button">
-						<span aria-hidden="true">×</span>
-						<span class="sr-only">Close</span>
-					</button>
-					<h4 id="myModalLabel" class="modal-title">
-						FAQ追加
-					</h4>
+<div id="nc-faqs-container-<?php echo (int)$frameId; ?>"
+	 ng-controller="Faqs"
+	 ng-init="initialize(<?php echo (int)$frameId; ?>)">
+
+	<div id="nc-faqs-add-link-modal-<?php echo (int)$frameId; ?>" class="modal fade">
+		<div class="ng-scope">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button data-dismiss="modal" class="close" type="button">
+							<span aria-hidden="true">×</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 id="myModalLabel" class="modal-title">
+							{{modalTitle}}
+						</h4>
+					</div>
+					<div class="modal-body">
+						<?php echo $this->element('Faqs/index_add_link'); ?>
+					</div>
 				</div>
-				<div class="modal-body">
-					<?php echo $this->element('Faqs/index_add_link'); ?>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="nc-faqs-manage-modal-<?php echo (int)$frameId; ?>" class="modal fade">
+		<div class="ng-scope">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button data-dismiss="modal" class="close" type="button">
+							<span aria-hidden="true">×</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 id="myModalLabel" class="modal-title">
+							編集
+						</h4>
+					</div>
+					<div class="modal-body">
+						<?php echo $this->element('Faqs/index_manage'); ?>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-</div>
-
-<div id="nc-faqs-add-category-modal-<?php echo (int)$frameId; ?>" class="modal fade">
-	<?php echo $this->element('Faqs/index_add_category'); ?>
-</div>
-
-<div id="nc-faqs-container-<?php echo (int)$frameId; ?>"
-	 ng-controller="Faqs"
-	 ng-init="initialize(<?php echo (int)$frameId; ?>)">
 
 	<div class="row"
 		 ng-show="visibleHeaderBtn">

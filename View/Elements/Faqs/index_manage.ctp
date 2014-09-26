@@ -1,4 +1,4 @@
-
+<!--
 <nav class="navbar navbar-default" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-<?php echo (int)$frameId; ?>">
@@ -10,12 +10,14 @@
 	</div>
 
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-<?php echo (int)$frameId; ?>">
+-->
+
 		<!-- Nav tabs -->
-		<ul class="nav navbar-nav" role="tablist">
+		<ul class="nav nav-tabs" role="tablist">
 			<li class="small active">
 				<a href="#nc-faqs-change-order-move-<?php echo (int)$frameId; ?>"
 						role="tab" data-toggle="tab">
-					表示順変更
+					FAQ編集
 				</a>
 			</li>
 			<li class="small">
@@ -36,20 +38,32 @@
 					権限設定
 				</a>
 			</li>
-			<li class="small">
-				<a href="#nc-faqs-mail-setting-<?php echo (int)$frameId; ?>"
-						role="tab" data-toggle="tab">
+			<li class="small disabled">
+				<a href="#" onclick="return false;">
 					メール設定
 				</a>
 			</li>
 		</ul>
+<!--
 	</div>
 </nav>
+-->
+
+<br />
 
 <!-- Tab panes -->
 <div class="tab-content">
 	<div class="tab-pane active" id="nc-faqs-change-order-move-<?php echo (int)$frameId; ?>">
-		<?php echo $this->element('Faqs/change_order'); ?>
+		<div id="nc-faqs-change-order-view-<?php echo (int)$frameId; ?>"
+			 ng-hide="visibleAddLinkForm2">
+			<?php echo $this->element('Faqs/change_order'); ?>
+		</div>
+		<div id="nc-faqs-add-faq-<?php echo (int)$frameId; ?>" class="ng-hide"
+			 ng-show="visibleAddLinkForm2">
+
+			<?php echo $this->element('Faqs/index_add_link', array('ngClick' => 'closeEditFaq()')); ?>
+		</div>
+
 	</div>
 	<div class="tab-pane" id="nc-faqs-category-editor-<?php echo (int)$frameId; ?>">
 		<?php echo $this->element('Faqs/category_editor'); ?>
@@ -60,7 +74,7 @@
 	<div class="tab-pane" id="nc-faqs-role-setting-<?php echo (int)$frameId; ?>">
 		<?php echo $this->element('Faqs/authority_setting'); ?>
 	</div>
-	<div class="tab-pane" id="nc-faqs-mail-setting-<?php echo (int)$frameId; ?>">
+	<div class="tab-pane disabled" id="nc-faqs-mail-setting-<?php echo (int)$frameId; ?>">
 		<?php echo $this->element('Faqs/notification_setting'); ?>
 	</div>
 </div>
