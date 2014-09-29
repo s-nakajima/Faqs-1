@@ -98,6 +98,14 @@ NetCommonsApp.controller('Faqs',
         }
       };
 
+      $scope.deleteEditFaq = function() {
+        return confirm('FAQを削除してもよろしいですか？');
+      };
+
+      $scope.deleteEditCategory = function() {
+        return confirm('カテゴリーを削除してもよろしいですか？');
+      };
+
       $scope.closeEditFaq = function() {
         $scope.visibleAddLinkForm2 = false;
         $scope.Form.question = '';
