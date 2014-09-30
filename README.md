@@ -3,9 +3,18 @@ Faqs
 
 Faqs for NetComomns3
 
-[![Build Status](https://api.travis-ci.org/NetCommons3/Faqs.png?branch=master)](https://travis-ci.org/NetCommons3/Faqs)
-[![Coverage Status](https://coveralls.io/repos/NetCommons3/Faqs/badge.png?branch=master)](https://coveralls.io/r/NetCommons3/Faqs?branch=master)
+【プラグイン追加方法】
 
-| dependencies  | status |
-| ------------- | ------ |
-| composer.json | [![Dependency Status](https://www.versioneye.com/user/projects/(versioneye_project_ID)/badge.png)](https://www.versioneye.com/user/projects/(versioneye_project_ID)) |
+以下、SQLを実行して、「Add plugin」からプラグインを追加してください。
+
+プラグインを追加したのち、ログイン⇒セッティングモードONにして下さい。
+
+    INSERT INTO plugins(id, folder, type, version) VALUES (13, 'faqs', 1, 'dev-master');
+
+    INSERT INTO plugins_roles(role_id, plugin_id) VALUES (1, 13);
+
+    INSERT INTO plugins_rooms(room_id, plugin_id) VALUES (1, 13);
+
+    INSERT INTO languages_plugins(plugin_id, language_id, name) VALUES (13, 2, 'FAQ');
+
+尚、最新のソースでないとエラーが起こることがあります。
