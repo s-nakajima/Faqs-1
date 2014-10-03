@@ -56,7 +56,7 @@
 							'question' => $question,
 							'answer' => $answer,
 							'published' => true,
-							'status' => '<span class="label label-danger">公開申請中</span>'));
+							'status' => '<span class="label label-danger">申請中</span>'));
 ?>
 
 
