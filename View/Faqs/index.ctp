@@ -1,3 +1,7 @@
+<?php
+	//echo $this->Html->script('/net_commons/bower-angular-sanitize/angular-sanitize.min.js');
+	//echo $this->Html->script('/net_commons/angular-dialog-service/src/dialogs.js');
+?>
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
 <div id="nc-faqs-container-<?php echo (int)$frameId; ?>"
