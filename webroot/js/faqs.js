@@ -69,7 +69,6 @@ NetCommonsApp
 //          $scope.name = 'You decided not to enter in your name, that makes me sad.';
 //        });
 
-
         $('#nc-faqs-manage-modal-' + $scope.frameId).modal('show');
 //        $scope.visibleHeaderBtn = true;
 //        $scope.visibleContainer = false;
