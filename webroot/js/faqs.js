@@ -71,12 +71,12 @@ NetCommonsApp
 
 
         $('#nc-faqs-manage-modal-' + $scope.frameId).modal('show');
-        $scope.visibleHeaderBtn = true;
-        $scope.visibleContainer = false;
-        $scope.visibleEdit = false;
-        $scope.visibleManage = true;
-        $scope.visibleAddFaq = false;
-        $scope.visibleAddFaqForm = false;
+//        $scope.visibleHeaderBtn = true;
+//        $scope.visibleContainer = false;
+//        $scope.visibleEdit = false;
+//        $scope.visibleManage = true;
+//        $scope.visibleAddFaq = false;
+//        $scope.visibleAddFaqForm = false;
       };
 
       $scope.postDisplayStyle = function() {
