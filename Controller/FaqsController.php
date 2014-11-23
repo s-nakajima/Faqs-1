@@ -51,7 +51,8 @@ class FaqsController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function index($frameId = 0, $lang = '') {
-		$this->_initializeFrame($frameId);
+		//$this->_initializeFrame($frameId);
+		$this->set('frameId', $frameId);
 		return $this->render('Faqs/index');
 	}
 
@@ -81,9 +82,9 @@ class FaqsController extends FaqsAppController {
  * edit method
  *
  * @param int $frameId frames.id
- * @return string JSON that indicates success
+ * @return void
  */
 	public function edit($frameId = 0) {
-		return;
+		//return;
 	}
 }

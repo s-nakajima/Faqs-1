@@ -10,7 +10,7 @@
  */
 
 App::uses('AppController', 'Controller');
-App::uses('NetCommonsFrameAppController', 'NetCommons.Controller');
+//App::uses('NetCommonsFrameAppController', 'NetCommons.Controller');
 
 /**
  * FaqsApp Controller
@@ -18,7 +18,7 @@ App::uses('NetCommonsFrameAppController', 'NetCommons.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Controller
  */
-class FaqsAppController extends NetCommonsFrameAppController {
+class FaqsAppController extends AppController {
 
 /**
  * use component
