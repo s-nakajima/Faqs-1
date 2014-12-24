@@ -42,7 +42,7 @@ class FaqsController extends FaqsAppController {
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'contentEditable' => array('indexLatest', 'indexSetting', 'token', 'edit', 'delete'),
+				'contentEditable' => array('indexLatest', 'indexSetting', 'edit', 'delete'),
 				'contentCreatable' => array('token', 'edit', 'delete'),
 			),
 		),
@@ -55,7 +55,7 @@ class FaqsController extends FaqsAppController {
  * @var array
  */
 	public $helpers = array(
-		'NetCommons.NetCommonsForm',
+		'NetCommons.Token'
 	);
 
 /**
@@ -220,7 +220,6 @@ class FaqsController extends FaqsAppController {
 			$displayCategoryId = $frameSetting['FaqFrameSetting']['display_category'];
 
 			$faq = $this->Faq->getFaq($faqId, $displayCategoryId, $this->viewVars['blockId']);
-
 			$categoryList = $this->FaqCategory->getFaqCategoryList($this->viewVars['blockId']);
 
 			$results = array(
@@ -228,7 +227,14 @@ class FaqsController extends FaqsAppController {
 				'displayCategoryId' => $displayCategoryId,
 				'categoryOptions' => $categoryList,
 			);
-			$this->renderJson($results);
+
+			$tokenFields = Hash::flatten($faq);
+			$hiddenFields = array(
+				'Faq.faq_category_id'
+			);
+			$this->set('tokenFields', $tokenFields);
+			$this->set('hiddenFields', $hiddenFields);
+			$this->set('results', $results);
 			return;
 		}
 

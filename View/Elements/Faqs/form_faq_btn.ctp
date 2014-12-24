@@ -22,7 +22,7 @@
 			<?php echo __d('net_commons', 'Disapproval'); ?>
 		</button>
 		<button type="button" class="btn btn-default"
-				ng-click="saveFaq('<?php echo NetCommonsBlockComponent::STATUS_DRAFTED ?>')"
+				ng-click="saveFaq('<?php echo NetCommonsBlockComponent::STATUS_INDRAFT ?>')"
 				ng-if="! '<?php echo $contentPublishable; ?>' ||
 						status != '<?php echo NetCommonsBlockComponent::STATUS_APPROVED ?>'">
 			<?php echo __d('net_commons', 'Save temporally'); ?>

@@ -118,7 +118,7 @@ class Faq extends FaqsAppModel {
 			// 初期情報の設定
 			$faq = array(
 				'Faq' => array(
-					'id' => null,
+					'id' => '0',
 					'faq_category_id' => $displayCategoryId,
 					'status' => null,
 					'question' => null,

@@ -176,21 +176,10 @@ NetCommonsApp.controller('Faqs.Edit',
 
       $scope.saveFaq = function(status) {
         $scope.plugin.setController('faqs');
-        $scope.faqParams.data = {
-          Faq: {
-            id: $scope.faq.Faq.id,
-            faq_category_id: $scope.faq.Faq.faq_category_id,
-            status: $scope.faq.Faq.status,
-            question: $scope.faq.Faq.question,
-            answer: $scope.faq.Faq.answer
-          },
-          _Token: {key: '', fields: '', unlocked: ''}
-        };
+        $scope.faqParams.data = $scope.faq;
         $scope.faqParams.data.Faq.status = status;
         NetCommonsBase.save(
-            $scope,
             $scope.faqForm,
-            $scope.plugin.getUrl('token', $scope.frameId + '.json'),
             $scope.plugin.getUrl('edit', $scope.frameId + '.json'),
             $scope.faqParams,
             function(data) {

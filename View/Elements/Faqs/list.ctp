@@ -51,7 +51,7 @@
 						<?php echo __d('net_commons', 'Disapproval'); ?>
 					</span>
 					<span class="label label-info"
-						  ng-switch-when="<?php echo NetCommonsBlockComponent::STATUS_DRAFTED ?>">
+						  ng-switch-when="<?php echo NetCommonsBlockComponent::STATUS_INDRAFT ?>">
 						<?php echo __d('net_commons', 'Temporary'); ?>
 					</span>
 					<span class="label label-warning"
