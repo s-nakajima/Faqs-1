@@ -209,9 +209,7 @@ NetCommonsApp.controller('Faqs.Edit',
 
         $scope.plugin.setController('faq_orders');
         NetCommonsBase.save(
-            $scope,
             false,
-            $scope.plugin.getUrl('token', $scope.frameId + '.json'),
             $scope.plugin.getUrl('edit', $scope.frameId + '.json'),
             $scope.faqOrderParams,
             function(data) {
@@ -269,9 +267,7 @@ NetCommonsApp.controller('Faqs.Category',
 
         $scope.plugin.setController('faq_categories');
         NetCommonsBase.save(
-            $scope,
             $scope.faqCategoryForm[index],
-            $scope.plugin.getUrl('token', $scope.frameId + '.json'),
             $scope.plugin.getUrl('edit', $scope.frameId + '.json'),
             $scope.faqCategoryParams,
             function(data) {
@@ -293,9 +289,7 @@ NetCommonsApp.controller('Faqs.Category',
 
         $scope.plugin.setController('faq_category_orders');
         NetCommonsBase.save(
-            $scope,
             false,
-            $scope.plugin.getUrl('token', $scope.frameId + '.json'),
             $scope.plugin.getUrl('edit', $scope.frameId + '.json'),
             $scope.faqCategoryOrderParams,
             function(data) {
@@ -352,9 +346,7 @@ NetCommonsApp.controller('Faqs.FrameSetting',
 
       $scope.saveFrameSetting = function() {
         NetCommonsBase.save(
-            $scope,
             false,
-            $scope.plugin.getUrl('token', $scope.frameId + '.json'),
             $scope.plugin.getUrl('edit', $scope.frameId + '.json'),
             $scope.faqDisplayParams,
             function(data) {
@@ -390,9 +382,7 @@ NetCommonsApp.controller('Faqs.AuthoritySetting',
 
         $scope.plugin.setController('faq_authority_settings');
         NetCommonsBase.save(
-            $scope,
             false,
-            $scope.plugin.getUrl('token', $scope.frameId + '.json'),
             $scope.plugin.getUrl('edit', $scope.frameId + '.json'),
             $scope.faqAuthorityParams,
             function(data) {

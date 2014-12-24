@@ -228,10 +228,9 @@ class FaqsController extends FaqsAppController {
 				'categoryOptions' => $categoryList,
 			);
 
-			$tokenFields = Hash::flatten($faq);
-			$hiddenFields = array(
-				'Faq.faq_category_id'
-			);
+			$this->request->data = $faq;
+			$tokenFields = Hash::flatten($this->request->data);
+			$hiddenFields = array('Faq.faq_category_id');
 			$this->set('tokenFields', $tokenFields);
 			$this->set('hiddenFields', $hiddenFields);
 			$this->set('results', $results);

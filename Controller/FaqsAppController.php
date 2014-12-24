@@ -25,7 +25,7 @@ class FaqsAppController extends AppController {
  * @var array
  */
 	public $components = array(
-		'Security',
+//		'Security',
 		'Paginator',
 		'Faqs.Faqs',
 	);
