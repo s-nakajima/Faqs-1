@@ -1,0 +1,111 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-12-22 09:51+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /Model/Faq.php:84
+#: /View/Elements/Faqs/form_faq.ctp:27
+msgid "question"
+msgstr ""
+
+#: /Model/Faq.php:90
+#: /View/Elements/Faqs/form_faq.ctp:45
+msgid "answer"
+msgstr ""
+
+#: /View/Elements/manage_tab_list.ctp:16
+msgid "FAQ edit"
+msgstr ""
+
+#: /View/Elements/manage_tab_list.ctp:23
+msgid "Category edit"
+msgstr ""
+
+#: /View/Elements/manage_tab_list.ctp:33
+msgid "Authority setting"
+msgstr ""
+
+#: /View/Elements/FaqCategories/form_category.ctp:68
+msgid "Add"
+msgstr ""
+
+#: /View/Elements/FaqCategories/form_category_btn.ctp:26
+#: /View/Elements/Faqs/list_edit_btn.ctp:29
+msgid "Delete"
+msgstr ""
+
+#: /View/Elements/FaqFrameSettings/form_frame_setting.ctp:15
+msgid "Display FAQ"
+msgstr ""
+
+#: /View/Elements/FaqFrameSettings/form_frame_setting.ctp:28
+msgid "Display only the selected category."
+msgstr ""
+
+#: /View/Elements/FaqFrameSettings/form_frame_setting.ctp:38
+msgid "Please select category."
+msgstr ""
+
+#: /View/Elements/FaqFrameSettings/form_frame_setting.ctp:51
+msgid "Display number"
+msgstr ""
+
+#: /View/Elements/Faqs/form_faq.ctp:15
+msgid "category"
+msgstr ""
+
+#: /View/Elements/Faqs/list_edit_btn.ctp:19
+msgid "Publish"
+msgstr ""
+
+#: /View/Elements/Faqs/list_edit_btn.ctp:24
+msgid "Edit"
+msgstr ""
+
+#: /View/Elements/Faqs/list_header.ctp:20
+msgid "Select category"
+msgstr ""
+
+#: /View/FaqAuthoritySettings/view.ctp:14
+#: /View/FaqCategories/view.ctp:14
+#: /View/FaqFrameSettings/view.ctp:14
+#: /View/Faqs/index_setting.ctp:13
+#: /View/Faqs/view.ctp:15
+msgid "plugin_name"
+msgstr ""
+
+#: /View/FaqAuthoritySettings/view.ctp:27
+msgid "FAQ Add Authority"
+msgstr ""
+
+#: /View/FaqAuthoritySettings/view.ctp:33
+msgid "Room Administrator"
+msgstr ""
+
+#: /View/FaqAuthoritySettings/view.ctp:38
+msgid "Chief Editor"
+msgstr ""
+
+#: /View/FaqAuthoritySettings/view.ctp:43
+msgid "Editor"
+msgstr ""
+
+#: /View/FaqAuthoritySettings/view.ctp:50
+msgid "General User"
+msgstr ""
+
+#: /View/Faqs/index.ctp:28
+msgid "Add FAQ"
+msgstr ""
+
