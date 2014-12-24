@@ -8,4 +8,4 @@ Faqs for NetComomns3
 
 | dependencies  | status |
 | ------------- | ------ |
-| composer.json | [![Dependency Status](https://www.versioneye.com/user/projects/(versioneye_project_ID)/badge.png)](https://www.versioneye.com/user/projects/(versioneye_project_ID)) |
+| composer.json | [![Dependency Status](https://www.versioneye.com/user/projects/549a6751b5e942b62600007c/badge.png)](https://www.versioneye.com/user/projects/549a6751b5e942b62600007c) |
