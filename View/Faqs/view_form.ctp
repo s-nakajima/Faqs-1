@@ -44,7 +44,7 @@
 	<button type="button" class="btn btn-danger" ng-click="saveFaq('<?php echo NetCommonsBlockComponent::STATUS_DISAPPROVED ?>')">
 		<?php echo __d('net_commons', 'Disapproval'); ?>
 	</button>
-	<button type="button" class="btn btn-default" ng-click="saveFaq('<?php echo NetCommonsBlockComponent::STATUS_INDRAFT ?>')">
+	<button type="button" class="btn btn-default" ng-click="saveFaq('<?php echo NetCommonsBlockComponent::STATUS_IN_DRAFT ?>')">
 		<?php echo __d('net_commons', 'Save temporally'); ?>
 	</button>
 	<button type="button" class="btn btn-warning" ng-click="saveFaq('<?php echo NetCommonsBlockComponent::STATUS_APPROVED ?>')">
