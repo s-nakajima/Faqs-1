@@ -1,6 +1,6 @@
 <?php
 /**
- * FaqCategories token template
+ * faqs category edit template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -9,16 +9,8 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-$this->NetCommonsForm->create(null);
+$tokens = $this->Token->getToken($tokenFields, $hiddenFields);
 
-$this->NetCommonsForm->input('FaqCategory.id', array(
-		'type' => 'number',
-	)
-);
+$results['categoryList'] += $tokens;
 
-$this->NetCommonsForm->input('FaqCategory.name', array(
-		'type' => 'text',
-	)
-);
-
-echo $this->NetCommonsForm->endJson();
+echo $this->element('NetCommons.json', array('results' => $results));

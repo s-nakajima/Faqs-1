@@ -1,6 +1,6 @@
 <?php
 /**
- * FaqCategoryOrders Controller
+ * Categories Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -10,14 +10,13 @@
  */
 
 App::uses('FaqsAppController', 'Faqs.Controller');
-
 /**
- * FaqCategoryOrders Controller
+ * Categories Controller
  *
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
  * @package NetCommons\AccessCounters\Controller
  */
-class FaqCategoryOrdersController extends FaqsAppController {
+class CategoriesController extends FaqsAppController {
 
 /**
  * use model
@@ -25,10 +24,10 @@ class FaqCategoryOrdersController extends FaqsAppController {
  * @var array
  */
 	public $uses = array(
-		'Faqs.FaqCategory',
-		'Faqs.FaqCategoryOrder',
-		'Faqs.FaqFrameSetting',
-		'Faqs.Faq',
+		'Frames.Frame',
+		'Blocks.Block',
+		'Categories.Category',
+		'Categories.CategoryOrder',
 	);
 
 /**
@@ -37,15 +36,16 @@ class FaqCategoryOrdersController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
+		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'contentEditable' => array('token', 'edit', 'delete'),
+				'contentEditable' => array('edit', 'delete'),
 			),
 		),
-		'Faqs.Faqs',
+		'Categories.CategoryAction',
 	);
 
 /**
@@ -54,35 +54,35 @@ class FaqCategoryOrdersController extends FaqsAppController {
  * @var array
  */
 	public $helpers = array(
-		'NetCommons.NetCommonsForm'
+		'NetCommons.Token'
 	);
 
 /**
- * form method
+ * index method
  *
  * @param int $frameId frames.id
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function token($frameId = 0) {
-		return $this->render('FaqCategoryOrders/token', false);
+	public function index($frameId = 0) {
+		return $this->edit($frameId);
 	}
 
 /**
  * edit method
  *
  * @param int $frameId frames.id
+ * @param int $blockId blocks.id
  * @return CakeResponse A response object containing the rendered view.
- * @throws MethodNotAllowedException
  */
-	public function edit($frameId = 0) {
-		if (! $this->request->isPost()) {
-			throw new MethodNotAllowedException();
-		}
+	public function edit($frameId = 0, $blockId = 0) {
+		$this->layout = 'Frames.setting';
 
-		// カテゴリ並び替え
-		$this->FaqCategoryOrder->changeCategoryOrder($this->data, $this->viewVars['blockKey']);
+		$this->_setFrame($this->viewVars['frameId']);
+		$block = $this->Block->find('first', array(
+			'conditions' => array('id' => $blockId),
+			'recursive' => -1
+		));
 
-		$results = $this->getCategoryResponseData();
-		$this->renderJson($results, __d('net_commons', 'Successfully finished.'));
+		$this->CategoryAction->edit($block);
 	}
 }

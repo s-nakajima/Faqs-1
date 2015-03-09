@@ -20,15 +20,15 @@ App::uses('FaqsAppController', 'Faqs.Controller');
 class FaqsController extends FaqsAppController {
 
 /**
- * use model
+ * use models
  *
  * @var array
  */
 	public $uses = array(
-		'Frames.Frame',
-		'Faqs.FaqCategory',
-		'Faqs.FaqFrameSetting',
 		'Faqs.Faq',
+		'Faqs.FaqOrder',
+		'Categories.Category',
+		'Comments.Comment',
 	);
 
 /**
@@ -37,16 +37,16 @@ class FaqsController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
+		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
 				'contentEditable' => array('indexLatest', 'indexSetting', 'edit', 'delete'),
-				'contentCreatable' => array('token', 'edit', 'delete'),
+				'contentCreatable' => array('edit', 'delete'),
 			),
 		),
-		'Faqs.Faqs',
 	);
 
 /**
@@ -66,140 +66,55 @@ class FaqsController extends FaqsAppController {
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('changeView');
+		$this->Auth->allow('selectCategory');
 	}
 
 /**
  * index method
  *
- * @param int $frameId frames.id
- * @param string $lang ex)"en" or "ja" etc.
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function index($frameId = 0, $lang = '') {
-		// ブロックが登録されていない場合
-		if (empty($this->viewVars['blockId'])) {
-			$block = $this->FaqCategory->saveInitialSetting($this->viewVars['frameId'], $this->viewVars['frameKey']);
-			$this->viewVars['blockId'] = (int)$block['Block']['id'];
-			$this->viewVars['blockKey'] = $block['Block']['key'];
+	public function index() {
+		if (! $this->viewVars['blockId']) {
+			return;
 		}
-
-		$faqSetting = $this->FaqFrameSetting->getFaqSetting($this->viewVars['frameKey']);
-		$this->Faqs->setSession($frameId, $faqSetting['FaqFrameSetting']['display_category'], $faqSetting['FaqFrameSetting']['display_number']);
-
-		$faqList = $this->getFaqList($this->viewVars['blockId'], $faqSetting['FaqFrameSetting']['display_category'], $faqSetting['FaqFrameSetting']['display_number']);
-		$faqListTotal = $this->getFaqListTotal();
-
-		$categoryList = $this->FaqCategory->getFaqCategoryList($this->viewVars['blockId']);
-
-		$this->set('faqSetting', $faqSetting);
-		$this->set('faqList', $faqList);
-		$this->set('faqListTotal', $faqListTotal);
-		$this->set('categoryOptions', $categoryList);
+		$this->__initFaq();
 	}
 
 /**
- * indexLatest method
+ * selectCategory method
  *
  * @param int $frameId frames.id
+ * @param int $categoryId categories.id
  * @return void
- * @throws MethodNotAllowedException
  */
-	public function indexLatest($frameId = 0) {
-		// セッション取得
-		$session = $this->Faqs->getSession($frameId);
-
-		//最新データ取得
-		$results = $this->_getResponseData($this->viewVars['blockId'], $session['displayCategoryId'], $session['displayNumber'], $session['currentPage']);
+	public function selectCategory($frameId = 0, $categoryId = null) {
+		$results = $this->__getLatest($this->viewVars['blockId'], $categoryId);
 		$this->renderJson($results);
 	}
 
 /**
  * view method
- *
- * @param int $frameId frames.id
- * @return CakeResponse A response object containing the rendered view.
- */
-	public function indexSetting($frameId = 0) {
-		$this->layout = 'NetCommons.modal';
-		$this->FaqFrameSetting = ClassRegistry::init('Faqs.FaqFrameSetting');
-	}
-
-/**
- * change view method
- *
- * @param int $frameId frames.id
- * @param int $displayCategoryId faq_frame_settings.display_category
- * @param int $displayNumber faq_frame_settings.display_number
- * @param int $currentPage select page
- * @return void
- */
-	public function changeView($frameId = 0, $displayCategoryId = '', $displayNumber = '', $currentPage = '') {
-		$faqSetting = $this->FaqFrameSetting->findByFrameKey($this->viewVars['frameKey']);
-		if ($faqSetting['FaqFrameSetting']['display_category'] &&
-			$displayCategoryId !== $faqSetting['FaqFrameSetting']['display_category']) {
-			$this->renderJson(null, __d('net_commons', 'Bad Request'), 400);
-			return;
-		}
-
-		// セッション保存
-		$this->Faqs->setSession($frameId, $displayCategoryId, $displayNumber, $currentPage);
-
-		$results = $this->_getResponseData($this->viewVars['blockId'], $displayCategoryId, $displayNumber, $currentPage);
-		$this->renderJson($results);
-	}
-
-/**
- * delete method
  *
  * @param int $frameId frames.id
  * @param int $faqId faqs.id
  * @return void
- * @throws MethodNotAllowedException
  */
-	public function delete($frameId = 0, $faqId = 0) {
-		if (! $this->request->isDelete()) {
-			throw new MethodNotAllowedException();
+	public function view($frameId = 0, $faqId = 0) {
+		if (! $this->viewVars['contentReadable']) {
+			return;
 		}
 
-		$faq = $this->Faq->deleteFaq($faqId);
-
-		$this->FaqFrameSetting = ClassRegistry::init('Faqs.FaqFrameSetting');
-		$this->Session->write('currentPage', FaqFrameSetting::DEFAULT_PAGE);
-		$session = $this->Faqs->getSession($frameId);
-
-		$results = $this->_getResponseData($this->viewVars['blockId'], $session['displayCategoryId'], $session['displayNumber'], $session['currentPage']);
-
-		if ($faq) {
-			$this->renderJson($results, __d('net_commons', 'Successfully finished.'));
-		} else {
-			$this->renderJson($results, __d('net_commons', 'Bad Request'), 400);
+		$options = array(
+			'conditions' => array(
+				'Faq.id' => $faqId,
+				'Faq.block_id' => $this->viewVars['blockId'],
+			),
+		);
+		$faq = $this->Faq->find('first', $options);
+		if (! empty($faq)) {
+			$this->set('faq', $faq);
 		}
-	}
-
-/**
- * view method
- *
- * @param int $frameId frames.id
- * @param int $manageMode frames.id
- * @return CakeResponse A response object containing the rendered view.
- */
-	public function view($frameId = 0, $manageMode = 0) {
-		$this->layout = 'NetCommons.modal';
-		$this->set('manageMode', $manageMode);
-	}
-
-/**
- * form method
- *
- * @param int $frameId frames.id
- * @return CakeResponse A response object containing the rendered view.
- */
-	public function token($frameId = 0) {
-		$this->index();
-		$categoryList = $this->FaqCategory->getFaqCategoryList($this->viewVars['blockId']);
-		$this->set('categoryOptions', $categoryList);
-		$this->render('Faqs/token', false);
 	}
 
 /**
@@ -207,70 +122,142 @@ class FaqsController extends FaqsAppController {
  *
  * @param int $frameId frames.id
  * @param int $faqId faqs.id
+ * @param int $manageMode manage mode
  * @return void
- * @throws MethodNotAllowedException
  */
-	public function edit($frameId = 0, $faqId = 0) {
-		// セッション取得
-		$session = $this->Faqs->getSession($frameId);
-
-		if (! $this->request->isPost()) {
-			//最新データ取得
-			$frameSetting = $this->FaqFrameSetting->findByFrameKey($this->viewVars['frameKey']);
-			$displayCategoryId = $frameSetting['FaqFrameSetting']['display_category'];
-
-			$faq = $this->Faq->getFaq($faqId, $displayCategoryId, $this->viewVars['blockId']);
-			$categoryList = $this->FaqCategory->getFaqCategoryList($this->viewVars['blockId']);
-
-			$results = array(
-				'faq' => $faq,
-				'displayCategoryId' => $displayCategoryId,
-				'categoryOptions' => $categoryList,
-			);
-
-			$this->request->data = $faq;
-			$tokenFields = Hash::flatten($this->request->data);
-			$hiddenFields = array('Faq.faq_category_id');
-			$this->set('tokenFields', $tokenFields);
-			$this->set('hiddenFields', $hiddenFields);
-			$this->set('results', $results);
-			return;
+	public function edit($frameId = 0, $faqId = 0, $manageMode = 0) {
+		$this->__initFaqEdit($faqId);
+		$this->set('manageMode', $manageMode);
+		if ($this->request->isGet()) {
+			CakeSession::write('backUrl', $this->request->referer());
 		}
 
-		// FAQの登録
-		$faq = $this->Faq->saveFaq($this->data, $this->viewVars['blockKey']);
-		if (! $faq) {
-			//バリデーションエラー
-			$results = array('validationErrors' => $this->Faq->validationErrors);
-			$this->renderJson($results, __d('net_commons', 'Bad Request'), 400);
-			return;
-		}
+		if ($this->request->isPost()) {
+			if (isset($this->params['data']['delete'])) {
+				$this->Faq->deleteFaq($faqId);
+			} else {
+				if (!$status = $this->__parseStatus()) {
+					return;
+				}
 
-		$results = $this->_getResponseData($this->viewVars['blockId'], $session['displayCategoryId'], $session['displayNumber'], $session['currentPage']);
-		$this->renderJson($results, __d('net_commons', 'Successfully finished.'));
+				$data = Hash::merge($this->data, array('Faq' =>
+					array(
+						'block_id' => $this->viewVars['blockId'],
+						'status' => $status,
+					)));
+
+				if (!$faq = $this->Faq->getFaq($faqId, $this->viewVars['blockId'])) {
+					$faq = $this->Faq->create(['key' => Security::hash('faq' . mt_rand() . microtime(), 'md5')]);
+				}
+				$data = Hash::merge($faq, $data);
+				$this->Faq->saveFaq($data, $this->viewVars['blockId'], $this->viewVars['blockKey']);
+				if (!$this->__handleValidationError($this->Faq->validationErrors)) {
+					return;
+				}
+			}
+
+			if (!$this->request->is('ajax')) {
+				$backUrl = CakeSession::read('backUrl');
+				CakeSession::delete('backUrl');
+				$this->redirect($backUrl);
+			}
+		}
 	}
 
 /**
- * getResponseData method
+ * Parse content status from request
+ *
+ * @throws BadRequestException
+ * @return mixed status on success, false on error
+ */
+	private function __parseStatus() {
+		if ($matches = preg_grep('/^save_\d/', array_keys($this->data))) {
+			list(, $status) = explode('_', array_shift($matches));
+		} else {
+			if ($this->request->is('ajax')) {
+				$this->renderJson(
+					['error' => ['validationErrors' => ['status' => __d('net_commons', 'Invalid request.')]]],
+					__d('net_commons', 'Bad Request'), 400
+				);
+			} else {
+				throw new BadRequestException(__d('net_commons', 'Bad Request'));
+			}
+			return false;
+		}
+
+		return $status;
+	}
+
+/**
+ * Handle validation error
+ *
+ * @param array $errors validation errors
+ * @return bool true on success, false on error
+ */
+	private function __handleValidationError($errors) {
+		if ($errors) {
+			$this->validationErrors = $errors;
+			if ($this->request->is('ajax')) {
+				$results = ['error' => ['validationErrors' => $errors]];
+				$this->renderJson($results, __d('net_commons', 'Bad Request'), 400);
+			}
+			return false;
+		}
+
+		return true;
+	}
+
+/**
+ * __getLatest method
  *
  * @param int $blockId blocks.id
- * @param int $displayCategoryId faq_frame_settings.display_category
- * @param int $displayNumber faq_frame_settings.display_number
- * @param int $currentPage select page
+ * @param int $categoryId selected category id
  * @return array
  */
-	protected function _getResponseData($blockId, $displayCategoryId, $displayNumber, $currentPage = 1) {
-		$faqList = $this->getFaqList($blockId, $displayCategoryId, $displayNumber, $currentPage);
-		$faqListTotal = $this->getFaqListTotal();
-		$categoryList = $this->FaqCategory->getFaqCategoryList($this->viewVars['blockId']);
+	private function __getLatest($blockId, $categoryId = null) {
+		$faqList = $this->Faq->getFaqList($blockId, $categoryId);
+		$categoryOptions = $this->Category->getCategoryList($blockId);
 
-		return array(
+		$results = array(
 			'faqList' => $faqList,
-			'faqListTotal' => $faqListTotal,
-			'displayCategoryId' => $displayCategoryId,
-			'displayNumber' => $displayNumber,
-			'currentPage' => $currentPage,
-			'categoryOptions' => $categoryList,
+			'categoryOptions' => $categoryOptions
 		);
+		return $results;
+	}
+
+/**
+ * __initFaq method
+ *
+ * @return void
+ */
+	private function __initFaq() {
+		$results = $this->__getLatest($this->viewVars['blockId']);
+		$results = $this->camelizeKeyRecursive($results);
+		$this->set($results);
+	}
+
+/**
+ * __initFaqEdit method
+ *
+ * @param int $faqId faqs.id
+ * @return void
+ */
+	private function __initFaqEdit($faqId = 0) {
+		$results = $this->__getLatest($this->viewVars['blockId']);
+		if (! $faq = $this->Faq->getFaq($faqId, $this->viewVars['blockId'])) {
+			$faq = $this->Faq->create(['status' => '0']);
+		}
+		$comments = $this->Comment->getComments(
+			array(
+				'plugin_key' => 'faqs',
+				'content_key' => isset($faq['Faq']['key']) ? $faq['Faq']['key'] : null,
+			)
+		);
+
+		$results['faq'] = $faq;
+		$results['comments'] = $comments;
+		$results['contentStatus'] = $faq['Faq']['status'];
+		$results = $this->camelizeKeyRecursive($results);
+		$this->set($results);
 	}
 }

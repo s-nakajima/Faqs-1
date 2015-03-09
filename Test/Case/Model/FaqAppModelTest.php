@@ -33,9 +33,6 @@ class FaqAppModelTest extends CakeTestCase {
 		'plugin.faqs.plugin',
 		'plugin.faqs.faq',
 		'plugin.faqs.faq_order',
-		'plugin.faqs.faq_category',
-		'plugin.faqs.faq_category_order',
-		'plugin.faqs.faq_frame_setting',
 		'plugin.frames.box',
 		'plugin.frames.language',
 		'plugin.rooms.room',
@@ -48,11 +45,6 @@ class FaqAppModelTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Faq = ClassRegistry::init('Faqs.Faq');
-		$this->FaqOrder = ClassRegistry::init('Faqs.FaqOrder');
-		$this->FaqCategory = ClassRegistry::init('Faqs.FaqCategory');
-		$this->FaqCategoryOrder = ClassRegistry::init('Faqs.FaqCategoryOrder');
-		$this->FaqFrameSetting = ClassRegistry::init('Faqs.FaqFrameSetting');
 	}
 
 /**
@@ -61,11 +53,6 @@ class FaqAppModelTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Faq);
-		unset($this->FaqOrder);
-		unset($this->FaqCategory);
-		unset($this->FaqCategoryOrder);
-		unset($this->FaqFrameSetting);
 		parent::tearDown();
 	}
 

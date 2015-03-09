@@ -1,6 +1,6 @@
 <?php
 /**
- * Faqs view form template
+ * Faqs view template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -10,29 +10,16 @@
  */
 ?>
 
-<?php $form = 'FaqForm' . (int)$frameId; ?>
-
-<?php $this->start('titleForModal'); ?>
-<?php echo __d('faqs', 'plugin_name'); ?>
-<?php $this->end(); ?>
-
-<?php if($manageMode): ?>
-	<?php $this->start('tabIndex'); ?>
-	<?php echo '0'; ?>
-	<?php $this->end(); ?>
-
-	<?php echo $this->element('manage_tab_list'); ?>
-<?php endif; ?>
-
-<div class="panel panel-default">
-	<div class="panel-body">
-		<form name="<?php echo $form; ?>" novalidate>
-			<div ng-init="faqInitialize(<?php echo $form; ?>)">
-
-				<?php echo $this->element('Faqs/form_faq'); ?>
+<?php if (! isset($faq)) : ?>
+	指定されたFAQは公開されていません。
+<?php else : ?>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-question-sign"></span>
+				<?php echo $faq['Faq']['question'] ?>
 			</div>
-		</form>
-	</div>
-</div>
-
-<?php echo $this->element('Faqs/form_faq_btn');
+			<div class="panel-body">
+				<p><?php echo $faq['Faq']['answer'] ?></p>
+			</div>
+		</div>
+<?php endif;

@@ -10,7 +10,7 @@
  */
 
 $tokens = $this->Token->getToken($tokenFields, $hiddenFields);
+
 $results['faq'] += $tokens;
 
-echo $this->element('NetCommons.json',
-		array('results' => $results));
+echo $this->element('NetCommons.json', array('results' => $results));

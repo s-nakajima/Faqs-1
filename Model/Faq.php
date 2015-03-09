@@ -2,7 +2,7 @@
 /**
  * Faq Model
  *
- * @property FaqCategory $FaqCategory
+ * @property Category $Category
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -31,16 +31,16 @@ class Faq extends FaqsAppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'FaqCategory' => array(
-			'className' => 'Faqs.FaqCategory',
-			'foreignKey' => 'faq_category_id',
+		'FaqOrder' => array(
+			'className' => 'Faqs.FaqOrder',
+			'foreignKey' => 'key',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
-		'FaqOrder' => array(
-			'className' => 'Faqs.FaqOrder',
-			'foreignKey' => 'key',
+		'Category' => array(
+			'className' => 'Categories.Category',
+			'foreignKey' => 'category_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -58,26 +58,17 @@ class Faq extends FaqsAppModel {
  */
 	public function beforeValidate($options = array()) {
 		$this->validate = array(
-			'faq_category_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'allowEmpty' => false,
-					'required' => true,
-				),
-			),
-			'status' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'allowEmpty' => false,
-					'required' => true,
-				),
+			'category_id' => array(
 				'inList' => array(
-					'rule' => array('inList', NetCommonsBlockComponent::$STATUSES),
+					'rule' => array('inList', $options['idList']),
 					'message' => __d('net_commons', 'Invalid request.'),
-				)
+					'required' => true,
+					'allowEmpty' => true,
+				),
 			),
+
+			//status to set in PublishableBehavior.
+
 			'question' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
@@ -96,36 +87,58 @@ class Faq extends FaqsAppModel {
 	}
 
 /**
+ * getFaqList
+ *
+ * @param int $blockId blocks.id
+ * @param int $categoryId categories.id
+ * @return array
+ */
+	public function getFaqList($blockId, $categoryId = null) {
+		$options = array(
+			'fields' => array(
+				'Faq.id',
+				'Faq.block_id',
+				'Faq.category_id',
+				'Faq.status',
+				'Faq.question',
+				'Faq.answer',
+				'Faq.created_user',
+				'FaqOrder.id',
+				'FaqOrder.faq_key',
+				'FaqOrder.weight',
+			),
+			'conditions' => array(
+				'Faq.block_id' => $blockId,
+			),
+			'order' => 'FaqOrder.weight',
+		);
+		if ($categoryId) {
+			$options['conditions']['Faq.category_id'] = $categoryId;
+		}
+
+		// ユーザのロール権限に従って取得データを制御する
+		// 編集権限:keyカラムでグループ化 && 最新記事
+		// 作成権限:keyカラムでグループ化 && (自分記事：最新記事、他人記事：statusが公開 && 最新記事)
+		// 参照権限:keyカラムでグループ化 && statusが公開 && 最新記事
+		// TODO:2015.03.04:作成権限ユーザの取得データ制御ができない。元記事を誰が作成したかを判定するカラムが未確定のため
+
+		$faqList = $this->find('all', $options);
+		return $faqList;
+	}
+
+/**
  * getFaq
  *
  * @param int $faqId faqs.id
- * @param int $displayCategoryId faq_frame_settings.display_category
  * @param int $blockId blocks.id
  * @return array
  */
-	public function getFaq($faqId, $displayCategoryId, $blockId = 0) {
-		$this->unbindModel(array(
-			'belongsTo' => array('FaqCategory'),
-		));
-
-		$faq = $this->findById($faqId);
-		if (empty($faq)) {
-			if (! $displayCategoryId) {
-				// デフォルトカテゴリのidを取得
-				$displayCategoryId = $this->FaqCategory->getDefaultFaqCategoryId($blockId);
-			}
-
-			// 初期情報の設定
-			$faq = array(
-				'Faq' => array(
-					'id' => '0',
-					'faq_category_id' => $displayCategoryId,
-					'status' => null,
-					'question' => null,
-					'answer' => null,
-				)
-			);
-		}
+	public function getFaq($faqId, $blockId = 0) {
+		$options = array(
+			'recursive' => -1,
+			'conditions' => array('Faq.id' => $faqId),
+		);
+		$faq = $this->find('first', $options);
 
 		return $faq;
 	}
@@ -133,37 +146,39 @@ class Faq extends FaqsAppModel {
 /**
  * saveFaq
  *
- * @param array $postData received post data
+ * @param array $data received post data
+ * @param int $blockId blocks.id
  * @param int $blockKey blocks.key
  * @return void
  * @throws InternalErrorException
  */
-	public function saveFaq($postData, $blockKey) {
-		// モデル定義
-		$models = array(
-			'FaqCategory' => 'Faqs.FaqCategory',
+	public function saveFaq($data, $blockId, $blockKey) {
+		$this->loadModels([
+			'Category' => 'Faqs.Category',
 			'FaqOrder' => 'Faqs.FaqOrder',
-		);
-		foreach ($models as $model => $class) {
-			$this->$model = ClassRegistry::init($class);
-		}
-
-		//validationを実行
-		if (! $this->__validateFaq($postData)) {
-			return false;
-		}
+			'Comment' => 'Comments.Comment',
+		]);
 
 		//トランザクションBegin
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
+
 		try {
-			$faq = $this->save();
+			if (! $this->__validateFaq($data, $blockId)) {
+				return false;
+			}
+			if (!$this->Comment->validateByStatus($data, array('caller' => $this->name))) {
+				$this->validationErrors = Hash::merge($this->validationErrors, $this->Comment->validationErrors);
+				return false;
+			}
+
+			$faq = $this->save(null, false);
 			if (! $faq) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
 			// FAQ新規登録の場合、FAQ順序の登録
-			if (isset($faq['Faq']['key'])) {
+			if (! isset($data['Faq']['id'])) {
 				// weightの最大値取得
 				$weight = $this->FaqOrder->getMaxWeight($blockKey);
 				$faqOrder = array(
@@ -174,6 +189,14 @@ class Faq extends FaqsAppModel {
 					));
 				if (! $this->FaqOrder->save($faqOrder)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+			}
+			//コメントの登録
+			if ($this->Comment->data) {
+				if (! $this->Comment->save(null, false)) {
+					// @codeCoverageIgnoreStart
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+					// @codeCoverageIgnoreEnd
 				}
 			}
 
@@ -190,16 +213,15 @@ class Faq extends FaqsAppModel {
 /**
  * validate faq
  *
- * @param array $postData received post data
- * @return mixed object announcement, false error
+ * @param array $data received post data
+ * @param int $blockId blocks.id
+ * @return bool validation result
  */
-	private function __validateFaq($postData) {
-		// FAQ新規登録の場合、keyを生成
-		if (empty($postData['Faq']['id'])) {
-			$postData['Faq']['key'] = hash('sha256', 'faq_' . microtime());
-		}
-		$this->set($postData);
-		return $this->validates();
+	private function __validateFaq($data, $blockId) {
+		$this->set($data);
+		$options = array('idList' => $this->Category->getCategoryIdList($blockId));
+		$this->validates($options);
+		return $this->validationErrors ? false : true;
 	}
 
 /**
@@ -211,17 +233,13 @@ class Faq extends FaqsAppModel {
  */
 	public function deleteFaq($faqId) {
 		// モデル定義
-		$models = array(
-			'FaqOrder' => 'Faqs.FaqOrder',
-		);
+		$models = array('FaqOrder' => 'Faqs.FaqOrder');
 		foreach ($models as $model => $class) {
 			$this->$model = ClassRegistry::init($class);
 		}
 
 		// 対象FAQの情報取得
-		$this->unbindModel(array(
-			'belongsTo' => array('FaqCategory'),
-		));
+		$this->unbindModel(array('belongsTo' => array('Category')));
 		$faq = $this->findById($faqId);
 		if (empty($faq)) {
 			return false;

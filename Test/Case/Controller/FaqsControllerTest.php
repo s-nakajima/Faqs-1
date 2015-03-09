@@ -23,7 +23,6 @@ class FaqsControllerTest extends ControllerTestCase {
  */
 	public $fixtures = array(
 		'plugin.faqs.faq',
-		'plugin.faqs.site_setting'
 	);
 
 /**

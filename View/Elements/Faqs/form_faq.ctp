@@ -11,51 +11,92 @@
 ?>
 
 <div class='form-group'>
-	<?php
-		echo $this->Form->input('Faq.faq_category_id', array(
+	<?php echo $this->Form->input('Faq.category_id',
+		array(
 			'label' => __d('faqs', 'category'),
 			'type' => 'select',
+			'error' => false,
 			'class' => 'form-control',
-			'ng-options' => 'option.FaqCategory.id as option.FaqCategory.name for option in categoryOptions',
-			'ng-model' => 'faq.Faq.faq_category_id',
-			'ng-disabled' => 'displayCategoryId != 0',
-		));
-	?>
-	<br />
+			'empty' => __d('faqs', 'Select category'),
+			'ng-model' => 'selectedCategory',
+			'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
+		)); ?>
+		<div class="has-error">
+			<?php if (isset($this->validationErrors['Faq']['category_id'])): ?>
+			<?php foreach ($this->validationErrors['Faq']['category_id'] as $message): ?>
+				<div class="help-block">
+					<?php echo $message ?>
+				</div>
+			<?php endforeach ?>
+			<?php endif ?>
+		</div>
 </div>
 
-<div class='form-group' ng-class="faqForm.question.validationErrors ? 'has-error' : ''">
+<div class='form-group'>
 	<label class="control-label">
-		<?php echo __d('faqs', 'question'); ?>
-		<?php echo $this->element('NetCommons.required'); ?>
+		<?php echo __d('faqs', 'question') . $this->element('NetCommons.required'); ?>
 	</label>
-	<textarea name="question" class="form-control" rows="2" required
-			ng-model="faq.Faq.question"
-			ng-change="serverValidationClear(faqForm, 'question')">
-	</textarea>
-
-	<div class="help-block">
-		<br ng-hide="faqForm.question.validationErrors" />
-		<div ng-repeat="errorMessage in faqForm.question.validationErrors">
-			<span ng-bind="errorMessage"></span>
-		</div>
+	<?php echo $this->Form->textarea('Faq.question',
+		array(
+			'class' => 'form-control',
+			'rows' => 2,
+			'required' => 'required',
+			'ng-model' => 'faq.faq.question',
+		)) ?>
+	<div class="has-error">
+		<?php if (isset($this->validationErrors['Faq']['question'])): ?>
+		<?php foreach ($this->validationErrors['Faq']['question'] as $message): ?>
+			<div class="help-block">
+				<?php echo $message ?>
+			</div>
+		<?php endforeach ?>
+		<?php endif; ?>
 	</div>
 </div>
 
-<div class='form-group' ng-class="faqForm.answer.validationErrors ? 'has-error' : ''">
+<div class='form-group'>
 	<label class="control-label">
-		<?php echo __d('faqs', 'answer'); ?>
-		<?php echo $this->element('NetCommons.required'); ?>
+		<?php echo __d('faqs', 'answer') . $this->element('NetCommons.required'); ?>
 	</label>
-	<textarea name="answer" class="form-control" rows="2" required
-			ng-model="faq.Faq.answer"
-			ng-change="serverValidationClear(faqForm, 'answer')">
-	</textarea>
-
-	<div class="help-block">
-		<br ng-hide="faqForm.answer.validationErrors" />
-		<div ng-repeat="errorMessage in faqForm.answer.validationErrors">
-			<span ng-bind="errorMessage"></span>
-		</div>
+	<div class="nc-wysiwyg-alert">
+		<?php echo $this->Form->textarea('Faq.answer',
+			array(
+				'class' => 'form-control',
+				'rows' => 5,
+				'required' => 'required',
+				'ui-tinymce' => 'tinymce.options',
+				'ng-model' => 'faq.faq.answer',
+			)); ?>
 	</div>
+	<div class="has-error">
+		<?php if (isset($this->validationErrors['Faq']['answer'])): ?>
+		<?php foreach ($this->validationErrors['Faq']['answer'] as $message): ?>
+			<div class="help-block">
+				<?php echo $message ?>
+			</div>
+		<?php endforeach ?>
+		<?php endif ?>
+	</div>
+</div>
+
+<div ng-if="faq.faq.id">
+	<accordion close-others="false">
+		<accordion-group is-open="dangerSetting.open" class="panel-danger">
+			<accordion-heading>
+				<div>
+					危険設定
+					<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dangerSetting.open, 'glyphicon-chevron-right': !dangerSetting.open}"></i>
+				</div>
+			</accordion-heading>
+			<strong>FAQ削除
+			</strong><br/>
+			<div class="inline-block">
+				<span>一度削除すると元に戻せません。</span>
+			</div>
+			<?php echo $this->form->button(
+				'削除',
+				array('name' => 'delete', 'class' => 'btn btn-danger pull-right')
+				); ?>
+		</accordion-group>
+	</accordion>
 </div>

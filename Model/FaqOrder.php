@@ -2,7 +2,7 @@
 /**
  * FaqOrder Model
  *
- * @property FaqCategory $FaqCategory
+ * @property Category $Category
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -55,67 +55,38 @@ class FaqOrder extends FaqsAppModel {
 	}
 
 /**
- * changeFaqOrder
+ * saveFaqOrder
  *
- * @param array $postData received post data
+ * @param array $dataList received post data
  * @param int $blockKey blocks.key
  * @return void
  * @throws InternalErrorException
  */
-	public function changeFaqOrder($postData, $blockKey) {
-		$changeType = $postData['FaqOrder']['type'];
-		$destinationWeight = $postData['FaqOrder']['destinationWeight'];
-		$target = $postData['FaqOrder']['target'];
-
-		$targetFields = array('weight' => $destinationWeight);
-		$targetConditions = array(
-			'block_key' => $blockKey,
-			'weight' => $target['weight'],
-		);
-		$otherFields = array();
-		$otherConditions = array();
-
-		if ($changeType === 'up') {
-
-			if ($target['weight'] <= self::MIN_WEIGHT) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+	public function saveFaqOrder($dataList, $blockKey) {
+		//トランザクションBegin
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+		try {
+			foreach ($dataList as $index => $data) {
+				$options = array('conditions' =>
+					array(
+						'faq_key' => $data['FaqOrder']['faq_key'],
+						'block_key' => $blockKey,
+					));
+				if (!$faqOrder = $this->find('first', $options)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+				// FAQ順の更新
+				$faqOrder['FaqOrder']['weight'] = $index + 1;
+				if (! $this->save($faqOrder, false)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
 			}
-
-			// 対象FAQを繰り上げた後、移動範囲内のFAQを1繰り下げる
-			$otherFields = array('weight' => 'weight + 1');
-			$otherConditions = array(
-				'block_key' => $blockKey,
-				'weight >=' => $destinationWeight,
-				'weight <=' => $target['weight'],
-				'NOT' => array('faq_key' => ($target['faq_key'])),
-			);
-
-		} elseif ($changeType === 'down') {
-
-			if ($target['weight'] >= $this->getMaxWeight($blockKey)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
-
-			// 対象FAQを繰り下げた後、移動範囲内のFAQを1繰り上げる
-			$otherFields = array('weight' => 'weight - 1');
-			$otherConditions = array(
-				'block_key' => $blockKey,
-				'weight >=' => $target['weight'],
-				'weight <=' => $destinationWeight,
-				'NOT' => array('faq_key' => ($target['faq_key'])),
-			);
-		}
-
-		// 対象FAQの移動
-		$result = $this->updateAll($targetFields, $targetConditions);
-		if (! $result) {
-			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		}
-
-		// 移動範囲内FAQの移動
-		$result = $this->updateAll($otherFields, $otherConditions);
-		if (! $result) {
-			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			$dataSource->commit();
+		} catch (Exception $ex) {
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
 		}
 	}
 }

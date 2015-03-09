@@ -10,57 +10,51 @@
  */
 ?>
 
-<?php echo $this->Html->script('/faqs/js/faqs_controller.js'); ?>
-<?php echo $this->Html->script('/faqs/js/faqs_service.js'); ?>
+<?php echo $this->Html->script('/net_commons/base/js/workflow.js', false); ?>
+<?php echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false); ?>
+<?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
-<div id="nc-faqs-container-<?php echo (int)$frameId; ?>"
-	 ng-controller="Faqs"
-	 ng-init="initialize(
-		<?php echo (int)$frameId; ?>,
-		<?php echo h(json_encode($faqList)); ?>,
-		<?php echo (int)$faqListTotal; ?>,
-		<?php echo h(json_encode($faqSetting)); ?>,
-		<?php echo h(json_encode($categoryOptions)); ?>
-	 )">
+<?php if(! $blockId): ?>
+	FAQは操作しないようお願いします。（フレーム設定機能取込中のため）
+<?php else: ?>
+		<div id="nc-faqs-<?php echo $frameId; ?>"
+			 ng-controller="Faqs"
+			 ng-init="initFaq(<?php echo h(json_encode($this->viewVars)); ?>)">
 
-	<?php if ($contentCreatable) : ?>
-		<p class="text-right">
-			<button class="btn btn-success"
-					tooltip="<?php echo __d('faqs', 'Add FAQ'); ?>"
-					ng-click="showFaqView()">
+			<?php if ($contentCreatable) : ?>
+				<p class="text-right">
+					<a class="btn btn-success" href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId) ?>">
+						<span class="glyphicon glyphicon-plus"></span>
+					</a>
 
-				<span class="glyphicon glyphicon-plus"></span>
-			</button>
-
-			<?php if ($contentEditable) : ?>
-			<button class="btn btn-primary"
-					tooltip="<?php echo __d('net_commons', 'Manage'); ?>"
-					ng-click="showSetting('faqs')">
-
-				<span class="glyphicon glyphicon-cog"></span>
-			</button>
+					<?php if ($contentEditable) : ?>
+					<a class="btn btn-primary" href="<?php echo $this->Html->url('/faqs/faqOrders/edit/' . $frameId) ?>">
+						<span class="glyphicon glyphicon-sort"></span>
+					</a>
+					<?php endif; ?>
+				</p>
 			<?php endif; ?>
-		</p>
-	<?php endif; ?>
 
-	<div id="nc-faqs-container-<?php echo (int)$frameId; ?>">
-		<div>
-
-			<div class="text-right">
-				<?php echo $this->element('Faqs/list_header'); ?>
+			<div>
+				<div class="form-inline text-right">
+					<?php echo $this->Form->input('category',
+						array(
+							'label' => false,
+							'type' => 'select',
+							'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
+							'empty' => __d('faqs', 'Select category'),
+							'class' => 'form-control',
+							'ng-model' => 'selectedCategory',
+							'ng-change' => 'selectCategory()',
+						)); ?>
+				</div>
+				<hr>
+				<div ng-hide="faqList">
+					<?php echo __d('faqs', 'FAQ does not exist.'); ?>
+				</div>
+				<div ng-show="faqList">
+					<?php echo $this->element('Faqs/list', array('manageMode' => 0)); ?>
+				</div>
 			</div>
-			<hr>
-
-			<div ng-hide="faqListTotal">
-				<?php echo __d('faqs', 'FAQ does not exist.'); ?>
-			</div>
-			<div ng-show="faqListTotal">
-				<?php echo $this->element('Faqs/list', array('manageMode' => 0)); ?>
-
-				<?php echo $this->element('Faqs/list_footer'); ?>
-			</div>
-
 		</div>
-	</div>
-
-</div>
+<?php endif;

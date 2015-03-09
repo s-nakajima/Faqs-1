@@ -15,19 +15,20 @@ App::uses('FaqsAppController', 'Faqs.Controller');
  * FaqOrders Controller
  *
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
- * @package NetCommons\AccessCounters\Controller
+ * @package NetCommons\Faqs\Controller
  */
 class FaqOrdersController extends FaqsAppController {
 
 /**
- * use model
+ * use models
  *
  * @var array
  */
 	public $uses = array(
 		'Faqs.Faq',
 		'Faqs.FaqOrder',
-		'Faqs.FaqFrameSetting',
+		'Categories.Category',
+		'Comments.Comment',
 	);
 
 /**
@@ -36,12 +37,13 @@ class FaqOrdersController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
+		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'contentEditable' => array('token', 'edit'),
+				'contentEditable' => array('edit'),
 			),
 		),
 	);
@@ -52,17 +54,27 @@ class FaqOrdersController extends FaqsAppController {
  * @var array
  */
 	public $helpers = array(
-		'NetCommons.NetCommonsForm'
+		'NetCommons.Token'
 	);
 
 /**
- * form method
+ * beforeFilter
+ *
+ * @return void
+ * @throws ForbiddenException
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+	}
+
+/**
+ * index method
  *
  * @param int $frameId frames.id
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function token($frameId = 0) {
-		return $this->render('FaqOrders/token', false);
+	public function index($frameId = 0) {
+		$this->redirect($this->request->referer());
 	}
 
 /**
@@ -70,24 +82,32 @@ class FaqOrdersController extends FaqsAppController {
  *
  * @param int $frameId frames.id
  * @return CakeResponse A response object containing the rendered view.
- * @throws MethodNotAllowedException
  */
 	public function edit($frameId = 0) {
-		if (! $this->request->isPost()) {
-			throw new MethodNotAllowedException();
+		$this->__initFaqOrder();
+		if ($this->request->isGet()) {
+			CakeSession::write('backUrl', $this->request->referer());
 		}
+		if ($this->request->isPost()) {
+			$this->FaqOrder->saveFaqOrder($this->data, $this->viewVars['blockKey']);
 
-		// カテゴリ並び替え
-		$this->FaqOrder->changeFaqOrder($this->data, $this->viewVars['blockKey']);
-
-		// セッション取得
-		$session = $this->Faqs->getSession($frameId);
-
-		$faqList = $this->getFaqList($this->viewVars['blockId'], $session['displayCategoryId'], $session['displayNumber'], $session['currentPage']);
-		$results = array(
-			'faqList' => $faqList,
-		);
-
-		$this->renderJson($results, __d('net_commons', 'Successfully finished.'));
+			if (!$this->request->is('ajax')) {
+				$backUrl = CakeSession::read('backUrl');
+				CakeSession::delete('backUrl');
+				$this->redirect($backUrl);
+			}
+		}
 	}
+
+/**
+ * __initFaqOrder method
+ *
+ * @return void
+ */
+	private function __initFaqOrder() {
+		$results['faqList'] = $this->Faq->getFaqList($this->viewVars['blockId']);
+		$results = $this->camelizeKeyRecursive($results);
+		$this->set($results);
+	}
+
 }
