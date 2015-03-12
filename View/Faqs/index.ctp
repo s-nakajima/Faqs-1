@@ -14,8 +14,8 @@
 <?php echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false); ?>
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
-<?php if(! $blockId): ?>
-	FAQは操作しないようお願いします。（フレーム設定機能取込中のため）
+<?php if(! $blockKey): ?>
+	現在FAQは公開されていません。
 <?php else: ?>
 		<div id="nc-faqs-<?php echo $frameId; ?>"
 			 ng-controller="Faqs"

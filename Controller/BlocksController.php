@@ -26,6 +26,9 @@ class BlocksController extends FaqsAppController {
  */
 	public $uses = array(
 		'Frames.Frame',
+		'Blocks.Block',
+		'Faqs.Faq',
+		'Categories.Category',
 	);
 
 /**
@@ -34,10 +37,19 @@ class BlocksController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
-		'Security' => array('validatePost' => false),
+//		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole',
+	);
+
+/**
+ * use helpers
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'NetCommons.Date'
 	);
 
 /**
@@ -58,16 +70,52 @@ class BlocksController extends FaqsAppController {
  */
 	public function index($frameId = 0) {
 		$this->_setFrame($this->viewVars['frameId']);
+		$blocks = $this->Block->getBlocksByFrame($this->viewVars['roomId'], 'faqs');
+		$this->set('blocks', $this->camelizeKeyRecursive($blocks));
+		if ($this->request->isPost()) {
+			debug($this->data);
+		}
 	}
 
 /**
  * edit method
  *
  * @param int $frameId frames.id
+ * @param int $blockId blocks.id
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function edit($frameId = 0) {
-		$this->_setFrame($this->viewVars['frameId']);
+	public function edit($frameId = 0, $blockId = 0) {
+		$frame = $this->Frame->getFrame($frameId, $this->plugin);
+		$block = ($blockId) ?
+			$this->Block->getEditBlock($blockId, $this->viewVars['roomId'], 'faqs') :
+			$this->Block->create(['id' => '']);
+		$categoryList = $this->Category->getCategoryList($blockId);
+
+		$result = array(
+			'frame' => $frame['Frame'],
+			'block' => $block['Block'],
+			'categoryList' => $categoryList,
+		);
+		$result = $this->camelizeKeyRecursive($result);
+		$this->set($result);
+
+		if ($this->request->isGet()) {
+			CakeSession::write('backUrl', $this->request->referer());
+		}
+
+		if ($this->request->isPost()) {
+			if (isset($this->data['delete'])) {
+				$this->Faq->deleteBlock($block);
+			} else {
+				$this->Block->saveBlock($this->data, $frame);
+			}
+
+			if (!$this->request->is('ajax')) {
+				$backUrl = CakeSession::read('backUrl');
+				CakeSession::delete('backUrl');
+				$this->redirect($backUrl);
+			}
+		}
 	}
 
 /**
@@ -76,7 +124,10 @@ class BlocksController extends FaqsAppController {
  * @param int $frameId frames.id
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function editAuth($frameId = 0) {
+	public function editAuth($frameId = 0, $blockId) {
 		$this->_setFrame($this->viewVars['frameId']);
+		$block = $this->Block->getEditBlock($blockId, $this->viewVars['roomId'], 'faqs');
+		$block = $this->camelizeKeyRecursive($block);
+		$this->set('block', $block['block']);
 	}
 }

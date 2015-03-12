@@ -219,7 +219,7 @@ class Faq extends FaqsAppModel {
  */
 	private function __validateFaq($data, $blockId) {
 		$this->set($data);
-		$options = array('idList' => $this->Category->getCategoryIdList($blockId));
+		$options = array('idList' => $this->Category->getCategoryFieldList($blockId, 'id'));
 		$this->validates($options);
 		return $this->validationErrors ? false : true;
 	}
@@ -276,6 +276,61 @@ class Faq extends FaqsAppModel {
 
 			$dataSource->commit();
 			return true;
+		} catch (Exception $ex) {
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+	}
+
+	public function deleteBlock($block) {
+		$this->loadModels([
+			'Faq' => 'Faqs.Faq',
+			'FaqOrder' => 'Faqs.FaqOrder',
+			'Category' => 'Categories.Category',
+			'CategoryOrder' => 'Categories.CategoryOrder',
+			'Block' => 'Blocks.Block',
+			'Comment' => 'Comments.Comment',
+		]);
+
+		//トランザクションBegin
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+		try {
+			$exception = new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+
+			// コメントの削除
+
+			// FAQ順の削除
+			$conditions = array('FaqOrder.block_key' => $block['Block']['key']);
+			if (! $this->FaqOrder->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// FAQの削除
+			$conditions = array('Faq.block_id' => $block['Block']['id']);
+			if (! $this->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// カテゴリ順の削除
+			$conditions = array('CategoryOrder.block_key' => $block['Block']['key']);
+			if (! $this->CategoryOrder->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// カテゴリの削除
+			$conditions = array('Category.block_id' => $block['Block']['id']);
+			if (! $this->Category->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// ブロックの削除
+			if (! $this->Block->delete($block['Block']['id'])) {
+				throw $exception;
+			}
+
+			$dataSource->commit();
 		} catch (Exception $ex) {
 			$dataSource->rollback();
 			CakeLog::error($ex);

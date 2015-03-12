@@ -15,8 +15,6 @@
 <?php echo $this->Html->script('/frames/js/frames.js', false); ?>
 <?php echo $this->Html->script('/categories/js/categories.js'); ?>
 
-<?php $pluginsName = ucfirst($frame['plugin_key']); ?>
-
-<?php echo $this->element($pluginsName . '.frame_menu', array('tab' => 'block')); ?>
-<?php echo $this->element($pluginsName . '.block_menu', array('tab' => 'general')); ?>
+<?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
+<?php echo $this->element('Faqs.block_menu', array('tab' => 'general')); ?>
 <?php echo $this->element('Categories.Categories/edit');

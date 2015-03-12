@@ -36,6 +36,11 @@ class FaqsAppController extends AppController {
  */
 	protected function _setFrame($frameId) {
 		$frame = $this->Frame->getFrame($frameId, $this->plugin);
-		$this->set('frame', $frame['Frame']);
+		$this->set('frame', $this->camelizeKeyRecursive($frame['Frame']));
+	}
+
+	protected function _initSetting($frame, $block) {
+		$frame = $this->Frame->getFrame($frameId, $this->plugin);
+		$this->set('frame', $this->camelizeKeyRecursive($frame['Frame']));
 	}
 }
