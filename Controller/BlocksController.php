@@ -37,19 +37,9 @@ class BlocksController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
-//		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole',
-	);
-
-/**
- * use helpers
- *
- * @var array
- */
-	public $helpers = array(
-		'NetCommons.Date'
 	);
 
 /**
@@ -69,12 +59,15 @@ class BlocksController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function index($frameId = 0) {
-		$this->_setFrame($this->viewVars['frameId']);
+		$frame = $this->Frame->getFrame($frameId, $this->plugin);
 		$blocks = $this->Block->getBlocksByFrame($this->viewVars['roomId'], 'faqs');
-		$this->set('blocks', $this->camelizeKeyRecursive($blocks));
-		if ($this->request->isPost()) {
-			debug($this->data);
-		}
+
+		$result = array(
+			'frame' => $frame['Frame'],
+			'blocks' => $blocks,
+		);
+		$result = $this->camelizeKeyRecursive($result);
+		$this->set($result);
 	}
 
 /**
@@ -125,9 +118,13 @@ class BlocksController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function editAuth($frameId = 0, $blockId) {
-		$this->_setFrame($this->viewVars['frameId']);
+		$frame = $this->Frame->getFrame($frameId, $this->plugin);
 		$block = $this->Block->getEditBlock($blockId, $this->viewVars['roomId'], 'faqs');
-		$block = $this->camelizeKeyRecursive($block);
-		$this->set('block', $block['block']);
+		$result = array(
+			'frame' => $frame['Frame'],
+			'block' => $block['Block'],
+		);
+		$result = $this->camelizeKeyRecursive($result);
+		$this->set($result);
 	}
 }
