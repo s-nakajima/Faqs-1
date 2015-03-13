@@ -37,7 +37,6 @@ class FaqsController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
-		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole' => array(
@@ -133,7 +132,7 @@ class FaqsController extends FaqsAppController {
 		}
 
 		if ($this->request->isPost()) {
-			if (isset($this->params['data']['delete'])) {
+			if (isset($this->data['delete'])) {
 				$this->Faq->deleteFaq($faqId);
 			} else {
 				if (!$status = $this->__parseStatus()) {

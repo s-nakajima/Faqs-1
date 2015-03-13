@@ -93,7 +93,7 @@
 			<div class="inline-block">
 				<span>一度削除すると元に戻せません。</span>
 			</div>
-			<?php echo $this->form->button(
+			<?php echo $this->Form->button(
 				'削除',
 				array('name' => 'delete', 'class' => 'btn btn-danger pull-right')
 				); ?>
