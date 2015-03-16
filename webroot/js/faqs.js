@@ -1,6 +1,6 @@
 NetCommonsApp.controller('Faqs',
     function($scope, NetCommonsBase, NetCommonsWysiwyg,
-    NetCommonsTab, NetCommonsUser, NetCommonsWorkflow, $http, $sce) {
+    NetCommonsTab, NetCommonsUser, NetCommonsWorkflow, $window) {
 
       /**
        * tab
@@ -40,10 +40,17 @@ NetCommonsApp.controller('Faqs',
       $scope.faq = {};
       $scope.selectedCategory = null;
 
-      $scope.initFaq = function(data) {
-        $scope.frameId = data.frameId;
-        $scope.faqList = data.faqList;
-        $scope.categoryOptions = data.categoryOptions;
+      $scope.initFaq = function(frameId, categoryOptions, categoryId) {
+        $scope.frameId = frameId;
+        $scope.categoryOptions = categoryOptions;
+
+        if (categoryId) {
+          angular.forEach(categoryOptions, function(opt) {
+            if (categoryId == opt.category.id) {
+              $scope.selectedCategory = opt;
+            }
+          });
+        }
       };
 
       $scope.initFaqEdit = function(data) {
@@ -67,23 +74,11 @@ NetCommonsApp.controller('Faqs',
       };
 
       $scope.selectCategory = function() {
-        var params = null;
+        var url = '/faqs/faqs/index/' + $scope.frameId;
         if ($scope.selectedCategory) {
-          params = [$scope.frameId,
-            $scope.selectedCategory.category.id + '.json'];
-        } else {
-          params = [$scope.frameId + '.json'];
+          url += '/' + $scope.selectedCategory.category.id;
         }
-        $scope.plugin.setController('faqs');
-        $http.get($scope.plugin.getUrl('selectCategory', params))
-          .success(function(results) {
-              $scope.setLatestFaqList(results);
-            });
-      };
-
-      $scope.setLatestFaqList = function(results) {
-        $scope.faqList = results.faqList;
-        $scope.categoryOptions = results.categoryOptions;
+        $window.location.href = url;
       };
 
       $scope.sortFaq = function(moveType, index) {

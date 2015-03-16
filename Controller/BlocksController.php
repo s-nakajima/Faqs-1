@@ -106,11 +106,11 @@ class BlocksController extends FaqsAppController {
 				}
 			}
 
-//			if (!$this->request->is('ajax')) {
-//				$backUrl = CakeSession::read('backUrl');
-//				CakeSession::delete('backUrl');
-//				$this->redirect($backUrl);
-//			}
+			if (!$this->request->is('ajax')) {
+				$backUrl = CakeSession::read('backUrl');
+				CakeSession::delete('backUrl');
+				$this->redirect($backUrl);
+			}
 		}
 	}
 
@@ -118,9 +118,10 @@ class BlocksController extends FaqsAppController {
  * editAuth method
  *
  * @param int $frameId frames.id
+ * @param int $blockId blocks.id
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function editAuth($frameId = 0, $blockId) {
+	public function editAuth($frameId = 0, $blockId = 0) {
 		$frame = $this->Frame->getFrame($frameId, $this->plugin);
 		$block = $this->Block->getEditBlock($blockId, $this->viewVars['roomId'], 'faqs');
 		$result = array(

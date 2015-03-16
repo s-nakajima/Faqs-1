@@ -9,7 +9,7 @@
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
 
 <?php if ($block['id']) : ?>
-<?php echo $this->element('Faqs.block_menu', array('tab' => 'general')); ?>
+	<?php echo $this->element('Faqs.block_menu', array('tab' => 'general')); ?>
 <?php endif; ?>
 
 <div id="nc-faq-container-<?php echo $frameId; ?>"
@@ -68,7 +68,7 @@
 				</accordion-heading>
 				<strong>ブロック削除</strong><br/>
 				<div class="inline-block">
-					<span>"{{blocks.0.name}}"に関連するデータ全てを削除します。</span><br/>
+					<span>関連するデータ全てを削除します。</span><br/>
 					<span>一度削除すると元に戻せません。</span>
 				</div>
 				<?php echo $this->Form->button(

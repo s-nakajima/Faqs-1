@@ -65,31 +65,21 @@ class FaqsController extends FaqsAppController {
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('selectCategory');
 	}
 
 /**
  * index method
  *
+ * @param int $frameId frames.id
+ * @param int $categoryId categories.id
  * @return CakeResponse A response object containing the rendered view.
  */
-	public function index() {
+	public function index($frameId = 0, $categoryId = 0) {
 		if (! $this->viewVars['blockId']) {
 			return;
 		}
-		$this->__initFaq();
-	}
-
-/**
- * selectCategory method
- *
- * @param int $frameId frames.id
- * @param int $categoryId categories.id
- * @return void
- */
-	public function selectCategory($frameId = 0, $categoryId = null) {
-		$results = $this->__getLatest($this->viewVars['blockId'], $categoryId);
-		$this->renderJson($results);
+		$this->set('categoryId', $categoryId);
+		$this->__initFaq($categoryId);
 	}
 
 /**
@@ -227,10 +217,11 @@ class FaqsController extends FaqsAppController {
 /**
  * __initFaq method
  *
+ * @param int $categoryId categories.id
  * @return void
  */
-	private function __initFaq() {
-		$results = $this->__getLatest($this->viewVars['blockId']);
+	private function __initFaq($categoryId = 0) {
+		$results = $this->__getLatest($this->viewVars['blockId'], $categoryId);
 		$results = $this->camelizeKeyRecursive($results);
 		$this->set($results);
 	}

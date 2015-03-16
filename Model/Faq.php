@@ -120,7 +120,6 @@ class Faq extends FaqsAppModel {
 		// 編集権限:keyカラムでグループ化 && 最新記事
 		// 作成権限:keyカラムでグループ化 && (自分記事：最新記事、他人記事：statusが公開 && 最新記事)
 		// 参照権限:keyカラムでグループ化 && statusが公開 && 最新記事
-		// TODO:2015.03.04:作成権限ユーザの取得データ制御ができない。元記事を誰が作成したかを判定するカラムが未確定のため
 
 		$faqList = $this->find('all', $options);
 		return $faqList;
@@ -283,6 +282,13 @@ class Faq extends FaqsAppModel {
 		}
 	}
 
+/**
+ * deleteBlock
+ *
+ * @param array $block target block
+ * @return void
+ * @throws InternalErrorException
+ */
 	public function deleteBlock($block) {
 		$this->loadModels([
 			'Faq' => 'Faqs.Faq',
