@@ -30,6 +30,9 @@ class FaqAppModelTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.faqs.faq',
+		'plugin.faqs.faqOrder',
+		'plugin.faqs.category',
+		'plugin.faqs.categoryOrder',
 		'plugin.faqs.block',
 		'plugin.faqs.comment',
 		'plugin.frames.box',

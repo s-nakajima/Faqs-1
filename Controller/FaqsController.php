@@ -58,16 +58,6 @@ class FaqsController extends FaqsAppController {
 	);
 
 /**
- * beforeFilter
- *
- * @return void
- * @throws ForbiddenException
- */
-	public function beforeFilter() {
-		parent::beforeFilter();
-	}
-
-/**
  * index method
  *
  * @param int $frameId frames.id
