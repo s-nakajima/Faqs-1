@@ -227,7 +227,7 @@ class Faq extends FaqsAppModel {
  * deleteFaq
  *
  * @param int $faqId faqs.id
- * @return boolean
+ * @return bool
  * @throws InternalErrorException
  */
 	public function deleteFaq($faqId) {
