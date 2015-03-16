@@ -13,6 +13,7 @@
 
 App::uses('Faq', 'Faqs.Model');
 App::uses('NetCommonsBlockComponent', 'NetCommons.Controller/Component');
+App::uses('NetCommonsRoomRoleComponent', 'NetCommons.Controller/Component');
 
 /**
  *Faq Model Test Case
@@ -28,14 +29,17 @@ class FaqAppModelTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.faqs.frame',
-		'plugin.faqs.block',
-		'plugin.faqs.plugin',
 		'plugin.faqs.faq',
-		'plugin.faqs.faq_order',
+		'plugin.faqs.block',
+		'plugin.faqs.comment',
 		'plugin.frames.box',
-		'plugin.frames.language',
+		/* 'plugin.frames.language', */
+		'plugin.m17n.language',
 		'plugin.rooms.room',
+		'plugin.faqs.user_attributes_user',
+		'plugin.faqs.user',
+		'plugin.faqs.frame',
+		'plugin.faqs.plugin',
 	);
 
 /**
@@ -45,6 +49,8 @@ class FaqAppModelTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+		$this->Faq = ClassRegistry::init('Faqs.Faq');
+		$this->Comment = ClassRegistry::init('Comments.Comment');
 	}
 
 /**
@@ -53,6 +59,8 @@ class FaqAppModelTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
+		unset($this->Faq);
+		unset($this->Comment);
 		parent::tearDown();
 	}
 

@@ -27,15 +27,4 @@ class FaqsAppController extends AppController {
 	public $components = array(
 		'Security',
 	);
-
-/**
- * _setFrame method
- *
- * @param int $frameId frames.id
- * @return void
- */
-	protected function _setFrame($frameId) {
-		$frame = $this->Frame->getFrame($frameId, $this->plugin);
-		$this->set('frame', $frame['Frame']);
-	}
 }

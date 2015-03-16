@@ -77,7 +77,8 @@ class CategoriesController extends FaqsAppController {
 	public function edit($frameId = 0, $blockId = 0) {
 		$this->layout = 'Frames.setting';
 
-		$this->_setFrame($this->viewVars['frameId']);
+		$frame = $this->Frame->getFrame($frameId, $this->plugin);
+		$this->set('frame', $this->camelizeKeyRecursive($frame['Frame']));
 		$block = $this->Block->find('first', array(
 			'conditions' => array('id' => $blockId),
 			'recursive' => -1

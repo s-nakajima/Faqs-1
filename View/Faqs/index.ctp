@@ -14,12 +14,17 @@
 <?php echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false); ?>
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
-<?php if(! $blockId): ?>
-	FAQは操作しないようお願いします。（フレーム設定機能取込中のため）
+<?php if(! $blockKey): ?>
+	現在FAQは公開されていません。
 <?php else: ?>
+
 		<div id="nc-faqs-<?php echo $frameId; ?>"
 			 ng-controller="Faqs"
-			 ng-init="initFaq(<?php echo h(json_encode($this->viewVars)); ?>)">
+			 ng-init="initFaq(
+				<?php echo h(json_encode($frameId)); ?>,
+				<?php echo h(json_encode($categoryOptions)); ?>,
+				<?php echo h(json_encode($categoryId)); ?>
+				)">
 
 			<?php if ($contentCreatable) : ?>
 				<p class="text-right">
@@ -41,20 +46,20 @@
 						array(
 							'label' => false,
 							'type' => 'select',
-							'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
-							'empty' => __d('faqs', 'Select category'),
 							'class' => 'form-control',
+							'empty' => __d('faqs', 'Select category'),
 							'ng-model' => 'selectedCategory',
+							'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
 							'ng-change' => 'selectCategory()',
 						)); ?>
 				</div>
 				<hr>
-				<div ng-hide="faqList">
-					<?php echo __d('faqs', 'FAQ does not exist.'); ?>
-				</div>
-				<div ng-show="faqList">
+				<?php if ($faqList): ?>
 					<?php echo $this->element('Faqs/list', array('manageMode' => 0)); ?>
-				</div>
+				<?php else: ?>
+					<?php echo __d('faqs', 'FAQ does not exist.'); ?>
+				<?php endif; ?>
 			</div>
 		</div>
+
 <?php endif;

@@ -120,7 +120,6 @@ class Faq extends FaqsAppModel {
 		// 編集権限:keyカラムでグループ化 && 最新記事
 		// 作成権限:keyカラムでグループ化 && (自分記事：最新記事、他人記事：statusが公開 && 最新記事)
 		// 参照権限:keyカラムでグループ化 && statusが公開 && 最新記事
-		// TODO:2015.03.04:作成権限ユーザの取得データ制御ができない。元記事を誰が作成したかを判定するカラムが未確定のため
 
 		$faqList = $this->find('all', $options);
 		return $faqList;
@@ -219,7 +218,7 @@ class Faq extends FaqsAppModel {
  */
 	private function __validateFaq($data, $blockId) {
 		$this->set($data);
-		$options = array('idList' => $this->Category->getCategoryIdList($blockId));
+		$options = array('idList' => $this->Category->getCategoryFieldList($blockId, 'id'));
 		$this->validates($options);
 		return $this->validationErrors ? false : true;
 	}
@@ -276,6 +275,68 @@ class Faq extends FaqsAppModel {
 
 			$dataSource->commit();
 			return true;
+		} catch (Exception $ex) {
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+	}
+
+/**
+ * deleteBlock
+ *
+ * @param array $block target block
+ * @return void
+ * @throws InternalErrorException
+ */
+	public function deleteBlock($block) {
+		$this->loadModels([
+			'Faq' => 'Faqs.Faq',
+			'FaqOrder' => 'Faqs.FaqOrder',
+			'Category' => 'Categories.Category',
+			'CategoryOrder' => 'Categories.CategoryOrder',
+			'Block' => 'Blocks.Block',
+			'Comment' => 'Comments.Comment',
+		]);
+
+		//トランザクションBegin
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+		try {
+			$exception = new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+
+			// コメントの削除
+
+			// FAQ順の削除
+			$conditions = array('FaqOrder.block_key' => $block['Block']['key']);
+			if (! $this->FaqOrder->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// FAQの削除
+			$conditions = array('Faq.block_id' => $block['Block']['id']);
+			if (! $this->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// カテゴリ順の削除
+			$conditions = array('CategoryOrder.block_key' => $block['Block']['key']);
+			if (! $this->CategoryOrder->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// カテゴリの削除
+			$conditions = array('Category.block_id' => $block['Block']['id']);
+			if (! $this->Category->deleteAll($conditions)) {
+				throw $exception;
+			}
+
+			// ブロックの削除
+			if (! $this->Block->delete($block['Block']['id'])) {
+				throw $exception;
+			}
+
+			$dataSource->commit();
 		} catch (Exception $ex) {
 			$dataSource->rollback();
 			CakeLog::error($ex);

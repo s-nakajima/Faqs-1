@@ -237,7 +237,7 @@
 			キャンセル
 		</a>
 		<a class="btn btn-primary"
-		   href="<?php echo $this->Html->url('/' . $frame['plugin_key'] . '/blocks/edit/' . $frame['id']); ?>">
+		   href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/edit/' . $frame['id']); ?>">
 			決定
 		</a>
 	</div>

@@ -18,18 +18,6 @@
 	 ng-controller="Faqs"
 	 ng-init="initFaqEdit(<?php echo h(json_encode($this->viewVars)); ?>)">
 
-	<?php $this->start('title'); ?>
-	<?php echo __d('faqs', 'plugin_name'); ?>
-	<?php $this->end(); ?>
-
-	<?php if($manageMode): ?>
-		<?php $this->start('tabIndex'); ?>
-		<?php echo '0'; ?>
-		<?php $this->end(); ?>
-
-		<?php echo $this->element('manage_tab_list'); ?>
-	<?php endif; ?>
-
 	<?php echo $this->Form->create('Faq', array(
 			'name' => 'FaqForm' . $frameId,
 			'novalidate' => true,
