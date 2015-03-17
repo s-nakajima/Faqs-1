@@ -1,6 +1,6 @@
 <?php
 /**
- * Faqs view template
+ * faq index template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -15,7 +15,7 @@
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
 <?php if(! $blockKey): ?>
-	現在FAQは公開されていません。
+	<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
 <?php else: ?>
 
 		<div id="nc-faqs-<?php echo $frameId; ?>"
@@ -47,7 +47,7 @@
 							'label' => false,
 							'type' => 'select',
 							'class' => 'form-control',
-							'empty' => __d('faqs', 'Select category'),
+							'empty' => __d('categories', 'Select Category'),
 							'ng-model' => 'selectedCategory',
 							'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
 							'ng-change' => 'selectCategory()',

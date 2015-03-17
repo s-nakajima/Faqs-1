@@ -1,6 +1,6 @@
 <?php
 /**
- * Faqs list element template
+ * faq list element template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -14,7 +14,7 @@
 	<?php foreach($faqList as $index => $faq): ?>
 	<div class="row" style="margin:4px;">
 		<div class="col-md-12 col-xs-12">
-			<accordion-group id="/{{frameId}}/<?php echo $faq['faq']['id'];?>">
+			<accordion-group>
 
 				<accordion-heading>
 					<div>

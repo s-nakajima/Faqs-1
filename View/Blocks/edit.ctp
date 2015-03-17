@@ -1,4 +1,15 @@
-<!-- TODO:フレーム設定機能↓ -->
+<?php
+/**
+ * faq block edit template
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+?>
+
 <?php
 	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
@@ -27,17 +38,19 @@
 		<?php echo $this->element('Blocks.edit_form'); ?>
 
 		<div class="form-group">
-			<label>評価機能（サンプル）</label>
+			<label>
+				<?php echo __d('blocks', 'Like'); ?>
+			</label>
 			<div>
 				<label style="font-weight:normal"><input type="checkbox" ng-model="isVote">
 					<span class="glyphicon glyphicon-thumbs-up"></span>
-					高く評価を使用する
+					<?php echo __d('blocks', 'Use like.'); ?>
 				</label>
 			</div>
 			<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 				<label style="font-weight:normal"><input type="checkbox" ng-model="isVoteUnLike" ng-disabled="! isVote">
 					<span class="glyphicon glyphicon-thumbs-down"></span>
-					低く評価も使用する
+					<?php echo __d('blocks', 'Also use dislike.'); ?>
 				</label>
 			</div>
 		</div>
@@ -45,7 +58,9 @@
 <?php if ($block['id']) : ?>
 		<div class="panel panel-default">
 			<div class="panel-heading clearfix">
-				<span>カテゴリ</span>
+				<span>
+					<?php echo __d('categories', 'Category'); ?>
+				</span>
 				<div class="pull-right">
 					<a class="btn btn-xs btn-primary"
 					   href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/categories/edit/' . $frameId . '/' . $block['id']);?>">
@@ -63,16 +78,17 @@
 		<accordion close-others="false">
 			<accordion-group is-open="dangerSetting.open" class="panel-danger">
 				<accordion-heading>
-					危険領域
+					<?php echo __d('net_commons', 'Danger Zone'); ?>
 					<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dangerSetting.open, 'glyphicon-chevron-right': !dangerSetting.open}"></i>
 				</accordion-heading>
-				<strong>ブロック削除</strong><br/>
 				<div class="inline-block">
-					<span>関連するデータ全てを削除します。</span><br/>
-					<span>一度削除すると元に戻せません。</span>
+					<strong>
+						<?php echo __d('blocks', 'Delete Block'); ?>
+					</strong><br/>
+					<?php echo sprintf(__d('blocks', 'Delete all data associated with %s.'), $block['name']); ?>
 				</div>
 				<?php echo $this->Form->button(
-					'削除',
+					__d('net_commons', 'Delete'),
 					array('name' => 'delete', 'class' => 'btn btn-danger pull-right')); ?>
 			</accordion-group>
 		</accordion>

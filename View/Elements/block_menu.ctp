@@ -1,15 +1,24 @@
+<?php
+/**
+ * frame setting block menu element template
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+?>
 
-<!-- TODO:フレーム設定↓ -->
 <ul class="nav nav-pills">
 	<li role="presentation" class="<?php echo ($tab === 'general') ? 'active' : ''; ?>">
 		<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/edit/' . $frame['id'] . '/' . $blockId);?>">
-			コンテンツ
+			<?php echo __d('frames', 'Content'); ?>
 		</a>
 	</li>
 	<li role="presentation" class="<?php echo ($tab === 'auth') ? 'active' : ''; ?>">
-		<!-- TODO:ブロック一覧画面ができてから修正 -->
 		<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/editAuth/' . $frame['id'] . '/' . $blockId);?>">
-			権限設定
+			<?php echo __d('frames', 'Authority Setting'); ?>
 		</a>
 	</li>
 </ul>

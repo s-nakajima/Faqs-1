@@ -1,6 +1,6 @@
 <?php
 /**
- * Faqs view form template
+ * faq edit template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>

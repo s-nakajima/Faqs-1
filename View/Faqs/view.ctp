@@ -1,6 +1,6 @@
 <?php
 /**
- * Faqs view template
+ * faq view template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -11,7 +11,7 @@
 ?>
 
 <?php if (! isset($faq)) : ?>
-	指定されたFAQは公開されていません。
+	<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
 <?php else : ?>
 		<div class="panel panel-default">
 			<div class="panel-heading">

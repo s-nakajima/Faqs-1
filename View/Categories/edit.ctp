@@ -1,6 +1,6 @@
 <?php
 /**
- * Categories view template
+ * category edit template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>

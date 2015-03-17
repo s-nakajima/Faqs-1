@@ -1,0 +1,120 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-03-17 08:35+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /View/Blocks/edit.ctp:42
+msgid "Like"
+msgstr ""
+
+#: /View/Blocks/edit.ctp:47
+msgid "Use like."
+msgstr ""
+
+#: /View/Blocks/edit.ctp:53
+msgid "Also use dislike."
+msgstr ""
+
+#: /View/Blocks/edit.ctp:86
+msgid "Delete Block"
+msgstr ""
+
+#: /View/Blocks/edit.ctp:88
+msgid "Delete all data associated with %s."
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:27
+msgid "Article"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:32;127
+msgid "Author"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:38;99;133;204;243
+msgid "Room Administrator"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:49;109;144;214;253
+msgid "Chief Editor"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:60;155;263
+msgid "Editor"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:71;166;273
+msgid "General User"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:79;184
+msgid "Approval"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:83;188
+msgid "Used"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:87;192
+msgid "Unused"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:93;198
+msgid "Approver"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:122
+msgid "Comment"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:176
+msgid "Guests"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:228
+msgid "Mail"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:232
+msgid "E-mail notification of registration"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:237
+msgid "Notified of authority"
+msgstr ""
+
+#: /View/Blocks/index.ctp:43
+msgid "Name"
+msgstr ""
+
+#: /View/Blocks/index.ctp:48
+msgid "Public Status"
+msgstr ""
+
+#: /View/Blocks/index.ctp:53
+msgid "Updated Date"
+msgstr ""
+
+#: /View/Blocks/index.ctp:87
+msgid "Private"
+msgstr ""
+
+#: /View/Blocks/index.ctp:90
+msgid "Public"
+msgstr ""
+
+#: /View/Blocks/index.ctp:93
+msgid "Limited Public"
+msgstr ""
+

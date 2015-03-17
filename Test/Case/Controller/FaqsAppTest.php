@@ -3,7 +3,7 @@
  * FaqsController Test Case
  *
  * @author Noriko Arai <arai@nii.ac.jp>
- * @author Kotaro Hokada <kotaro.hokada@gmail.com>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
@@ -15,7 +15,7 @@ App::uses('NetCommonsRoomRoleComponent', 'NetCommons.Controller/Component');
 App::uses('YAControllerTestCase', 'NetCommons.TestSuite');
 
 /**
- * IframesController Test Case
+ * CategoriesController Test Case
  *
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
  * @package NetCommons\Faqs\Test\Case\Controller
