@@ -72,13 +72,13 @@ class Faq extends FaqsAppModel {
 			'question' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
-					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'question')),
+					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'Question')),
 				),
 			),
 			'answer' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
-					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'answer')),
+					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'Answer')),
 				),
 			),
 		);

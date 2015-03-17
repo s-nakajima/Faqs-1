@@ -14,26 +14,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /Model/Faq.php:75
-#: /View/Elements/Faqs/form_faq.ctp:37
-msgid "Question"
+#: Faqs/View/Blocks/edit.ctp:81
+#: Faqs/View/Elements/Faqs/form_faq.ctp:87
+msgid "Danger Zone"
 msgstr ""
 
-#: /Model/Faq.php:81
-#: /View/Elements/Faqs/form_faq.ctp:59
-msgid "Answer"
+#: Faqs/View/Blocks/edit.ctp:91
+#: Faqs/View/Elements/Faqs/form_faq.ctp:95
+#: Categories/View/Elements/Categories/form_category.ctp:95
+msgid "Delete"
 msgstr ""
-
-#: /View/Elements/Faqs/form_faq.ctp:92
-msgid "Delete FAQ"
-msgstr ""
-
-#: /View/Faqs/index.ctp:18
-#: /View/Faqs/view.ctp:14
-msgid "Currently FAQ has not been published."
-msgstr ""
-
-#: /View/Faqs/index.ctp:60
-msgid "FAQ does not exist."
-msgstr ""
-

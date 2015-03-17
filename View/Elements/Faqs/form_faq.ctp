@@ -1,6 +1,6 @@
 <?php
 /**
- * Faqs form faq element template
+ * faq form element template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -13,28 +13,28 @@
 <div class='form-group'>
 	<?php echo $this->Form->input('Faq.category_id',
 		array(
-			'label' => __d('faqs', 'category'),
+			'label' => __d('categories', 'Category'),
 			'type' => 'select',
 			'error' => false,
 			'class' => 'form-control',
-			'empty' => __d('faqs', 'Select category'),
+			'empty' => __d('categories', 'Select Category'),
 			'ng-model' => 'selectedCategory',
 			'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
 		)); ?>
-		<div class="has-error">
-			<?php if (isset($this->validationErrors['Faq']['category_id'])): ?>
-			<?php foreach ($this->validationErrors['Faq']['category_id'] as $message): ?>
-				<div class="help-block">
-					<?php echo $message ?>
-				</div>
-			<?php endforeach ?>
-			<?php endif ?>
-		</div>
+	<div class="has-error">
+		<?php if (isset($this->validationErrors['Faq']['category_id'])): ?>
+		<?php foreach ($this->validationErrors['Faq']['category_id'] as $message): ?>
+			<div class="help-block">
+				<?php echo $message ?>
+			</div>
+		<?php endforeach ?>
+		<?php endif ?>
+	</div>
 </div>
 
 <div class='form-group'>
 	<label class="control-label">
-		<?php echo __d('faqs', 'question') . $this->element('NetCommons.required'); ?>
+		<?php echo __d('faqs', 'Question') . $this->element('NetCommons.required'); ?>
 	</label>
 	<?php echo $this->Form->textarea('Faq.question',
 		array(
@@ -56,7 +56,7 @@
 
 <div class='form-group'>
 	<label class="control-label">
-		<?php echo __d('faqs', 'answer') . $this->element('NetCommons.required'); ?>
+		<?php echo __d('faqs', 'Answer') . $this->element('NetCommons.required'); ?>
 	</label>
 	<div class="nc-wysiwyg-alert">
 		<?php echo $this->Form->textarea('Faq.answer',
@@ -84,19 +84,16 @@
 		<accordion-group is-open="dangerSetting.open" class="panel-danger">
 			<accordion-heading>
 				<div>
-					危険設定
+					<?php echo __d('net_commons', 'Danger Zone'); ?>
 					<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dangerSetting.open, 'glyphicon-chevron-right': !dangerSetting.open}"></i>
 				</div>
 			</accordion-heading>
-			<strong>FAQ削除
-			</strong><br/>
-			<div class="inline-block">
-				<span>一度削除すると元に戻せません。</span>
-			</div>
+			<strong>
+				<?php echo __d('faqs', 'Delete FAQ'); ?>
+			</strong>
 			<?php echo $this->Form->button(
-				'削除',
-				array('name' => 'delete', 'class' => 'btn btn-danger pull-right')
-				); ?>
+				__d('net_commons', 'Delete'),
+				array('name' => 'delete', 'class' => 'btn btn-danger pull-right')); ?>
 		</accordion-group>
 	</accordion>
 </div>

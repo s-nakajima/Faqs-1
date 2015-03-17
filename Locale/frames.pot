@@ -14,26 +14,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /Model/Faq.php:75
-#: /View/Elements/Faqs/form_faq.ctp:37
-msgid "Question"
+#: /View/Elements/block_menu.ctp:16
+msgid "Content"
 msgstr ""
 
-#: /Model/Faq.php:81
-#: /View/Elements/Faqs/form_faq.ctp:59
-msgid "Answer"
+#: /View/Elements/block_menu.ctp:21
+msgid "Authority Setting"
 msgstr ""
 
-#: /View/Elements/Faqs/form_faq.ctp:92
-msgid "Delete FAQ"
+#: /View/Elements/frame_menu.ctp:16
+msgid "List"
 msgstr ""
 
-#: /View/Faqs/index.ctp:18
-#: /View/Faqs/view.ctp:14
-msgid "Currently FAQ has not been published."
-msgstr ""
-
-#: /View/Faqs/index.ctp:60
-msgid "FAQ does not exist."
+#: /View/Elements/frame_menu.ctp:21
+msgid "Display Change"
 msgstr ""
 

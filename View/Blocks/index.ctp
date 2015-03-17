@@ -1,4 +1,15 @@
-<!-- TODO:フレーム設定機能↓ -->
+<?php
+/**
+ * faq block index template
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+?>
+
 <?php
 	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
@@ -27,9 +38,21 @@
 		<thead>
 			<tr>
 				<th style="min-width:35px;"></th>
-				<th style="min-width:100px;"><a href="#" ng-click="orderBlock('block.name')">名称</a></th>
-				<th style="min-width:110px;"><a href="#" ng-click="orderBlock('block.publicType')">公開状況</a></th>
-				<th style="min-width:100px;"><a href="#" ng-click="orderBlock('block.modified')">更新日</a></th>
+				<th style="min-width:100px;">
+					<a href="#" ng-click="orderBlock('block.name')">
+						<?php echo __d('blocks', 'Name'); ?>
+					</a>
+				</th>
+				<th style="min-width:110px;">
+					<a href="#" ng-click="orderBlock('block.publicType')">
+						<?php echo __d('blocks', 'Public Status'); ?>
+					</a>
+				</th>
+				<th style="min-width:100px;">
+					<a href="#" ng-click="orderBlock('block.modified')">
+						<?php echo __d('blocks', 'Updated Date'); ?>
+					</a>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -60,9 +83,15 @@
 				</td>
 				<td>
 					<div ng-switch on="block.block.publicType">
-						<span ng-switch-when="0">非公開</span>
-						<span ng-switch-when="1">公開</span>
-						<span ng-switch-when="2">期間限定公開</span>
+						<span ng-switch-when="0">
+							<?php echo __d('blocks', 'Private'); ?>
+						</span>
+						<span ng-switch-when="1">
+							<?php echo __d('blocks', 'Public'); ?>
+						</span>
+						<span ng-switch-when="2">
+							<?php echo __d('blocks', 'Limited Public'); ?>
+						</span>
 					</div>
 				</td>
 				<td>

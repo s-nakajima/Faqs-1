@@ -14,10 +14,10 @@
 App::uses('FaqAppModelTest', 'Faqs.Test/Case/Model');
 
 /**
- *Faq Model Test Case
+ * Faq Model Test Case
  *
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
- * @package NetCommons\Iframes\Test\Case\Model
+ * @package NetCommons\Faqs\Test\Case\Model
  */
 class FaqTest extends FaqAppModelTest {
 
