@@ -41,7 +41,7 @@
 			<?php endif; ?>
 
 			<div>
-				<div class="form-inline text-right">
+				<div class="form-group form-inline text-right">
 					<?php echo $this->Form->input('category',
 						array(
 							'label' => false,
@@ -53,7 +53,6 @@
 							'ng-change' => 'selectCategory()',
 						)); ?>
 				</div>
-				<hr>
 				<?php if ($faqList): ?>
 					<?php echo $this->element('Faqs/list', array('manageMode' => 0)); ?>
 				<?php else: ?>
