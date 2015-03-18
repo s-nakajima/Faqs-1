@@ -10,16 +10,12 @@
  */
 ?>
 
-<ul class="nav nav-tabs">
-	<li role="presentation" class="<?php echo ($tab === 'block') ? 'active' : ''; ?>">
-		<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/index/' . $frame['id']);?>">
-			<?php echo __d('frames', 'List'); ?>
-		</a>
-	</li>
-	<li role="presentation" class="">
-		<a href="">
-			<?php echo __d('frames', 'Display Change'); ?>
-		</a>
-	</li>
-</ul>
-<br>
+<div style="margin-bottom:10px">
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="<?php echo ($tab === 'block') ? 'active' : ''; ?>">
+			<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/index/' . $frame['id']);?>">
+				<?php echo __d('frames', 'List'); ?>
+			</a>
+		</li>
+	</ul>
+</div>

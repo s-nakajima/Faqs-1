@@ -10,16 +10,17 @@
  */
 ?>
 
-<ul class="nav nav-pills">
-	<li role="presentation" class="<?php echo ($tab === 'general') ? 'active' : ''; ?>">
-		<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/edit/' . $frame['id'] . '/' . $blockId);?>">
-			<?php echo __d('frames', 'Content'); ?>
-		</a>
-	</li>
-	<li role="presentation" class="<?php echo ($tab === 'auth') ? 'active' : ''; ?>">
-		<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/editAuth/' . $frame['id'] . '/' . $blockId);?>">
-			<?php echo __d('frames', 'Authority Setting'); ?>
-		</a>
-	</li>
-</ul>
-<br>
+<div style="margin-bottom:10px">
+	<ul class="nav nav-pills">
+		<li role="presentation" class="<?php echo ($tab === 'general') ? 'active' : ''; ?>">
+			<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/edit/' . $frame['id'] . '/' . $block['id']);?>">
+				<?php echo __d('frames', 'Content'); ?>
+			</a>
+		</li>
+		<li role="presentation" class="<?php echo ($tab === 'auth') ? 'active' : ''; ?>">
+			<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/editAuth/' . $frame['id'] . '/' . $block['id']);?>">
+				<?php echo __d('frames', 'Authority Setting'); ?>
+			</a>
+		</li>
+	</ul>
+</div>

@@ -19,13 +19,13 @@
 
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
 
-<p class="text-right">
+<div class="text-right">
 	<a  class="btn btn-sm btn-success"
 		href="<?php echo $this->Html->url('/faqs/blocks/edit/' . $frame['id']);?>">
 
 		<span class="glyphicon glyphicon-plus"></span>
 	</a>
-</p>
+</div>
 
 <div id="nc-faq-container-<?php echo $frameId; ?>"
 	 ng-controller="BlocksController"
