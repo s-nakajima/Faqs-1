@@ -69,7 +69,7 @@ class BlocksController extends FaqsAppController {
 					'room_id' => $this->viewVars['roomId'],
 					'plugin_key' => 'faqs'
 				)));
-		$blocks =  $this->Paginator->paginate('Block');
+		$blocks = $this->Paginator->paginate('Block');
 
 		$result = array(
 			'frame' => $frame['Frame'],
