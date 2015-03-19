@@ -194,11 +194,11 @@ class FaqsController extends FaqsAppController {
  * @return array
  */
 	private function __getLatest($blockId, $categoryId = null) {
-		$faqList = $this->Faq->getFaqList($blockId, $categoryId);
+		$faqs = $this->Faq->getFaqs($blockId, $categoryId);
 		$categoryOptions = $this->Category->getCategoryList($blockId);
 
 		$results = array(
-			'faqList' => $faqList,
+			'faqs' => $faqs,
 			'categoryOptions' => $categoryOptions
 		);
 		return $results;

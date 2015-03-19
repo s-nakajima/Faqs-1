@@ -37,7 +37,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Room Administrator'),
+									'text' => __d('net_commons', 'Room Administrator'),
 									'style' => 'font-weight:normal',
 								),
 								'checked' => true,
@@ -48,7 +48,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Chief Editor'),
+									'text' => __d('net_commons', 'Chief Editor'),
 									'style' => 'font-weight:normal',
 								),
 								'checked' => true,
@@ -59,7 +59,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Editor'),
+									'text' => __d('net_commons', 'Editor'),
 									'style' => 'font-weight:normal',
 								),
 								'checked' => true,
@@ -70,7 +70,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'General User'),
+									'text' => __d('net_commons', 'General User'),
 									'style' => 'font-weight:normal',
 								),
 								'div' => false,
@@ -98,7 +98,7 @@
 								array(
 									'type' => 'checkbox',
 									'label' => array(
-										'text' => __d('blocks', 'Room Administrator'),
+										'text' => __d('net_commons', 'Room Administrator'),
 										'style' => 'font-weight:normal',
 									),
 									'div' => false,
@@ -108,7 +108,7 @@
 								array(
 									'type' => 'checkbox',
 									'label' => array(
-										'text' => __d('blocks', 'Chief Editor'),
+										'text' => __d('net_commons', 'Chief Editor'),
 										'style' => 'font-weight:normal',
 									),
 									'div' => false,
@@ -132,7 +132,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Room Administrator'),
+									'text' => __d('net_commons', 'Room Administrator'),
 									'style' => 'font-weight:normal',
 								),
 								'checked' => true,
@@ -143,7 +143,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Chief Editor'),
+									'text' => __d('net_commons', 'Chief Editor'),
 									'style' => 'font-weight:normal',
 								),
 								'checked' => true,
@@ -154,7 +154,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Editor'),
+									'text' => __d('net_commons', 'Editor'),
 									'style' => 'font-weight:normal',
 								),
 								'checked' => true,
@@ -165,7 +165,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'General User'),
+									'text' => __d('net_commons', 'General User'),
 									'style' => 'font-weight:normal',
 								),
 								'div' => false,
@@ -175,7 +175,7 @@
 							array(
 								'type' => 'checkbox',
 								'label' => array(
-									'text' => __d('blocks', 'Guests'),
+									'text' => __d('net_commons', 'Guests'),
 									'style' => 'font-weight:normal',
 								),
 								'div' => false,
@@ -203,7 +203,7 @@
 								array(
 									'type' => 'checkbox',
 									'label' => array(
-										'text' => __d('blocks', 'Room Administrator'),
+										'text' => __d('net_commons', 'Room Administrator'),
 										'style' => 'font-weight:normal',
 									),
 									'div' => false,
@@ -213,7 +213,7 @@
 								array(
 									'type' => 'checkbox',
 									'label' => array(
-										'text' => __d('blocks', 'Chief Editor'),
+										'text' => __d('net_commons', 'Chief Editor'),
 										'style' => 'font-weight:normal',
 									),
 									'div' => false,
@@ -227,22 +227,22 @@
 			<div class="form-group">
 				<div>
 					<label>
-						<?php echo __d('blocks', 'Mail'); ?>
+						<?php echo __d('blocks', 'Email Notification'); ?>
 					</label><br/>
 					<label style="font-weight:normal">
 						<input type="checkbox" name="mail" ng-model="sendMail">
-						<?php echo __d('blocks', 'E-mail notification of registration'); ?>
+						<?php echo __d('blocks', 'Notify the registration by email'); ?>
 					</label>
 				</div>
 				<div collapse="! sendMail" class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 					<label>
-						<?php echo __d('blocks', 'Notified of authority'); ?>
+						<?php echo __d('blocks', 'Destination'); ?>
 					</label><br/>
 					<?php echo $this->Form->input('data[send_mail][room_admin]',
 						array(
 							'type' => 'checkbox',
 							'label' => array(
-								'text' => __d('blocks', 'Room Administrator'),
+								'text' => __d('net_commons', 'Room Administrator'),
 								'style' => 'font-weight:normal',
 							),
 							'div' => false,
@@ -252,7 +252,7 @@
 						array(
 							'type' => 'checkbox',
 							'label' => array(
-								'text' => __d('blocks', 'Chief Editor'),
+								'text' => __d('net_commons', 'Chief Editor'),
 								'style' => 'font-weight:normal',
 							),
 							'div' => false,
@@ -262,7 +262,7 @@
 						array(
 							'type' => 'checkbox',
 							'label' => array(
-								'text' => __d('blocks', 'Editor'),
+								'text' => __d('net_commons', 'Editor'),
 								'style' => 'font-weight:normal',
 							),
 							'div' => false,
@@ -272,7 +272,7 @@
 						array(
 							'type' => 'checkbox',
 							'label' => array(
-								'text' => __d('blocks', 'General User'),
+								'text' => __d('net_commons', 'General User'),
 								'style' => 'font-weight:normal',
 							),
 							'div' => false,

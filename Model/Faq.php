@@ -87,13 +87,13 @@ class Faq extends FaqsAppModel {
 	}
 
 /**
- * getFaqList
+ * getFaqs
  *
  * @param int $blockId blocks.id
  * @param int $categoryId categories.id
  * @return array
  */
-	public function getFaqList($blockId, $categoryId = null) {
+	public function getFaqs($blockId, $categoryId = null) {
 		$options = array(
 			'fields' => array(
 				'Faq.id',
@@ -121,8 +121,8 @@ class Faq extends FaqsAppModel {
 		// 作成権限:keyカラムでグループ化 && (自分記事：最新記事、他人記事：statusが公開 && 最新記事)
 		// 参照権限:keyカラムでグループ化 && statusが公開 && 最新記事
 
-		$faqList = $this->find('all', $options);
-		return $faqList;
+		$faqs = $this->find('all', $options);
+		return $faqs;
 	}
 
 /**

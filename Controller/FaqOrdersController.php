@@ -105,7 +105,7 @@ class FaqOrdersController extends FaqsAppController {
  * @return void
  */
 	private function __initFaqOrder() {
-		$results['faqList'] = $this->Faq->getFaqList($this->viewVars['blockId']);
+		$results['faqs'] = $this->Faq->getFaqs($this->viewVars['blockId']);
 		$results = $this->camelizeKeyRecursive($results);
 		$this->set($results);
 	}

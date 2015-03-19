@@ -35,7 +35,7 @@ NetCommonsApp.controller('Faqs',
 
       $scope.frameId = 0;
       $scope.manageMode = 0;
-      $scope.faqList = {};
+      $scope.faqs = {};
       $scope.categoryOptions = {};
       $scope.faq = {};
       $scope.selectedCategory = null;
@@ -55,7 +55,7 @@ NetCommonsApp.controller('Faqs',
 
       $scope.initFaqEdit = function(data) {
         $scope.frameId = data.frameId;
-        $scope.faqList = data.faqList;
+        $scope.faqs = data.faqs;
         $scope.categoryOptions = data.categoryOptions;
         $scope.faq = data.faq;
 
@@ -70,7 +70,7 @@ NetCommonsApp.controller('Faqs',
 
       $scope.initFaqOrder = function(data) {
         $scope.frameId = data.frameId;
-        $scope.faqList = data.faqList;
+        $scope.faqs = data.faqs;
       };
 
       $scope.selectCategory = function() {
@@ -83,13 +83,13 @@ NetCommonsApp.controller('Faqs',
 
       $scope.sortFaq = function(moveType, index) {
         var destIndex = (moveType === 'up') ? index - 1 : index + 1;
-        if (angular.isUndefined($scope.faqList[destIndex])) {
+        if (angular.isUndefined($scope.faqs[destIndex])) {
           return false;
         }
 
-        var destCategory = angular.copy($scope.faqList[destIndex]);
-        var targetCategory = angular.copy($scope.faqList[index]);
-        $scope.faqList[index] = destCategory;
-        $scope.faqList[destIndex] = targetCategory;
+        var destCategory = angular.copy($scope.faqs[destIndex]);
+        var targetCategory = angular.copy($scope.faqs[index]);
+        $scope.faqs[index] = destCategory;
+        $scope.faqs[destIndex] = targetCategory;
       };
     });

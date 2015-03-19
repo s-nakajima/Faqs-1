@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-03-17 07:49+0000\n"
-"PO-Revision-Date: 2015-03-17 17:26+0900\n"
+"POT-Creation-Date: 2015-03-19 01:47+0000\n"
+"PO-Revision-Date: 2015-03-19 11:05+0900\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team:  <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,10 @@ msgstr "質問"
 msgid "Answer"
 msgstr "回答"
 
+#: /View/Blocks/edit.ctp:40
+msgid "FAQ Name"
+msgstr "FAQ名"
+
 #: /View/Elements/Faqs/form_faq.ctp:92
 msgid "Delete FAQ"
 msgstr "FAQ削除"
@@ -31,6 +35,6 @@ msgstr "FAQ削除"
 msgid "Currently FAQ has not been published."
 msgstr "現在FAQは公開されていません。"
 
-#: /View/Faqs/index.ctp:60
+#: /View/Faqs/index.ctp:59
 msgid "FAQ does not exist."
 msgstr "該当するFAQはありません。"

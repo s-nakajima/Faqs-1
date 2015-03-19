@@ -37,7 +37,7 @@
 
 		<div class="panel panel-default" >
 			<div class="panel-body has-feedback">
-				<?php echo $this->element('Blocks.edit_form'); ?>
+				<?php echo $this->element('Blocks.edit_form', array('nameLabel' => __d('faqs', 'FAQ Name'))); ?>
 
 				<div class="form-group">
 					<label>
