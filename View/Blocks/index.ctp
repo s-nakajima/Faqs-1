@@ -34,7 +34,7 @@
 		frameId = <?php echo h(json_encode($frameId)); ?>;
 	 ">
 
-	<table class="table table-striped">
+	<table class="table table-striped" style="margin-bottom:0px">
 		<thead>
 			<tr>
 				<th style="min-width:35px;"></th>
@@ -102,5 +102,8 @@
 			<?php echo $this->Form->end(); ?>
 		</tbody>
 	</table>
+	<div>
+		<?php echo $this->Paginator->numbers(); ?>
+	</div>
 
 </div>

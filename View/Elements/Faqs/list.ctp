@@ -11,7 +11,7 @@
 ?>
 
 <accordion close-others="true">
-	<?php foreach($faqList as $index => $faq): ?>
+	<?php foreach($faqs as $index => $faq): ?>
 	<div class="row">
 		<div class="col-md-12 col-xs-12">
 			<accordion-group>

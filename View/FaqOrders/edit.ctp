@@ -23,7 +23,7 @@
 			<div class="panel-body has-feedback">
 
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="faq in faqList track by $index" ng-cloak>
+					<li class="list-group-item" ng-repeat="faq in faqs track by $index" ng-cloak>
 						<div class="row">
 							<div class="col-md-2 col-sm-2 col-xs-2">
 								<button class="btn btn-default btn-sm"
