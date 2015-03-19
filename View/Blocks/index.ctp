@@ -45,12 +45,12 @@
 				</th>
 				<th style="min-width:110px;">
 					<a href="#" ng-click="orderBlock('block.publicType')">
-						<?php echo __d('blocks', 'Public Status'); ?>
+						<?php echo __d('blocks', 'Public Type'); ?>
 					</a>
 				</th>
 				<th style="min-width:100px;">
 					<a href="#" ng-click="orderBlock('block.modified')">
-						<?php echo __d('blocks', 'Updated Date'); ?>
+						<?php echo __d('net_commons', 'Updated Date'); ?>
 					</a>
 				</th>
 			</tr>
@@ -61,7 +61,7 @@
 					'novalidate' => true,
 				)); ?>
 
-			<tr ng-repeat="block in blocks | orderBy:orderByField:reverseSort">
+			<tr ng-repeat="block in blocks | orderBy:orderByField:isOrderDesc">
 				<td>
 					<?php echo $this->Form->input('Block.id',
 						array(

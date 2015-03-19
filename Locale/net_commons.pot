@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-03-17 08:35+0000\n"
+"POT-Creation-Date: 2015-03-19 01:47+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,13 +14,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Faqs/View/Blocks/edit.ctp:81
-#: Faqs/View/Elements/Faqs/form_faq.ctp:87
+#: /View/Blocks/edit.ctp:86
+#: /View/Elements/Faqs/form_faq.ctp:87
 msgid "Danger Zone"
 msgstr ""
 
-#: Faqs/View/Blocks/edit.ctp:91
-#: Faqs/View/Elements/Faqs/form_faq.ctp:95
-#: Categories/View/Elements/Categories/form_category.ctp:95
+#: /View/Blocks/edit.ctp:96
+#: /View/Elements/Faqs/form_faq.ctp:95
 msgid "Delete"
 msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:40;101;135;206;245
+msgid "Room Administrator"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:51;111;146;216;255
+msgid "Chief Editor"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:62;157;265
+msgid "Editor"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:73;168;275
+msgid "General User"
+msgstr ""
+
+#: /View/Blocks/edit_auth.ctp:178
+msgid "Guests"
+msgstr ""
+
+#: /View/Blocks/index.ctp:53
+msgid "Updated Date"
+msgstr ""
+

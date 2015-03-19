@@ -40,6 +40,7 @@ class BlocksController extends FaqsAppController {
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole',
+		'Blocks.BlockCommon',
 	);
 
 /**
@@ -105,12 +106,12 @@ class BlocksController extends FaqsAppController {
 					return;
 				}
 			}
-
-			if (!$this->request->is('ajax')) {
-				$backUrl = CakeSession::read('backUrl');
-				CakeSession::delete('backUrl');
-				$this->redirect($backUrl);
-			}
+//
+//			if (!$this->request->is('ajax')) {
+//				$backUrl = CakeSession::read('backUrl');
+//				CakeSession::delete('backUrl');
+//				$this->redirect($backUrl);
+//			}
 		}
 	}
 

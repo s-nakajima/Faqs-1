@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-03-17 08:35+0000\n"
+"POT-Creation-Date: 2015-03-19 01:47+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,84 +14,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /View/Blocks/edit.ctp:42
+#: /View/Blocks/edit.ctp:44
 msgid "Like"
 msgstr ""
 
-#: /View/Blocks/edit.ctp:47
+#: /View/Blocks/edit.ctp:49
 msgid "Use like."
 msgstr ""
 
-#: /View/Blocks/edit.ctp:53
+#: /View/Blocks/edit.ctp:55
 msgid "Also use dislike."
 msgstr ""
 
-#: /View/Blocks/edit.ctp:86
+#: /View/Blocks/edit.ctp:91
 msgid "Delete Block"
 msgstr ""
 
-#: /View/Blocks/edit.ctp:88
+#: /View/Blocks/edit.ctp:93
 msgid "Delete all data associated with %s."
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:27
+#: /View/Blocks/edit_auth.ctp:29
 msgid "Article"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:32;127
+#: /View/Blocks/edit_auth.ctp:34;129
 msgid "Author"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:38;99;133;204;243
-msgid "Room Administrator"
-msgstr ""
-
-#: /View/Blocks/edit_auth.ctp:49;109;144;214;253
-msgid "Chief Editor"
-msgstr ""
-
-#: /View/Blocks/edit_auth.ctp:60;155;263
-msgid "Editor"
-msgstr ""
-
-#: /View/Blocks/edit_auth.ctp:71;166;273
-msgid "General User"
-msgstr ""
-
-#: /View/Blocks/edit_auth.ctp:79;184
+#: /View/Blocks/edit_auth.ctp:81;186
 msgid "Approval"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:83;188
+#: /View/Blocks/edit_auth.ctp:85;190
 msgid "Used"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:87;192
+#: /View/Blocks/edit_auth.ctp:89;194
 msgid "Unused"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:93;198
+#: /View/Blocks/edit_auth.ctp:95;200
 msgid "Approver"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:122
+#: /View/Blocks/edit_auth.ctp:124
 msgid "Comment"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:176
-msgid "Guests"
+#: /View/Blocks/edit_auth.ctp:230
+msgid "Email Notification"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:228
-msgid "Mail"
+#: /View/Blocks/edit_auth.ctp:234
+msgid "Notify the registration by email"
 msgstr ""
 
-#: /View/Blocks/edit_auth.ctp:232
-msgid "E-mail notification of registration"
-msgstr ""
-
-#: /View/Blocks/edit_auth.ctp:237
-msgid "Notified of authority"
+#: /View/Blocks/edit_auth.ctp:239
+msgid "Destination"
 msgstr ""
 
 #: /View/Blocks/index.ctp:43
@@ -99,11 +79,7 @@ msgid "Name"
 msgstr ""
 
 #: /View/Blocks/index.ctp:48
-msgid "Public Status"
-msgstr ""
-
-#: /View/Blocks/index.ctp:53
-msgid "Updated Date"
+msgid "Public Type"
 msgstr ""
 
 #: /View/Blocks/index.ctp:87

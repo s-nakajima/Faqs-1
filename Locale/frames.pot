@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-03-17 08:35+0000\n"
+"POT-Creation-Date: 2015-03-19 01:47+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,19 +14,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /View/Elements/block_menu.ctp:16
+#: /View/Elements/block_menu.ctp:17
 msgid "Content"
 msgstr ""
 
-#: /View/Elements/block_menu.ctp:21
+#: /View/Elements/block_menu.ctp:22
 msgid "Authority Setting"
 msgstr ""
 
-#: /View/Elements/frame_menu.ctp:16
+#: /View/Elements/frame_menu.ctp:17
 msgid "List"
-msgstr ""
-
-#: /View/Elements/frame_menu.ctp:21
-msgid "Display Change"
 msgstr ""
 
