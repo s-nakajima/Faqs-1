@@ -46,23 +46,18 @@ class FaqOrder extends FaqsAppModel {
 				'conditions' => array('FaqOrder.block_key' => $blockKey),
 			));
 
-		// カテゴリ順序が登録されていない場合
-		if (! isset($faqOrder[0]['weight'])) {
-			return 0;
-		}
-
-		return $faqOrder[0]['weight'];
+		return (isset($faqOrder[0]['weight'])) ? $faqOrder[0]['weight'] : 0;
 	}
 
 /**
- * saveFaqOrder
+ * saveFaqOrders
  *
  * @param array $dataList received post data
  * @param int $blockKey blocks.key
  * @return void
  * @throws InternalErrorException
  */
-	public function saveFaqOrder($dataList, $blockKey) {
+	public function saveFaqOrders($dataList, $blockKey) {
 		//トランザクションBegin
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
@@ -79,7 +74,9 @@ class FaqOrder extends FaqsAppModel {
 				// FAQ順の更新
 				$faqOrder['FaqOrder']['weight'] = $index + 1;
 				if (! $this->save($faqOrder, false)) {
+					// @codeCoverageIgnoreStart
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+					// @codeCoverageIgnoreEnd
 				}
 			}
 			$dataSource->commit();

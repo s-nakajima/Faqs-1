@@ -89,7 +89,7 @@ class FaqOrdersController extends FaqsAppController {
 			CakeSession::write('backUrl', $this->request->referer());
 		}
 		if ($this->request->isPost()) {
-			$this->FaqOrder->saveFaqOrder($this->data, $this->viewVars['blockKey']);
+			$this->FaqOrder->saveFaqOrders($this->data, $this->viewVars['blockKey']);
 
 			if (!$this->request->is('ajax')) {
 				$backUrl = CakeSession::read('backUrl');
