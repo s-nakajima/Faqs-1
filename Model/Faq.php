@@ -19,6 +19,15 @@ App::uses('FaqsAppModel', 'Faqs.Model');
 class Faq extends FaqsAppModel {
 
 /**
+ * use behaviors
+ *
+ * @var array
+ */
+	public $actsAs = array(
+		'NetCommons.Publishable'
+	);
+
+/**
  * Validation rules
  *
  * @var array
@@ -58,6 +67,14 @@ class Faq extends FaqsAppModel {
  */
 	public function beforeValidate($options = array()) {
 		$this->validate = array(
+			'block_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => false,
+					'required' => true,
+				)
+			),
 			'category_id' => array(
 				'inList' => array(
 					'rule' => array('inList', $options['idList']),
@@ -66,6 +83,13 @@ class Faq extends FaqsAppModel {
 					'allowEmpty' => true,
 				),
 			),
+			'key' => array(
+				'notEmpty' => array(
+					'rule' => array('notEmpty'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true,
+				)
+			),
 
 			//status to set in PublishableBehavior.
 
@@ -73,12 +97,14 @@ class Faq extends FaqsAppModel {
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
 					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'Question')),
+					'required' => true,
 				),
 			),
 			'answer' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
 					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'Answer')),
+					'required' => true,
 				),
 			),
 		);
@@ -129,29 +155,24 @@ class Faq extends FaqsAppModel {
  * getFaq
  *
  * @param int $faqId faqs.id
- * @param int $blockId blocks.id
  * @return array
  */
-	public function getFaq($faqId, $blockId = 0) {
+	public function getFaq($faqId) {
 		$options = array(
 			'recursive' => -1,
 			'conditions' => array('Faq.id' => $faqId),
 		);
-		$faq = $this->find('first', $options);
-
-		return $faq;
+		return $this->find('first', $options);
 	}
 
 /**
  * saveFaq
  *
  * @param array $data received post data
- * @param int $blockId blocks.id
- * @param int $blockKey blocks.key
  * @return void
  * @throws InternalErrorException
  */
-	public function saveFaq($data, $blockId, $blockKey) {
+	public function saveFaq($data) {
 		$this->loadModels([
 			'Category' => 'Faqs.Category',
 			'FaqOrder' => 'Faqs.FaqOrder',
@@ -163,7 +184,7 @@ class Faq extends FaqsAppModel {
 		$dataSource->begin();
 
 		try {
-			if (! $this->__validateFaq($data, $blockId)) {
+			if (! $this->__validateFaq($data)) {
 				return false;
 			}
 			if (!$this->Comment->validateByStatus($data, array('caller' => $this->name))) {
@@ -173,21 +194,25 @@ class Faq extends FaqsAppModel {
 
 			$faq = $this->save(null, false);
 			if (! $faq) {
+				// @codeCoverageIgnoreStart
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				// @codeCoverageIgnoreEnd
 			}
 
 			// FAQ新規登録の場合、FAQ順序の登録
 			if (! isset($data['Faq']['id'])) {
 				// weightの最大値取得
-				$weight = $this->FaqOrder->getMaxWeight($blockKey);
+				$weight = $this->FaqOrder->getMaxWeight($data['Block']['key']);
 				$faqOrder = array(
 					'FaqOrder' => array(
-						'block_key' => $blockKey,
+						'block_key' => $data['Block']['key'],
 						'faq_key' => $faq['Faq']['key'],
-						'weight' => ++$weight,
+						'weight' => $weight + 1,
 					));
 				if (! $this->FaqOrder->save($faqOrder)) {
+					// @codeCoverageIgnoreStart
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+					// @codeCoverageIgnoreEnd
 				}
 			}
 			//コメントの登録
@@ -202,23 +227,25 @@ class Faq extends FaqsAppModel {
 			$dataSource->commit();
 			return true;
 
-		} catch (Exception $ex) {
+		}
+		// @codeCoverageIgnoreStart
+		catch (Exception $ex) {
 			$dataSource->rollback();
 			CakeLog::error($ex);
 			throw $ex;
 		}
+		// @codeCoverageIgnoreEnd
 	}
 
 /**
  * validate faq
  *
  * @param array $data received post data
- * @param int $blockId blocks.id
  * @return bool validation result
  */
-	private function __validateFaq($data, $blockId) {
+	private function __validateFaq($data) {
 		$this->set($data);
-		$options = array('idList' => $this->Category->getCategoryFieldList($blockId, 'id'));
+		$options = array('idList' => $this->Category->getCategoryFieldList($data['Faq']['block_id'], 'id'));
 		$this->validates($options);
 		return $this->validationErrors ? false : true;
 	}
@@ -232,10 +259,7 @@ class Faq extends FaqsAppModel {
  */
 	public function deleteFaq($faqId) {
 		// モデル定義
-		$models = array('FaqOrder' => 'Faqs.FaqOrder');
-		foreach ($models as $model => $class) {
-			$this->$model = ClassRegistry::init($class);
-		}
+		$this->loadModels(['FaqOrder' => 'Faqs.FaqOrder']);
 
 		// 対象FAQの情報取得
 		$this->unbindModel(array('belongsTo' => array('Category')));
@@ -261,17 +285,11 @@ class Faq extends FaqsAppModel {
 				'FaqOrder.block_key' => $faq['FaqOrder']['block_key'],
 				'FaqOrder.weight >=' => $faq['FaqOrder']['weight'],
 			);
-			$result = $this->FaqOrder->updateAll($fields, $conditions);
-			if (! $result) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
+			$this->FaqOrder->updateAll($fields, $conditions);
 
 			// 対象FAQの削除
 			$conditions = array('Faq.key' => $faq['Faq']['key']);
-			$result = $this->deleteAll($conditions);
-			if (! $result) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
+			$this->deleteAll($conditions);
 
 			$dataSource->commit();
 			return true;
@@ -309,27 +327,19 @@ class Faq extends FaqsAppModel {
 
 			// FAQ順の削除
 			$conditions = array('FaqOrder.block_key' => $block['Block']['key']);
-			if (! $this->FaqOrder->deleteAll($conditions)) {
-				throw $exception;
-			}
+			$this->FaqOrder->deleteAll($conditions);
 
 			// FAQの削除
 			$conditions = array('Faq.block_id' => $block['Block']['id']);
-			if (! $this->deleteAll($conditions)) {
-				throw $exception;
-			}
+			$this->deleteAll($conditions);
 
 			// カテゴリ順の削除
 			$conditions = array('CategoryOrder.block_key' => $block['Block']['key']);
-			if (! $this->CategoryOrder->deleteAll($conditions)) {
-				throw $exception;
-			}
+			$this->CategoryOrder->deleteAll($conditions);
 
 			// カテゴリの削除
 			$conditions = array('Category.block_id' => $block['Block']['id']);
-			if (! $this->Category->deleteAll($conditions)) {
-				throw $exception;
-			}
+			$this->Category->deleteAll($conditions);
 
 			// ブロックの削除
 			if (! $this->Block->delete($block['Block']['id'])) {

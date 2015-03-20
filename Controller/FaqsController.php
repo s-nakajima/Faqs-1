@@ -125,11 +125,12 @@ class FaqsController extends FaqsAppController {
 						'status' => $status,
 					)));
 
-				if (!$faq = $this->Faq->getFaq($faqId, $this->viewVars['blockId'])) {
+				if (!$faq = $this->Faq->getFaq($faqId)) {
 					$faq = $this->Faq->create(['key' => Security::hash('faq' . mt_rand() . microtime(), 'md5')]);
 				}
 				$data = Hash::merge($faq, $data);
-				$this->Faq->saveFaq($data, $this->viewVars['blockId'], $this->viewVars['blockKey']);
+				$data['Block']['key'] = $this->viewVars['blockKey'];
+				$this->Faq->saveFaq($data);
 				if (!$this->__handleValidationError($this->Faq->validationErrors)) {
 					return;
 				}
@@ -224,7 +225,7 @@ class FaqsController extends FaqsAppController {
  */
 	private function __initFaqEdit($faqId = 0) {
 		$results = $this->__getLatest($this->viewVars['blockId']);
-		if (! $faq = $this->Faq->getFaq($faqId, $this->viewVars['blockId'])) {
+		if (! $faq = $this->Faq->getFaq($faqId)) {
 			$faq = $this->Faq->create(['status' => '0']);
 		}
 		$comments = $this->Comment->getComments(
