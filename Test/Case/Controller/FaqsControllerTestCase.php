@@ -1,6 +1,6 @@
 <?php
 /**
- * Faq Model Test Case
+ * FaqsController Test Case
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -9,22 +9,24 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
+App::uses('NetCommonsFrameComponent', 'NetCommons.Controller/Component');
 App::uses('NetCommonsBlockComponent', 'NetCommons.Controller/Component');
 App::uses('NetCommonsRoomRoleComponent', 'NetCommons.Controller/Component');
-App::uses('YACakeTestCase', 'NetCommons.TestSuite');
-App::uses('AuthComponent', 'Component');
+App::uses('YAControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RolesControllerTest', 'Roles.Test/Case/Controller');
+App::uses('AuthGeneralControllerTest', 'AuthGeneral.Test/Case/Controller');
 App::uses('Faq', 'Faqs.Model');
 App::uses('FaqOrder', 'Faqs.Model');
 App::uses('Category', 'Categories.Model');
-App::uses('Block', 'Blocks.Model');
 
 /**
- *Faq Model Test Case
+ * FaqsController Test Case
  *
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
- * @package NetCommons\Faqs\Test\Case\Model
+ * @package NetCommons\Faqs\Test\Case\Controller
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
-class FaqsModelTestCase extends YACakeTestCase {
+class FaqsControllerTestCase extends YAControllerTestCase {
 
 /**
  * Fixtures
@@ -32,18 +34,25 @@ class FaqsModelTestCase extends YACakeTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'site_setting',
+		'plugin.blocks.block_role_permission',
+		'plugin.boxes.boxes_page',
+		'plugin.containers.container',
+		'plugin.containers.containers_page',
 		'plugin.faqs.block',
 		'plugin.faqs.category',
 		'plugin.faqs.categoryOrder',
 		'plugin.faqs.comment',
 		'plugin.faqs.faq',
 		'plugin.faqs.faqOrder',
-		'plugin.faqs.user_attributes_user',
-		'plugin.faqs.user',
 		'plugin.faqs.frame',
 		'plugin.faqs.plugin',
+		'plugin.faqs.user_attributes_user',
+		'plugin.faqs.user',
 		'plugin.frames.box',
 		'plugin.m17n.language',
+		'plugin.m17n.languages_page',
+		'plugin.pages.page',
 		'plugin.rooms.room',
 		'plugin.rooms.roles_rooms_user',
 		'plugin.roles.default_role_permission',
@@ -58,11 +67,7 @@ class FaqsModelTestCase extends YACakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-
-		$this->Faq = ClassRegistry::init('Faqs.Faq');
-		$this->FaqOrder = ClassRegistry::init('Faqs.FaqOrder');
-		$this->Block = ClassRegistry::init('Blocks.Block');
-		$this->Category = ClassRegistry::init('Categories.Category');
+		Configure::write('Config.language', 'ja');
 	}
 
 /**
@@ -71,36 +76,9 @@ class FaqsModelTestCase extends YACakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Faq);
-		unset($this->FaqOrder);
-		unset($this->Block);
-		unset($this->Category);
-
+		Configure::write('Config.language', null);
+		CakeSession::write('Auth.User', null);
 		parent::tearDown();
-	}
-
-/**
- * _assertArray method
- *
- * @param string $key target key
- * @param mixed $value array or string, number
- * @param array $result result data
- * @return void
- */
-	protected function _assertArray($key, $value, $result) {
-		if ($key !== null) {
-			$this->assertArrayHasKey($key, $result);
-			$target = $result[$key];
-		} else {
-			$target = $result;
-		}
-		if (is_array($value)) {
-			foreach ($value as $nextKey => $nextValue) {
-				$this->_assertArray($nextKey, $nextValue, $target);
-			}
-		} elseif (isset($value)) {
-			$this->assertEquals($value, $target, 'key=' . print_r($key, true) . 'value=' . print_r($value, true) . 'result=' . print_r($result, true));
-		}
 	}
 
 /**

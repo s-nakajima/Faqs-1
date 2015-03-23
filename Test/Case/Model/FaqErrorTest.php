@@ -24,16 +24,12 @@ class FaqErrorTest extends FaqsModelTestCase {
  * @return void
  */
 	public function testDeleteFaqByUnknownFaqId() {
+		$this->setExpectedException('InternalErrorException');
+
 		$faqId = 0;
 
-		//対象処理実行
-		$result = $this->Faq->deleteFaq($faqId);
-
-		//期待値の生成
-		$expected = false;
-
-		//テスト実施
-		$this->assertEquals($expected, $result);
+		//処理実行
+		$this->Faq->deleteFaq($faqId);
 	}
 
 /**
@@ -48,7 +44,7 @@ class FaqErrorTest extends FaqsModelTestCase {
 		$faq = $this->Faq->findById($faqId);
 		$this->FaqOrder->delete($faq['FaqOrder']['faq_key']);
 
-		//対象処理実行
+		//処理実行
 		$this->Faq->deleteFaq($faqId);
 	}
 
@@ -70,7 +66,7 @@ class FaqErrorTest extends FaqsModelTestCase {
 		$block = $this->Block->find('first', $options);
 		$this->Block->delete($blockId);
 
-		//対象処理実行
+		//処理実行
 		$this->Faq->deleteBlock($block);
 	}
 }

@@ -66,7 +66,7 @@ class Faq extends FaqsAppModel {
  * @see Model::save()
  */
 	public function beforeValidate($options = array()) {
-		$this->validate = array(
+		$this->validate = Hash::merge($this->validate, array(
 			'block_id' => array(
 				'numeric' => array(
 					'rule' => array('numeric'),
@@ -107,7 +107,7 @@ class Faq extends FaqsAppModel {
 					'required' => true,
 				),
 			),
-		);
+		));
 
 		return parent::beforeValidate($options);
 	}
@@ -261,17 +261,16 @@ class Faq extends FaqsAppModel {
 		// モデル定義
 		$this->loadModels(['FaqOrder' => 'Faqs.FaqOrder']);
 
-		// 対象FAQの情報取得
-		$this->unbindModel(array('belongsTo' => array('Category')));
-		$faq = $this->findById($faqId);
-		if (empty($faq)) {
-			return false;
-		}
-
 		//トランザクションBegin
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
 		try {
+			// 対象FAQの情報取得
+			$this->unbindModel(array('belongsTo' => array('Category')));
+			$faq = $this->findById($faqId);
+			if (empty($faq)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
 
 			// 対象FAQの順序削除
 			$result = $this->FaqOrder->delete($faq['FaqOrder']['faq_key']);

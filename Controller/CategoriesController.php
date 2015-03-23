@@ -36,16 +36,16 @@ class CategoriesController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
-		'Security' => array('validatePost' => false),
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'contentEditable' => array('edit', 'delete'),
+				'contentEditable' => array('edit'),
 			),
 		),
 		'Categories.CategoryAction',
+		'Security' => array('validatePost' => false),
 	);
 
 /**
@@ -56,16 +56,6 @@ class CategoriesController extends FaqsAppController {
 	public $helpers = array(
 		'NetCommons.Token'
 	);
-
-/**
- * index method
- *
- * @param int $frameId frames.id
- * @return CakeResponse A response object containing the rendered view.
- */
-	public function index($frameId = 0) {
-		return $this->edit($frameId);
-	}
 
 /**
  * edit method
