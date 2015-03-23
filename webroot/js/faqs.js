@@ -34,7 +34,6 @@ NetCommonsApp.controller('Faqs',
       $scope.plugin = NetCommonsBase.initUrl('faqs', 'faqs');
 
       $scope.frameId = 0;
-      $scope.manageMode = 0;
       $scope.faqs = {};
       $scope.categoryOptions = {};
       $scope.faq = {};

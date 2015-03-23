@@ -19,11 +19,62 @@ App::uses('FaqsModelTestCase', 'Faqs.Test/Case/Model');
 class FaqValidateErrorTest extends FaqsModelTestCase {
 
 /**
+ * Expect Faq->saveFaq() to validate status
+ *
+ * @return void
+ */
+	public function testSaveFaqByStatus() {
+		//コンテンツの公開権限true
+		$this->Faq->Behaviors->attach('Publishable');
+		$this->Faq->Behaviors->Publishable->setup($this->Faq, ['contentPublishable' => true]);
+
+		//Check項目
+		$checks = array(
+			null, '', -1, 0, 5, 9999, 'abcde', false,
+		);
+
+		//データ生成
+		$data = array(
+			'Faq' => array(
+				'block_id' => '1',
+				'category_id' => '1',
+				'key' => 'faq_new',
+				'status' => NetCommonsBlockComponent::STATUS_APPROVED,
+				'question' => 'q_new',
+				'answer' => 'a_new',
+			),
+			'Comment' => array('comment' => 'Edit comment'),
+			'Block' => array('key' => 'block_1'),
+		);
+
+		//期待値
+		$expected = array(
+			'status' => array(
+				__d('net_commons', 'Invalid request.')
+			)
+		);
+
+		//テスト実施(カラムなし)
+		unset($data['Faq']['status']);
+		$this->__assertSaveFaq('status', $data, $expected);
+
+		//テスト実施
+		foreach ($checks as $check) {
+			$data['Faq']['status'] = $check;
+			$this->__assertSaveFaq('status', $data, $expected);
+		}
+	}
+
+/**
  * Expect Faq->testSaveFaq() by not empty
  *
  * @return void
  */
 	public function testSaveFaqByNotEmpty() {
+		//コンテンツの公開権限true
+		$this->Faq->Behaviors->attach('Publishable');
+		$this->Faq->Behaviors->Publishable->setup($this->Faq, ['contentPublishable' => true]);
+
 		//Checkカラム
 		$fields = array(
 			'key' => __d('net_commons', 'Invalid request.'),
@@ -66,11 +117,50 @@ class FaqValidateErrorTest extends FaqsModelTestCase {
 	}
 
 /**
+ * Expect Faq->saveFaq() by categoryId
+ *
+ * @return void
+ */
+	public function testSaveFaqByCategoryId() {
+		//コンテンツの公開権限true
+		$this->Faq->Behaviors->attach('Publishable');
+		$this->Faq->Behaviors->Publishable->setup($this->Faq, ['contentPublishable' => true]);
+
+		//データ生成
+		$data = array(
+			'Faq' => array(
+				'block_id' => '1',
+				'category_id' => '3',
+				'key' => 'faq_new',
+				'status' => NetCommonsBlockComponent::STATUS_DISAPPROVED,
+				'question' => 'q_new',
+				'answer' => 'a_new',
+			),
+			'Comment' => array('comment' => ''),
+			'Block' => array('key' => 'block_1'),
+		);
+
+		//期待値
+		$expected = array(
+			'category_id' => array(
+				__d('net_commons', 'Invalid request.')
+			)
+		);
+
+		//テスト実施
+		$this->__assertSaveFaq('comment', $data, $expected);
+	}
+
+/**
  * Expect Faq->saveFaq() by comment
  *
  * @return void
  */
 	public function testSaveFaqByComment() {
+		//コンテンツの公開権限true
+		$this->Faq->Behaviors->attach('Publishable');
+		$this->Faq->Behaviors->Publishable->setup($this->Faq, ['contentPublishable' => true]);
+
 		//データ生成
 		$data = array(
 			'Faq' => array(

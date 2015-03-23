@@ -54,7 +54,7 @@
 						)); ?>
 				</div>
 				<?php if ($faqs): ?>
-					<?php echo $this->element('Faqs/list', array('manageMode' => 0)); ?>
+					<?php echo $this->element('Faqs/list'); ?>
 				<?php else: ?>
 					<?php echo __d('faqs', 'FAQ does not exist.'); ?>
 				<?php endif; ?>

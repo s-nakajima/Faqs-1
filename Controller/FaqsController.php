@@ -37,13 +37,13 @@ class FaqsController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
-		'NetCommons.NetCommonsBlock',
+		/* 'NetCommons.NetCommonsBlock', */
 		'NetCommons.NetCommonsFrame',
+		'NetCommons.NetCommonsWorkflow',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'contentEditable' => array('indexLatest', 'indexSetting', 'edit', 'delete'),
-				'contentCreatable' => array('edit', 'delete'),
+				'contentEditable' => array('edit'),
 			),
 		),
 	);
@@ -65,9 +65,6 @@ class FaqsController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function index($frameId = 0, $categoryId = 0) {
-		if (! $this->viewVars['blockId']) {
-			return;
-		}
 		$this->set('categoryId', $categoryId);
 		$this->__initFaq($categoryId);
 	}
@@ -80,10 +77,6 @@ class FaqsController extends FaqsAppController {
  * @return void
  */
 	public function view($frameId = 0, $faqId = 0) {
-		if (! $this->viewVars['contentReadable']) {
-			return;
-		}
-
 		$options = array(
 			'conditions' => array(
 				'Faq.id' => $faqId,
@@ -91,9 +84,10 @@ class FaqsController extends FaqsAppController {
 			),
 		);
 		$faq = $this->Faq->find('first', $options);
-		if (! empty($faq)) {
-			$this->set('faq', $faq);
+		if (! $faq) {
+			return;
 		}
+		$this->set('faq', $faq);
 	}
 
 /**
@@ -101,12 +95,10 @@ class FaqsController extends FaqsAppController {
  *
  * @param int $frameId frames.id
  * @param int $faqId faqs.id
- * @param int $manageMode manage mode
  * @return void
  */
-	public function edit($frameId = 0, $faqId = 0, $manageMode = 0) {
+	public function edit($frameId = 0, $faqId = 0) {
 		$this->__initFaqEdit($faqId);
-		$this->set('manageMode', $manageMode);
 		if ($this->request->isGet()) {
 			CakeSession::write('backUrl', $this->request->referer());
 		}
@@ -115,7 +107,7 @@ class FaqsController extends FaqsAppController {
 			if (isset($this->data['delete'])) {
 				$this->Faq->deleteFaq($faqId);
 			} else {
-				if (!$status = $this->__parseStatus()) {
+				if (!$status = $this->NetCommonsWorkflow->parseStatus()) {
 					return;
 				}
 
@@ -131,7 +123,7 @@ class FaqsController extends FaqsAppController {
 				$data = Hash::merge($faq, $data);
 				$data['Block']['key'] = $this->viewVars['blockKey'];
 				$this->Faq->saveFaq($data);
-				if (!$this->__handleValidationError($this->Faq->validationErrors)) {
+				if (!$this->handleValidationError($this->Faq->validationErrors)) {
 					return;
 				}
 			}
@@ -142,49 +134,6 @@ class FaqsController extends FaqsAppController {
 				$this->redirect($backUrl);
 			}
 		}
-	}
-
-/**
- * Parse content status from request
- *
- * @throws BadRequestException
- * @return mixed status on success, false on error
- */
-	private function __parseStatus() {
-		if ($matches = preg_grep('/^save_\d/', array_keys($this->data))) {
-			list(, $status) = explode('_', array_shift($matches));
-		} else {
-			if ($this->request->is('ajax')) {
-				$this->renderJson(
-					['error' => ['validationErrors' => ['status' => __d('net_commons', 'Invalid request.')]]],
-					__d('net_commons', 'Bad Request'), 400
-				);
-			} else {
-				throw new BadRequestException(__d('net_commons', 'Bad Request'));
-			}
-			return false;
-		}
-
-		return $status;
-	}
-
-/**
- * Handle validation error
- *
- * @param array $errors validation errors
- * @return bool true on success, false on error
- */
-	private function __handleValidationError($errors) {
-		if ($errors) {
-			$this->validationErrors = $errors;
-			if ($this->request->is('ajax')) {
-				$results = ['error' => ['validationErrors' => $errors]];
-				$this->renderJson($results, __d('net_commons', 'Bad Request'), 400);
-			}
-			return false;
-		}
-
-		return true;
 	}
 
 /**

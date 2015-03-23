@@ -68,16 +68,6 @@ class FaqOrdersController extends FaqsAppController {
 	}
 
 /**
- * index method
- *
- * @param int $frameId frames.id
- * @return CakeResponse A response object containing the rendered view.
- */
-	public function index($frameId = 0) {
-		$this->redirect($this->request->referer());
-	}
-
-/**
  * edit method
  *
  * @param int $frameId frames.id
