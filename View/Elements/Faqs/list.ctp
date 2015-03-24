@@ -19,7 +19,7 @@
 				<accordion-heading>
 					<div>
 						<span class="glyphicon glyphicon-question-sign"></span>
-						<a ng-href="/faqs/faqs/view/{{frameId}}/<?php echo $faq['faq']['id'];?>" onClick="return false;">
+						<a ng-href="/faqs/faqs/view/{{frameId}}/<?php echo $faq['faq']['id'];?>" onclick="return false;">
 							<?php echo $faq['faq']['question'];?>
 						</a>
 

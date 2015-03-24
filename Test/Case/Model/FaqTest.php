@@ -208,6 +208,9 @@ class FaqTest extends FaqsModelTestCase {
 		);
 		$block = $this->Block->find('first', $options);
 
+		//初期処理
+		$this->setUp();
+
 		//処理実行
 		$this->Faq->deleteBlock($block);
 
@@ -218,5 +221,8 @@ class FaqTest extends FaqsModelTestCase {
 		$block = $this->Block->find('first', $options);
 		$result = empty($block);
 		$this->assertEquals($expected, $result);
+
+		//終了処理
+		$this->tearDown();
 	}
 }
