@@ -26,9 +26,9 @@
 <div id="nc-faq-container-<?php echo $frameId; ?>"
 	 ng-controller="BlocksController"
 	 ng-init="
-	 	block = <?php echo h(json_encode($block)); ?>;
-	 	categoryList = <?php echo h(json_encode($categoryList)); ?>;
-	 	">
+		block = <?php echo h(json_encode($block)); ?>;
+		categoryList = <?php echo h(json_encode($categoryList)); ?>;
+		">
 
 	<?php echo $this->Form->create(null, array(
 			'name' => 'FaqBlockForm' . $frameId,
@@ -65,18 +65,21 @@
 						</span>
 						<div class="pull-right">
 							<a class="btn btn-xs btn-primary"
-							   href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/categories/edit/' . $frameId . '/' . $block['id']);?>">
+							   href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/categories/edit/' . $frameId . '/' . (int)$block['id']);?>">
 								<span class="glyphicon glyphicon-edit"></span>
 							</a>
 						</div>
 					</div>
 					<div class="panel-body">
-						<span ng-hide="categoryList.length">
+						<?php if(count($categoryList)): ?>
+							<?php
+								foreach($categoryList as $category){
+									echo $category['category']['name'] . __d('categories', ', ');
+								}
+							 ?>
+						<?php else: ?>
 							<?php echo __d('categories', 'No category.'); ?>
-						</span>
-						<span ng-repeat="c in categoryList">
-							<span ng-bind="c.category.name"></span>,
-						</span>
+						<?php endif; ?>
 					</div>
 				</div>
 
@@ -89,7 +92,8 @@
 						<div class="inline-block">
 							<strong>
 								<?php echo __d('blocks', 'Delete Block'); ?>
-							</strong><br/>
+							</strong>
+							<br/>
 							<?php echo sprintf(__d('blocks', 'Delete all data associated with %s.'), $block['name']); ?>
 						</div>
 						<?php echo $this->Form->button(

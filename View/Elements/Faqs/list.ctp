@@ -32,7 +32,7 @@
 							'<?php echo CakeSession::read('Auth.User.id'); ?>' == faq.faq.createdUser">
 					<div class="text-right">
 						<a class="btn btn-xs btn-primary"
-						   href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId . '/' . $faq['faq']['id']); ?>">
+						   href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId . '/' . (int)$faq['faq']['id']); ?>">
 							<span class="glyphicon glyphicon-edit"></span>
 						</a>
 					</div>

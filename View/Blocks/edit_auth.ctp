@@ -25,14 +25,18 @@
 	<div class="panel panel-default" >
 		<div class="panel-body has-feedback">
 			<div class="form-group">
-				<label>
-					<?php echo __d('blocks', 'Article'); ?>
-				</label><br/>
+				<div>
+					<label>
+						<?php echo __d('blocks', 'Article'); ?>
+					</label>
+				</div>
 				<div class="well well-sm" style="background-color:transparent">
 					<div>
-						<label>
-							<?php echo __d('blocks', 'Author'); ?>
-						</label><br/>
+						<div>
+							<label>
+								<?php echo __d('blocks', 'Author'); ?>
+							</label>
+						</div>
 						<?php echo $this->Form->input('data[content_creatable][room_admin]',
 							array(
 								'type' => 'checkbox',
@@ -77,9 +81,11 @@
 							));?>
 					</div>
 					<div>
-						<label>
-							<?php echo __d('blocks', 'Approval'); ?>
-						</label><br/>
+						<div>
+							<label>
+								<?php echo __d('blocks', 'Approval'); ?>
+							</label>
+						</div>
 						<label style="font-weight:normal">
 							<input type="radio" name="publishContents" ng-model="publishContents" ng-value="1">
 							<?php echo __d('blocks', 'Used'); ?>
@@ -91,9 +97,11 @@
 					</div>
 					<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 						<fieldset ng-disabled="! publishContents" collapse="! publishContents">
-							<label>
-								<?php echo __d('blocks', 'Approver'); ?>
-							</label><br/>
+							<div>
+								<label>
+									<?php echo __d('blocks', 'Approver'); ?>
+								</label>
+							</div>
 							<?php echo $this->Form->input('data[publishContents][room_admin]',
 								array(
 									'type' => 'checkbox',
@@ -120,14 +128,18 @@
 			</div>
 
 			<div class="form-group">
-				<label>
-					<?php echo __d('blocks', 'Comment'); ?>
-				</label><br/>
+				<div>
+					<label>
+						<?php echo __d('blocks', 'Comment'); ?>
+					</label>
+				</div>
 				<div class="well well-sm" style="background-color:transparent">
 					<div>
-						<label>
-							<?php echo __d('blocks', 'Author'); ?>
-						</label><br/>
+						<div>
+							<label>
+								<?php echo __d('blocks', 'Author'); ?>
+							</label>
+						</div>
 						<?php echo $this->Form->input('data[comment_creatable][room_admin]',
 							array(
 								'type' => 'checkbox',
@@ -182,9 +194,11 @@
 							));?>
 					</div>
 					<div>
-						<label>
-							<?php echo __d('blocks', 'Approval'); ?>
-						</label><br/>
+						<div>
+							<label>
+								<?php echo __d('blocks', 'Approval'); ?>
+							</label>
+						</div>
 						<label style="font-weight:normal">
 							<input type="radio" name="publishComments" ng-model="publishComments" ng-value="1">
 							<?php echo __d('blocks', 'Used'); ?>
@@ -196,9 +210,11 @@
 					</div>
 					<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
 						<fieldset ng-disabled="! publishComments" collapse="! publishComments">
-							<label>
-								<?php echo __d('blocks', 'Approver'); ?>
-							</label><br/>
+							<div>
+								<label>
+									<?php echo __d('blocks', 'Approver'); ?>
+								</label>
+							</div>
 							<?php echo $this->Form->input('data[publishComments][room_admin]',
 								array(
 									'type' => 'checkbox',
@@ -226,18 +242,22 @@
 
 			<div class="form-group">
 				<div>
-					<label>
-						<?php echo __d('blocks', 'Email Notification'); ?>
-					</label><br/>
+					<div>
+						<label>
+							<?php echo __d('blocks', 'Email Notification'); ?>
+						</label>
+					</div>
 					<label style="font-weight:normal">
 						<input type="checkbox" name="mail" ng-model="sendMail">
 						<?php echo __d('blocks', 'Notify the registration by email'); ?>
 					</label>
 				</div>
 				<div collapse="! sendMail" class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-					<label>
-						<?php echo __d('blocks', 'Destination'); ?>
-					</label><br/>
+					<div>
+						<label>
+							<?php echo __d('blocks', 'Destination'); ?>
+						</label>
+					</div>
 					<?php echo $this->Form->input('data[send_mail][room_admin]',
 						array(
 							'type' => 'checkbox',

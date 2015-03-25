@@ -22,7 +22,6 @@
 			 ng-controller="Faqs"
 			 ng-init="initFaq(
 				<?php echo h(json_encode($frameId)); ?>,
-				<?php echo h(json_encode($categoryOptions)); ?>,
 				<?php echo h(json_encode($categoryId)); ?>
 				)">
 
@@ -34,7 +33,7 @@
 
 					<?php if ($contentEditable) : ?>
 					<a class="btn btn-primary" href="<?php echo $this->Html->url('/faqs/faqOrders/edit/' . $frameId) ?>">
-						<span class="glyphicon glyphicon-sort"></span>
+						<span class="glyphicon glyphicon-cog"></span>
 					</a>
 					<?php endif; ?>
 				</p>
@@ -47,9 +46,9 @@
 							'label' => false,
 							'type' => 'select',
 							'class' => 'form-control',
-							'empty' => __d('categories', 'Select Category'),
-							'ng-model' => 'selectedCategory',
-							'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
+							'empty' => array(0 => __d('categories', 'Select Category')),
+							'options' => $categoryOptions,
+							'ng-model' => 'selectedCategoryId',
 							'ng-change' => 'selectCategory()',
 						)); ?>
 				</div>
