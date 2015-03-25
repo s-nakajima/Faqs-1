@@ -15,13 +15,15 @@
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
 	echo $this->Html->script('/blocks/js/blocks.js', false);
+
+	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
 
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
 
 <div class="text-right">
 	<a  class="btn btn-sm btn-success"
-		href="<?php echo $this->Html->url('/faqs/blocks/edit/' . $frame['id']);?>">
+		href="<?php echo $this->Html->url('/faqs/blocks/edit/' . $frameId);?>">
 
 		<span class="glyphicon glyphicon-plus"></span>
 	</a>
@@ -34,21 +36,21 @@
 		frameId = <?php echo h(json_encode($frameId)); ?>;
 	 ">
 
-	<table class="table table-striped" style="margin-bottom:0px">
+	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th style="min-width:35px;"></th>
-				<th style="min-width:100px;">
+				<th></th>
+				<th>
 					<a href="#" ng-click="orderBlock('block.name')">
 						<?php echo __d('blocks', 'Name'); ?>
 					</a>
 				</th>
-				<th style="min-width:110px;">
+				<th>
 					<a href="#" ng-click="orderBlock('block.publicType')">
 						<?php echo __d('blocks', 'Public Type'); ?>
 					</a>
 				</th>
-				<th style="min-width:100px;">
+				<th>
 					<a href="#" ng-click="orderBlock('block.modified')">
 						<?php echo __d('net_commons', 'Updated Date'); ?>
 					</a>
@@ -77,19 +79,20 @@
 						)); ?>
 				</td>
 				<td>
-					<div style="width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-						<a href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/blocks/edit/' . $frame['id'] . '/{{block.block.id}}');?>" ng-bind="block.block.name"></a>
+					<div>
+						<a href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/blocks/edit/' . $frameId . '/{{block.block.id}}');?>" ng-bind="block.block.name"></a>
 					</div>
 				</td>
 				<td>
+
 					<div ng-switch on="block.block.publicType">
-						<span ng-switch-when="0">
+						<span ng-switch-when="<?php echo Block::TYPE_PRIVATE; ?>">
 							<?php echo __d('blocks', 'Private'); ?>
 						</span>
-						<span ng-switch-when="1">
+						<span ng-switch-when="<?php echo Block::TYPE_PUBLIC; ?>">
 							<?php echo __d('blocks', 'Public'); ?>
 						</span>
-						<span ng-switch-when="2">
+						<span ng-switch-when="<?php echo Block::TYPE_LIMITED_PUBLIC; ?>">
 							<?php echo __d('blocks', 'Limited Public'); ?>
 						</span>
 					</div>

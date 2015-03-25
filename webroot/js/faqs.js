@@ -35,35 +35,20 @@ NetCommonsApp.controller('Faqs',
 
       $scope.frameId = 0;
       $scope.faqs = {};
-      $scope.categoryOptions = {};
       $scope.faq = {};
-      $scope.selectedCategory = null;
+      $scope.selectedCategoryId = 0;
 
-      $scope.initFaq = function(frameId, categoryOptions, categoryId) {
+      $scope.initFaq = function(frameId, categoryId) {
         $scope.frameId = frameId;
-        $scope.categoryOptions = categoryOptions;
-
-        if (categoryId) {
-          angular.forEach(categoryOptions, function(opt) {
-            if (categoryId == opt.category.id) {
-              $scope.selectedCategory = opt;
-            }
-          });
-        }
+        $scope.selectedCategoryId = categoryId;
       };
 
       $scope.initFaqEdit = function(data) {
         $scope.frameId = data.frameId;
-        $scope.faqs = data.faqs;
-        $scope.categoryOptions = data.categoryOptions;
         $scope.faq = data.faq;
-
-        if (data.faq.faq.categoryId) {
-          angular.forEach(data.categoryOptions, function(opt) {
-            if (data.faq.faq.categoryId == opt.category.id) {
-              $scope.selectedCategory = opt;
-            }
-          });
+        var categoryId = data.faq.faq.categoryId;
+        if (angular.isDefined(categoryId)) {
+          $scope.selectedCategoryId = categoryId;
         }
       };
 
@@ -74,8 +59,8 @@ NetCommonsApp.controller('Faqs',
 
       $scope.selectCategory = function() {
         var url = '/faqs/faqs/index/' + $scope.frameId;
-        if ($scope.selectedCategory) {
-          url += '/' + $scope.selectedCategory.category.id;
+        if ($scope.selectedCategoryId) {
+          url += '/' + $scope.selectedCategoryId;
         }
         $window.location.href = url;
       };
