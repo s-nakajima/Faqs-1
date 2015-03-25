@@ -10,7 +10,7 @@
  */
 ?>
 
-<div style="margin-bottom:10px">
+<div class="nc-faqs-tab">
 	<ul class="nav nav-tabs">
 		<li role="presentation" class="<?php echo ($tab === 'block') ? 'active' : ''; ?>">
 			<a href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/blocks/index/' . $frameId);?>">

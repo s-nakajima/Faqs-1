@@ -15,6 +15,8 @@
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
 	echo $this->Html->script('/blocks/js/blocks.js', false);
+
+	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
 
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
@@ -77,19 +79,20 @@
 						)); ?>
 				</td>
 				<td>
-					<div style="width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+					<div>
 						<a href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/blocks/edit/' . $frameId . '/{{block.block.id}}');?>" ng-bind="block.block.name"></a>
 					</div>
 				</td>
 				<td>
+
 					<div ng-switch on="block.block.publicType">
-						<span ng-switch-when="0">
+						<span ng-switch-when="<?php echo Block::TYPE_PRIVATE; ?>">
 							<?php echo __d('blocks', 'Private'); ?>
 						</span>
-						<span ng-switch-when="1">
+						<span ng-switch-when="<?php echo Block::TYPE_PUBLIC; ?>">
 							<?php echo __d('blocks', 'Public'); ?>
 						</span>
-						<span ng-switch-when="2">
+						<span ng-switch-when="<?php echo Block::TYPE_LIMITED_PUBLIC; ?>">
 							<?php echo __d('blocks', 'Limited Public'); ?>
 						</span>
 					</div>

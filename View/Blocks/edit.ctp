@@ -15,6 +15,8 @@
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
 	echo $this->Html->script('/blocks/js/blocks.js', false);
+
+	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
 
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
@@ -27,7 +29,6 @@
 	 ng-controller="BlocksController"
 	 ng-init="
 		block = <?php echo h(json_encode($block)); ?>;
-		categoryList = <?php echo h(json_encode($categoryList)); ?>;
 		">
 
 	<?php echo $this->Form->create(null, array(
@@ -44,13 +45,15 @@
 						<?php echo __d('blocks', 'Like'); ?>
 					</label>
 					<div>
-						<label style="font-weight:normal"><input type="checkbox" ng-model="isVote">
+						<label class="nc-faqs-font-normal">
+							<input type="checkbox" ng-model="isVote">
 							<span class="glyphicon glyphicon-thumbs-up"></span>
 							<?php echo __d('blocks', 'Use like.'); ?>
 						</label>
 					</div>
 					<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-						<label style="font-weight:normal"><input type="checkbox" ng-model="isVoteUnLike" ng-disabled="! isVote">
+						<label class="nc-faqs-font-normal">
+							<input type="checkbox" ng-model="isVoteUnLike" ng-disabled="! isVote">
 							<span class="glyphicon glyphicon-thumbs-down"></span>
 							<?php echo __d('blocks', 'Also use dislike.'); ?>
 						</label>

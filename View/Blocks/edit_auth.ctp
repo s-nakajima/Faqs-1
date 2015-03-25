@@ -14,6 +14,8 @@
 	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
+
+	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
 
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
@@ -30,7 +32,7 @@
 						<?php echo __d('blocks', 'Article'); ?>
 					</label>
 				</div>
-				<div class="well well-sm" style="background-color:transparent">
+				<div class="well well-sm" class="nc-faqs-transparent">
 					<div>
 						<div>
 							<label>
@@ -42,7 +44,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Room Administrator'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'checked' => true,
 								'div' => false,
@@ -53,7 +55,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Chief Editor'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'checked' => true,
 								'div' => false,
@@ -64,7 +66,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Editor'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'checked' => true,
 								'div' => false,
@@ -75,7 +77,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'General User'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'div' => false,
 							));?>
@@ -86,11 +88,11 @@
 								<?php echo __d('blocks', 'Approval'); ?>
 							</label>
 						</div>
-						<label style="font-weight:normal">
+						<label class="nc-faqs-font-normal">
 							<input type="radio" name="publishContents" ng-model="publishContents" ng-value="1">
 							<?php echo __d('blocks', 'Used'); ?>
 						</label>
-						<label style="font-weight:normal">
+						<label class="nc-faqs-font-normal">
 							<input type="radio" name="publishContents" ng-model="publishContents" ng-value="0" ng-init="publishContents = 0">
 							<?php echo __d('blocks', 'Unused'); ?>
 						</label>
@@ -107,7 +109,7 @@
 									'type' => 'checkbox',
 									'label' => array(
 										'text' => __d('net_commons', 'Room Administrator'),
-										'style' => 'font-weight:normal',
+										'class' => 'nc-faqs-font-normal',
 									),
 									'div' => false,
 									'checked' => true,
@@ -117,7 +119,7 @@
 									'type' => 'checkbox',
 									'label' => array(
 										'text' => __d('net_commons', 'Chief Editor'),
-										'style' => 'font-weight:normal',
+										'class' => 'nc-faqs-font-normal',
 									),
 									'div' => false,
 									'checked' => true,
@@ -133,7 +135,7 @@
 						<?php echo __d('blocks', 'Comment'); ?>
 					</label>
 				</div>
-				<div class="well well-sm" style="background-color:transparent">
+				<div class="well well-sm" class="nc-faqs-transparent">
 					<div>
 						<div>
 							<label>
@@ -145,7 +147,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Room Administrator'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'checked' => true,
 								'div' => false,
@@ -156,7 +158,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Chief Editor'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'checked' => true,
 								'div' => false,
@@ -167,7 +169,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Editor'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'checked' => true,
 								'div' => false,
@@ -178,7 +180,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'General User'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'div' => false,
 							));?>
@@ -188,7 +190,7 @@
 								'type' => 'checkbox',
 								'label' => array(
 									'text' => __d('net_commons', 'Guests'),
-									'style' => 'font-weight:normal',
+									'class' => 'nc-faqs-font-normal',
 								),
 								'div' => false,
 							));?>
@@ -199,11 +201,11 @@
 								<?php echo __d('blocks', 'Approval'); ?>
 							</label>
 						</div>
-						<label style="font-weight:normal">
+						<label class="nc-faqs-font-normal">
 							<input type="radio" name="publishComments" ng-model="publishComments" ng-value="1">
 							<?php echo __d('blocks', 'Used'); ?>
 						</label>
-						<label style="font-weight:normal">
+						<label class="nc-faqs-font-normal">
 							<input type="radio" name="publishComments" ng-model="publishComments" ng-value="0" ng-init="publishComments = 0">
 							<?php echo __d('blocks', 'Unused'); ?>
 						</label>
@@ -220,7 +222,7 @@
 									'type' => 'checkbox',
 									'label' => array(
 										'text' => __d('net_commons', 'Room Administrator'),
-										'style' => 'font-weight:normal',
+										'class' => 'nc-faqs-font-normal',
 									),
 									'div' => false,
 									'checked' => true,
@@ -230,7 +232,7 @@
 									'type' => 'checkbox',
 									'label' => array(
 										'text' => __d('net_commons', 'Chief Editor'),
-										'style' => 'font-weight:normal',
+										'class' => 'nc-faqs-font-normal',
 									),
 									'div' => false,
 									'checked' => true,
@@ -247,7 +249,7 @@
 							<?php echo __d('blocks', 'Email Notification'); ?>
 						</label>
 					</div>
-					<label style="font-weight:normal">
+					<label class="nc-faqs-font-normal">
 						<input type="checkbox" name="mail" ng-model="sendMail">
 						<?php echo __d('blocks', 'Notify the registration by email'); ?>
 					</label>
@@ -263,7 +265,7 @@
 							'type' => 'checkbox',
 							'label' => array(
 								'text' => __d('net_commons', 'Room Administrator'),
-								'style' => 'font-weight:normal',
+								'class' => 'nc-faqs-font-normal',
 							),
 							'div' => false,
 						));?>
@@ -273,7 +275,7 @@
 							'type' => 'checkbox',
 							'label' => array(
 								'text' => __d('net_commons', 'Chief Editor'),
-								'style' => 'font-weight:normal',
+								'class' => 'nc-faqs-font-normal',
 							),
 							'div' => false,
 						));?>
@@ -283,7 +285,7 @@
 							'type' => 'checkbox',
 							'label' => array(
 								'text' => __d('net_commons', 'Editor'),
-								'style' => 'font-weight:normal',
+								'class' => 'nc-faqs-font-normal',
 							),
 							'div' => false,
 						));?>
@@ -293,7 +295,7 @@
 							'type' => 'checkbox',
 							'label' => array(
 								'text' => __d('net_commons', 'General User'),
-								'style' => 'font-weight:normal',
+								'class' => 'nc-faqs-font-normal',
 							),
 							'div' => false,
 						));?>
