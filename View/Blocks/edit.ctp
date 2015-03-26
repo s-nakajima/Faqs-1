@@ -11,10 +11,12 @@
 ?>
 
 <?php
+	echo $this->Html->script('/net_commons/base/js/workflow.js', false);
+	echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false);
 	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
-	echo $this->Html->script('/blocks/js/blocks.js', false);
+	echo $this->Html->script('/faqs/js/faqs.js', false);
 
 	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
@@ -26,10 +28,8 @@
 <?php endif; ?>
 
 <div id="nc-faq-container-<?php echo $frameId; ?>"
-	 ng-controller="BlocksController"
-	 ng-init="
-		block = <?php echo h(json_encode($block)); ?>;
-		">
+	 ng-controller="Faqs"
+	 ng-init="block = <?php echo h(json_encode($block)); ?>;">
 
 	<?php echo $this->Form->create(null, array(
 			'name' => 'FaqBlockForm' . $frameId,
@@ -38,7 +38,7 @@
 
 		<div class="panel panel-default" >
 			<div class="panel-body has-feedback">
-				<?php echo $this->element('Blocks.edit_form', array('nameLabel' => __d('faqs', 'FAQ Name'))); ?>
+				<?php echo $this->element('Blocks/edit_form', array('nameLabel' => __d('faqs', 'FAQ Name'))); ?>
 
 				<div class="form-group">
 					<label>
@@ -76,10 +76,10 @@
 					<div class="panel-body">
 						<?php if(count($categoryList)): ?>
 							<?php
-								foreach($categoryList as $category){
+								foreach ($categoryList as $category) {
 									echo $category['category']['name'] . __d('categories', ', ');
 								}
-							 ?>
+							?>
 						<?php else: ?>
 							<?php echo __d('categories', 'No category.'); ?>
 						<?php endif; ?>
