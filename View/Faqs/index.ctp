@@ -15,12 +15,12 @@
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
 <?php if ($contentPublishable) : ?>
-<p class="text-right">
-	<a class="btn btn-default"
-		href="<?php echo $this->Html->url('/faqs/blocks/index/' . $frameId);?>">
-		<span class="glyphicon glyphicon-cog"></span>
-	</a>
-</p>
+	<p class="text-right">
+		<a class="btn btn-default"
+			href="<?php echo $this->Html->url('/faqs/blocks/index/' . $frameId);?>">
+			<span class="glyphicon glyphicon-cog"></span>
+		</a>
+	</p>
 <?php endif; ?>
 <?php if(! $blockKey): ?>
 	<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
