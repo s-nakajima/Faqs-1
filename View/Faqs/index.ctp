@@ -14,6 +14,14 @@
 <?php echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false); ?>
 <?php echo $this->Html->script('/faqs/js/faqs.js'); ?>
 
+<?php if ($contentPublishable) : ?>
+	<p class="text-right">
+		<a class="btn btn-default"
+			href="<?php echo $this->Html->url('/faqs/blocks/index/' . $frameId);?>">
+			<span class="glyphicon glyphicon-cog"></span>
+		</a>
+	</p>
+<?php endif; ?>
 <?php if(! $blockKey): ?>
 	<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
 <?php else: ?>
@@ -26,14 +34,6 @@
 				)">
 
 			<?php if ($contentCreatable) : ?>
-				<?php if ($contentPublishable) : ?>
-				<p class="text-right">
-					<a class="btn btn-default"
-						href="<?php echo $this->Html->url('/faqs/blocks/index/' . $frameId);?>">
-						<span class="glyphicon glyphicon-cog"></span>
-					</a>
-				</p>
-				<?php endif; ?>
 				<p class="text-right">
 					<a class="btn btn-success" href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId) ?>">
 						<span class="glyphicon glyphicon-plus"></span>

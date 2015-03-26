@@ -43,18 +43,18 @@ NetCommonsApp.controller('Faqs',
         $scope.selectedCategoryId = categoryId;
       };
 
-      $scope.initFaqEdit = function(data) {
-        $scope.frameId = data.frameId;
-        $scope.faq = data.faq;
-        var categoryId = data.faq.faq.categoryId;
+      $scope.initFaqEdit = function(frameId, faq) {
+        $scope.frameId = frameId;
+        $scope.faq = faq;
+        var categoryId = faq.faq.categoryId;
         if (angular.isDefined(categoryId)) {
           $scope.selectedCategoryId = categoryId;
         }
       };
 
-      $scope.initFaqOrder = function(data) {
-        $scope.frameId = data.frameId;
-        $scope.faqs = data.faqs;
+      $scope.initFaqOrder = function(frameId, faqs) {
+        $scope.frameId = frameId;
+        $scope.faqs = faqs;
       };
 
       $scope.selectCategory = function() {
