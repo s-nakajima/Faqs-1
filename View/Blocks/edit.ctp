@@ -40,26 +40,6 @@
 			<div class="panel-body has-feedback">
 				<?php echo $this->element('Blocks/edit_form', array('nameLabel' => __d('faqs', 'FAQ Name'))); ?>
 
-				<div class="form-group">
-					<label>
-						<?php echo __d('blocks', 'Like'); ?>
-					</label>
-					<div>
-						<label class="nc-faqs-font-normal">
-							<input type="checkbox" ng-model="isVote">
-							<span class="glyphicon glyphicon-thumbs-up"></span>
-							<?php echo __d('blocks', 'Use like.'); ?>
-						</label>
-					</div>
-					<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-						<label class="nc-faqs-font-normal">
-							<input type="checkbox" ng-model="isVoteUnLike" ng-disabled="! isVote">
-							<span class="glyphicon glyphicon-thumbs-down"></span>
-							<?php echo __d('blocks', 'Also use dislike.'); ?>
-						</label>
-					</div>
-				</div>
-
 				<?php if ($block['id']) : ?>
 				<div class="panel panel-default">
 					<div class="panel-heading clearfix">

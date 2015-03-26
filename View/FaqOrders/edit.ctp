@@ -16,32 +16,39 @@
 
 <div id="nc-faqs-<?php echo $frameId; ?>"
 	 ng-controller="Faqs"
-	 ng-init="initFaqOrder(<?php echo h(json_encode($this->viewVars)); ?>)">
+	 ng-init="initFaqOrder(
+		<?php echo h(json_encode($frameId)); ?>,
+		<?php echo h(json_encode($faqs)); ?>
+		)">
 
 	<?php echo $this->Form->create('Faq', array('name' => 'faqOrderForm', 'novalidate' => true)); ?>
 		<div class="panel panel-default" >
 			<div class="panel-body has-feedback">
 
-				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="faq in faqs track by $index" ng-cloak>
-						<div class="row">
-							<div class="col-md-2 col-sm-2 col-xs-2">
-								<button class="btn btn-default btn-sm"
-										ng-click="sortFaq('up', $index)" ng-disabled="$first" onclick="return false;">
-									<span class="glyphicon glyphicon-arrow-up"></span>
-								</button>
-								<button class="btn btn-default btn-sm"
-										ng-click="sortFaq('down', $index)" ng-disabled="$last" onclick="return false;">
-									<span class="glyphicon glyphicon-arrow-down"></span>
-								</button>
+				<?php if(! count($faqs)): ?>
+					<?php echo __d('faqs', 'FAQ does not exist.'); ?>
+				<?php else: ?>
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="faq in faqs track by $index" ng-cloak>
+							<div class="row">
+								<div class="col-md-2 col-sm-2 col-xs-2">
+									<button class="btn btn-default btn-sm"
+											ng-click="sortFaq('up', $index)" ng-disabled="$first" onclick="return false;">
+										<span class="glyphicon glyphicon-arrow-up"></span>
+									</button>
+									<button class="btn btn-default btn-sm"
+											ng-click="sortFaq('down', $index)" ng-disabled="$last" onclick="return false;">
+										<span class="glyphicon glyphicon-arrow-down"></span>
+									</button>
+								</div>
+								<div class="col-md-10 col-sm-10 col-xs-10">
+									<?php echo $this->Form->hidden('', array('name' => 'data[{{$index}}][FaqOrder][faq_key]', 'ng-value' => 'faq.faqOrder.faqKey')); ?>
+									{{faq.faq.question}}
+								</div>
 							</div>
-							<div class="col-md-10 col-sm-10 col-xs-10">
-								<?php echo $this->Form->hidden('', array('name' => 'data[{{$index}}][FaqOrder][faq_key]', 'ng-value' => 'faq.faqOrder.faqKey')); ?>
-								{{faq.faq.question}}
-							</div>
-						</div>
-					</li>
-				</ul>
+						</li>
+					</ul>
+				<?php endif; ?>
 
 			</div>
 
