@@ -26,6 +26,14 @@
 				)">
 
 			<?php if ($contentCreatable) : ?>
+				<?php if ($contentPublishable) : ?>
+				<p class="text-right">
+					<a class="btn btn-default"
+						href="<?php echo $this->Html->url('/faqs/blocks/index/' . $frameId);?>">
+						<span class="glyphicon glyphicon-cog"></span>
+					</a>
+				</p>
+				<?php endif; ?>
 				<p class="text-right">
 					<a class="btn btn-success" href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId) ?>">
 						<span class="glyphicon glyphicon-plus"></span>

@@ -60,6 +60,7 @@ class FaqsModelTestCase extends YACakeTestCase {
 		parent::setUp();
 
 		$this->Faq = ClassRegistry::init('Faqs.Faq');
+		$this->FaqBlock = ClassRegistry::init('Faqs.FaqBlock');
 		$this->FaqOrder = ClassRegistry::init('Faqs.FaqOrder');
 		$this->Block = ClassRegistry::init('Blocks.Block');
 		$this->Category = ClassRegistry::init('Categories.Category');

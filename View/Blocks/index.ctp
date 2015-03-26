@@ -11,10 +11,12 @@
 ?>
 
 <?php
+	echo $this->Html->script('/net_commons/base/js/workflow.js', false);
+	echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false);
 	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
-	echo $this->Html->script('/blocks/js/blocks.js', false);
+	echo $this->Html->script('/faqs/js/faqs.js', false);
 
 	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
@@ -30,10 +32,11 @@
 </div>
 
 <div id="nc-faq-container-<?php echo $frameId; ?>"
-	 ng-controller="BlocksController"
+	 ng-controller="Faqs"
 	 ng-init="
 		blocks = <?php echo h(json_encode($blocks)); ?>;
 		frameId = <?php echo h(json_encode($frameId)); ?>;
+		selectedBlockId = <?php echo h(json_encode($blockId)); ?>;
 	 ">
 
 	<table class="table table-striped">
@@ -62,7 +65,6 @@
 					'name' => 'BlockForm' . $frameId,
 					'novalidate' => true,
 				)); ?>
-
 			<tr ng-repeat="block in blocks | orderBy:orderByField:isOrderDesc">
 				<td>
 					<?php echo $this->Form->input('Block.id',
@@ -73,32 +75,31 @@
 							'div' => false,
 							'legend' => false,
 							'checked' => true,
-							'ng-value' => 'block.block.id',
-							'ng-click' => 'setBlock(frameId, block.block.id);',
-							'ng-checked' => 'block.block.id === frame.blockId',
+							'ng-value' => 'block.faqBlock.id',
+							'ng-click' => 'setBlock(frameId, block.faqBlock.id);',
+							'ng-checked' => 'block.faqBlock.id === selectedBlockId',
 						)); ?>
 				</td>
 				<td>
 					<div>
-						<a href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/blocks/edit/' . $frameId . '/{{block.block.id}}');?>" ng-bind="block.block.name"></a>
+						<a href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/blocks/edit/' . $frameId . '/{{block.faqBlock.id}}');?>" ng-bind="block.faqBlock.name"></a>
 					</div>
 				</td>
 				<td>
-
-					<div ng-switch on="block.block.publicType">
-						<span ng-switch-when="<?php echo Block::TYPE_PRIVATE; ?>">
+					<div ng-switch on="block.faqBlock.publicType">
+						<span ng-switch-when="<?php echo FaqBlock::TYPE_PRIVATE; ?>">
 							<?php echo __d('blocks', 'Private'); ?>
 						</span>
-						<span ng-switch-when="<?php echo Block::TYPE_PUBLIC; ?>">
+						<span ng-switch-when="<?php echo FaqBlock::TYPE_PUBLIC; ?>">
 							<?php echo __d('blocks', 'Public'); ?>
 						</span>
-						<span ng-switch-when="<?php echo Block::TYPE_LIMITED_PUBLIC; ?>">
+						<span ng-switch-when="<?php echo FaqBlock::TYPE_LIMITED_PUBLIC; ?>">
 							<?php echo __d('blocks', 'Limited Public'); ?>
 						</span>
 					</div>
 				</td>
 				<td>
-					<span ng-bind="parseDate(block.block.modified) | date: 'yyyy/MM/dd'"></span>
+					<span ng-bind="parseDate(block.faqBlock.modified) | date: 'yyyy/MM/dd'"></span>
 				</td>
 			</tr>
 

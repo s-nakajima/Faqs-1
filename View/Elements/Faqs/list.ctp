@@ -23,7 +23,8 @@
 							<?php echo $faq['faq']['question'];?>
 						</a>
 
-						<?php echo $this->element('Faqs/content_status'); ?>
+						<?php echo $this->element('NetCommons.status_label',
+								array('status' => $faq['faq']['status'])); ?>
 					</div>
 				</accordion-heading>
 
