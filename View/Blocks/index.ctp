@@ -31,9 +31,10 @@
 	</a>
 </div>
 
-<?php if(! count($blocks)): ?>
-	<?php echo __d('faqs', 'Currently FAQ has not been created.'); ?>
-<?php else: ?>
+	<?php if (! count($blocks)) : ?>
+		<?php echo __d('faqs', 'Currently FAQ has not been created.'); ?>
+
+	<?php else : ?>
 		<div id="nc-faq-container-<?php echo $frameId; ?>"
 			 ng-controller="Faqs"
 			 ng-init="
@@ -114,4 +115,4 @@
 			</div>
 
 		</div>
-<?php endif;
+	<?php endif;

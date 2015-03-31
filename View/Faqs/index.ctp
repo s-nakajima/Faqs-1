@@ -22,9 +22,10 @@
 		</a>
 	</p>
 <?php endif; ?>
-<?php if(! $blockKey): ?>
-	<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
-<?php else: ?>
+
+	<?php if(! $blockKey): ?>
+		<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
+	<?php else: ?>
 
 		<div id="nc-faqs-<?php echo $frameId; ?>"
 			 ng-controller="Faqs"
@@ -68,4 +69,4 @@
 			</div>
 		</div>
 
-<?php endif;
+	<?php endif;
