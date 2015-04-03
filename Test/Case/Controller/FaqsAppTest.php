@@ -29,7 +29,7 @@ class FaqsAppTest extends YAControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'site_setting',
+		'plugin.net_commons.site_setting',
 		'plugin.faqs.faq',
 		'plugin.faqs.faqOrder',
 		'plugin.faqs.category',
