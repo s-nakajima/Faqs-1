@@ -10,9 +10,9 @@
  */
 ?>
 
-<?php if (! isset($faq)) : ?>
-	<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
-<?php else : ?>
+	<?php if (! isset($faq)) : ?>
+		<?php echo __d('faqs', 'Currently FAQ has not been published.'); ?>
+	<?php else : ?>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<span class="glyphicon glyphicon-question-sign"></span>
@@ -22,4 +22,4 @@
 				<p><?php echo $faq['Faq']['answer'] ?></p>
 			</div>
 		</div>
-<?php endif;
+	<?php endif;

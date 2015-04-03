@@ -16,7 +16,10 @@
 
 <div id="nc-faqs-<?php echo $frameId; ?>"
 	 ng-controller="Faqs"
-	 ng-init="initFaqEdit(<?php echo h(json_encode($this->viewVars)); ?>)">
+	 ng-init="initFaqEdit(
+		<?php echo h(json_encode($frameId)); ?>,
+		<?php echo h(json_encode($faq)); ?>
+		)">
 
 	<?php echo $this->Form->create('Faq', array(
 			'name' => 'FaqForm' . $frameId,

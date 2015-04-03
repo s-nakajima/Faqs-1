@@ -203,10 +203,13 @@ class FaqTest extends FaqsModelTestCase {
 		$options = array(
 			'recursive' => -1,
 			'conditions' => array(
-				'Block.id' => $blockId
+				'FaqBlock.id' => $blockId
 			),
 		);
-		$block = $this->Block->find('first', $options);
+		$block = $this->FaqBlock->find('first', $options);
+
+		//初期処理
+		$this->setUp();
 
 		//処理実行
 		$this->Faq->deleteBlock($block);
@@ -215,8 +218,11 @@ class FaqTest extends FaqsModelTestCase {
 		$expected = true;
 
 		//テスト実施
-		$block = $this->Block->find('first', $options);
+		$block = $this->FaqBlock->find('first', $options);
 		$result = empty($block);
 		$this->assertEquals($expected, $result);
+
+		//終了処理
+		$this->tearDown();
 	}
 }

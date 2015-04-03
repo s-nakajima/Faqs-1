@@ -26,8 +26,8 @@ class BlocksController extends FaqsAppController {
  */
 	public $uses = array(
 		'Frames.Frame',
-		'Blocks.Block',
 		'Faqs.Faq',
+		'Faqs.FaqBlock',
 		'Categories.Category',
 	);
 
@@ -41,6 +41,10 @@ class BlocksController extends FaqsAppController {
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole',
 		'Paginator',
+		'Security' => array(
+			'validatePost' => false,
+			'csrfCheck' => false
+		),
 	);
 
 /**
@@ -50,7 +54,6 @@ class BlocksController extends FaqsAppController {
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->layout = 'Frames.setting';
 	}
 
 /**
@@ -60,8 +63,8 @@ class BlocksController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function index($frameId = 0) {
-		$frame = $this->Frame->getFrame($frameId, $this->plugin);
-		$this->Paginator->settings = array('Block' =>
+		$frame = $this->Frame->findById($frameId);
+		$this->Paginator->settings = array('FaqBlock' =>
 			array(
 				'recursive' => -1,
 				'limit' => 5,
@@ -69,7 +72,7 @@ class BlocksController extends FaqsAppController {
 					'room_id' => $this->viewVars['roomId'],
 					'plugin_key' => 'faqs'
 				)));
-		$blocks = $this->Paginator->paginate('Block');
+		$blocks = $this->Paginator->paginate('FaqBlock');
 
 		$result = array(
 			'frame' => $frame['Frame'],
@@ -87,15 +90,15 @@ class BlocksController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function edit($frameId = 0, $blockId = 0) {
-		$frame = $this->Frame->getFrame($frameId, $this->plugin);
+		$frame = $this->Frame->findById($frameId);
 		$block = ($blockId) ?
 			$this->__getEditBlock($blockId, $this->viewVars['roomId'], 'faqs') :
-			$this->Block->create(['id' => '']);
+			$this->FaqBlock->create(['id' => '']);
 		$categoryList = $this->Category->getCategoryList($blockId);
 
 		$result = array(
 			'frame' => $frame['Frame'],
-			'block' => $block['Block'],
+			'block' => $block['FaqBlock'],
 			'categoryList' => $categoryList,
 		);
 		$result = $this->camelizeKeyRecursive($result);
@@ -109,8 +112,8 @@ class BlocksController extends FaqsAppController {
 			if (isset($this->data['delete'])) {
 				$this->Faq->deleteBlock($block);
 			} else {
-				$this->Block->saveBlock($this->data, $frame);
-				if (!$this->__handleValidationError($this->Block->validationErrors)) {
+				$this->FaqBlock->saveBlock($this->data, $frame);
+				if (!$this->handleValidationError($this->FaqBlock->validationErrors)) {
 					return;
 				}
 			}
@@ -131,33 +134,39 @@ class BlocksController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function editAuth($frameId = 0, $blockId = 0) {
-		$frame = $this->Frame->getFrame($frameId, $this->plugin);
+		$frame = $this->Frame->findById($frameId);
 		$block = $this->__getEditBlock($blockId, $this->viewVars['roomId'], 'faqs');
 		$result = array(
 			'frame' => $frame['Frame'],
-			'block' => $block['Block'],
+			'block' => $block['FaqBlock'],
 		);
 		$result = $this->camelizeKeyRecursive($result);
 		$this->set($result);
 	}
 
 /**
- * Handle validation error
+ * setBlock method
  *
- * @param array $errors validation errors
- * @return bool true on success, false on error
+ * @param int $frameId frames.id
+ * @param int $blockId blocks.id
+ * @return void
+ * @throws MethodNotAllowedException
+ * @throws InternalErrorException
  */
-	private function __handleValidationError($errors) {
-		if ($errors) {
-			$this->validationErrors = $errors;
-			if ($this->request->is('ajax')) {
-				$results = ['error' => ['validationErrors' => $errors]];
-				$this->renderJson($results, __d('net_commons', 'Bad Request'), 400);
-			}
-			return false;
+	public function setBlock($frameId, $blockId) {
+		if (! $this->request->isPost()) {
+			throw new MethodNotAllowedException();
 		}
 
-		return true;
+		$options = array('recursive' => -1, 'conditions' => array('id' => $frameId));
+		if (! $frame = $this->Frame->find('first', $options)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
+		$frame['Frame']['block_id'] = $blockId;
+		if (! $this->Frame->save($frame)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
 	}
 
 /**
@@ -177,14 +186,14 @@ class BlocksController extends FaqsAppController {
 				'room_id' => $roomId,
 				'plugin_key' => $pluginKey,
 			));
-		$block = $this->Block->find('first', $options);
+		$block = $this->FaqBlock->find('first', $options);
 		if (! $block) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
 		$format = 'Y/m/d H:i';
-		$block['Block']['from'] = $this->__formatStrDate($block['Block']['from'], $format);
-		$block['Block']['to'] = $this->__formatStrDate($block['Block']['to'], $format);
+		$block['FaqBlock']['from'] = $this->__formatStrDate($block['FaqBlock']['from'], $format);
+		$block['FaqBlock']['to'] = $this->__formatStrDate($block['FaqBlock']['to'], $format);
 		return $block;
 	}
 

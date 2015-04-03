@@ -19,11 +19,12 @@
 				<accordion-heading>
 					<div>
 						<span class="glyphicon glyphicon-question-sign"></span>
-						<a ng-href="/faqs/faqs/view/{{frameId}}/<?php echo $faq['faq']['id'];?>" onClick="return false;">
+						<a ng-href="/faqs/faqs/view/{{frameId}}/<?php echo $faq['faq']['id'];?>" onclick="return false;">
 							<?php echo $faq['faq']['question'];?>
 						</a>
 
-						<?php echo $this->element('Faqs/content_status'); ?>
+						<?php echo $this->element('NetCommons.status_label',
+								array('status' => $faq['faq']['status'])); ?>
 					</div>
 				</accordion-heading>
 
@@ -32,7 +33,7 @@
 							'<?php echo CakeSession::read('Auth.User.id'); ?>' == faq.faq.createdUser">
 					<div class="text-right">
 						<a class="btn btn-xs btn-primary"
-						   href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId . '/' . $faq['faq']['id']); ?>">
+						   href="<?php echo $this->Html->url('/faqs/faqs/edit/' . $frameId . '/' . (int)$faq['faq']['id']); ?>">
 							<span class="glyphicon glyphicon-edit"></span>
 						</a>
 					</div>

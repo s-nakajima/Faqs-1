@@ -2,7 +2,7 @@
 /**
  * Faq Model
  *
- * @property Category $Category
+ * @property Faq $Faq
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -245,7 +245,9 @@ class Faq extends FaqsAppModel {
  */
 	private function __validateFaq($data) {
 		$this->set($data);
+
 		$options = array('idList' => $this->Category->getCategoryFieldList($data['Faq']['block_id'], 'id'));
+		$options['idList'][] = '0';
 		$this->validates($options);
 		return $this->validationErrors ? false : true;
 	}
@@ -312,7 +314,7 @@ class Faq extends FaqsAppModel {
 			'FaqOrder' => 'Faqs.FaqOrder',
 			'Category' => 'Categories.Category',
 			'CategoryOrder' => 'Categories.CategoryOrder',
-			'Block' => 'Blocks.Block',
+			'FaqBlock' => 'Faqs.FaqBlock',
 			'Comment' => 'Comments.Comment',
 		]);
 
@@ -325,23 +327,23 @@ class Faq extends FaqsAppModel {
 			// コメントの削除
 
 			// FAQ順の削除
-			$conditions = array('FaqOrder.block_key' => $block['Block']['key']);
+			$conditions = array('FaqOrder.block_key' => $block['FaqBlock']['key']);
 			$this->FaqOrder->deleteAll($conditions);
 
 			// FAQの削除
-			$conditions = array('Faq.block_id' => $block['Block']['id']);
+			$conditions = array('Faq.block_id' => $block['FaqBlock']['id']);
 			$this->deleteAll($conditions);
 
 			// カテゴリ順の削除
-			$conditions = array('CategoryOrder.block_key' => $block['Block']['key']);
+			$conditions = array('CategoryOrder.block_key' => $block['FaqBlock']['key']);
 			$this->CategoryOrder->deleteAll($conditions);
 
 			// カテゴリの削除
-			$conditions = array('Category.block_id' => $block['Block']['id']);
+			$conditions = array('Category.block_id' => $block['FaqBlock']['id']);
 			$this->Category->deleteAll($conditions);
 
 			// ブロックの削除
-			if (! $this->Block->delete($block['Block']['id'])) {
+			if (! $this->FaqBlock->delete($block['FaqBlock']['id'])) {
 				throw $exception;
 			}
 

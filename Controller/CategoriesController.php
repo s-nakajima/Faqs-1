@@ -65,9 +65,7 @@ class CategoriesController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function edit($frameId = 0, $blockId = 0) {
-		$this->layout = 'Frames.setting';
-
-		$frame = $this->Frame->getFrame($frameId, $this->plugin);
+		$frame = $this->Frame->findById($frameId);
 		$block = $this->Block->find('first', array(
 			'conditions' => array('id' => $blockId),
 			'recursive' => -1

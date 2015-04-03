@@ -11,10 +11,14 @@
 ?>
 
 <?php
+	echo $this->Html->script('/net_commons/base/js/workflow.js', false);
+	echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false);
 	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
 	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
 	echo $this->Html->script('/frames/js/frames.js', false);
-	echo $this->Html->script('/blocks/js/blocks.js', false);
+	echo $this->Html->script('/faqs/js/faqs.js', false);
+
+	echo $this->Html->css('/faqs/css/faqs.css');
 ?>
 
 <?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
@@ -24,11 +28,8 @@
 <?php endif; ?>
 
 <div id="nc-faq-container-<?php echo $frameId; ?>"
-	 ng-controller="BlocksController"
-	 ng-init="
-	 	block = <?php echo h(json_encode($block)); ?>;
-	 	categoryList = <?php echo h(json_encode($categoryList)); ?>;
-	 	">
+	 ng-controller="Faqs"
+	 ng-init="block = <?php echo h(json_encode($block)); ?>;">
 
 	<?php echo $this->Form->create(null, array(
 			'name' => 'FaqBlockForm' . $frameId,
@@ -37,25 +38,7 @@
 
 		<div class="panel panel-default" >
 			<div class="panel-body has-feedback">
-				<?php echo $this->element('Blocks.edit_form', array('nameLabel' => __d('faqs', 'FAQ Name'))); ?>
-
-				<div class="form-group">
-					<label>
-						<?php echo __d('blocks', 'Like'); ?>
-					</label>
-					<div>
-						<label style="font-weight:normal"><input type="checkbox" ng-model="isVote">
-							<span class="glyphicon glyphicon-thumbs-up"></span>
-							<?php echo __d('blocks', 'Use like.'); ?>
-						</label>
-					</div>
-					<div class="col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
-						<label style="font-weight:normal"><input type="checkbox" ng-model="isVoteUnLike" ng-disabled="! isVote">
-							<span class="glyphicon glyphicon-thumbs-down"></span>
-							<?php echo __d('blocks', 'Also use dislike.'); ?>
-						</label>
-					</div>
-				</div>
+				<?php echo $this->element('Blocks/edit_form', array('nameLabel' => __d('faqs', 'FAQ Name'))); ?>
 
 				<?php if ($block['id']) : ?>
 				<div class="panel panel-default">
@@ -65,18 +48,21 @@
 						</span>
 						<div class="pull-right">
 							<a class="btn btn-xs btn-primary"
-							   href="<?php echo $this->Html->url('/' . $frame['pluginKey'] . '/categories/edit/' . $frameId . '/' . $block['id']);?>">
+							   href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/categories/edit/' . $frameId . '/' . (int)$block['id']);?>">
 								<span class="glyphicon glyphicon-edit"></span>
 							</a>
 						</div>
 					</div>
 					<div class="panel-body">
-						<span ng-hide="categoryList.length">
+						<?php if(count($categoryList)): ?>
+							<?php
+								foreach ($categoryList as $category) {
+									echo $category['category']['name'] . __d('categories', ', ');
+								}
+							?>
+						<?php else: ?>
 							<?php echo __d('categories', 'No category.'); ?>
-						</span>
-						<span ng-repeat="c in categoryList">
-							<span ng-bind="c.category.name"></span>,
-						</span>
+						<?php endif; ?>
 					</div>
 				</div>
 
@@ -89,7 +75,8 @@
 						<div class="inline-block">
 							<strong>
 								<?php echo __d('blocks', 'Delete Block'); ?>
-							</strong><br/>
+							</strong>
+							<br/>
 							<?php echo sprintf(__d('blocks', 'Delete all data associated with %s.'), $block['name']); ?>
 						</div>
 						<?php echo $this->Form->button(

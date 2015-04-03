@@ -17,9 +17,9 @@
 			'type' => 'select',
 			'error' => false,
 			'class' => 'form-control',
-			'empty' => __d('categories', 'Select Category'),
-			'ng-model' => 'selectedCategory',
-			'ng-options' => 'opt as opt.category.name for opt in categoryOptions track by opt.category.id',
+			'empty' => array(0 => __d('categories', 'Select Category')),
+			'options' => $categoryOptions,
+			'ng-model' => 'selectedCategoryId',
 		)); ?>
 	<div class="has-error">
 		<?php if (isset($this->validationErrors['Faq']['category_id'])): ?>

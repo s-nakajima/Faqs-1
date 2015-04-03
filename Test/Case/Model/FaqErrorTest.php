@@ -60,11 +60,11 @@ class FaqErrorTest extends FaqsModelTestCase {
 		$options = array(
 			'recursive' => -1,
 			'conditions' => array(
-				'Block.id' => $blockId
+				'FaqBlock.id' => $blockId
 			),
 		);
-		$block = $this->Block->find('first', $options);
-		$this->Block->delete($blockId);
+		$block = $this->FaqBlock->find('first', $options);
+		$this->FaqBlock->delete($blockId);
 
 		//処理実行
 		$this->Faq->deleteBlock($block);

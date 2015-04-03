@@ -1,0 +1,25 @@
+/**
+ * faqs.css
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+.nc-faqs-transparent {
+	background-color:transparent;
+}
+
+.nc-faqs-font-normal {
+	font-weight:normal;
+}
+
+.nc-faqs-tab {
+	margin-bottom:10px;
+}
+
+.nc-faqs-input-date {
+	margin-bottom:5px;
+}

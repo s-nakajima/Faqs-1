@@ -137,31 +137,23 @@ class FaqsController extends FaqsAppController {
 	}
 
 /**
- * __getLatest method
- *
- * @param int $blockId blocks.id
- * @param int $categoryId selected category id
- * @return array
- */
-	private function __getLatest($blockId, $categoryId = null) {
-		$faqs = $this->Faq->getFaqs($blockId, $categoryId);
-		$categoryOptions = $this->Category->getCategoryList($blockId);
-
-		$results = array(
-			'faqs' => $faqs,
-			'categoryOptions' => $categoryOptions
-		);
-		return $results;
-	}
-
-/**
  * __initFaq method
  *
  * @param int $categoryId categories.id
  * @return void
  */
 	private function __initFaq($categoryId = 0) {
-		$results = $this->__getLatest($this->viewVars['blockId'], $categoryId);
+		$faqs = $this->Faq->getFaqs($this->viewVars['blockId'], $categoryId);
+		$categoryOptions = array();
+		$categoryList = $this->Category->getCategoryList($this->viewVars['blockId']);
+		foreach ($categoryList as $category) {
+			$categoryOptions[$category['Category']['id']] = $category['Category']['name'];
+		}
+
+		$results = array(
+			'faqs' => $faqs,
+			'categoryOptions' => $categoryOptions
+		);
 		$results = $this->camelizeKeyRecursive($results);
 		$this->set($results);
 	}
@@ -173,7 +165,6 @@ class FaqsController extends FaqsAppController {
  * @return void
  */
 	private function __initFaqEdit($faqId = 0) {
-		$results = $this->__getLatest($this->viewVars['blockId']);
 		if (! $faq = $this->Faq->getFaq($faqId)) {
 			$faq = $this->Faq->create(['status' => '0']);
 		}
@@ -183,10 +174,18 @@ class FaqsController extends FaqsAppController {
 				'content_key' => isset($faq['Faq']['key']) ? $faq['Faq']['key'] : null,
 			)
 		);
+		$categoryOptions = array();
+		$categoryList = $this->Category->getCategoryList($this->viewVars['blockId']);
+		foreach ($categoryList as $category) {
+			$categoryOptions[$category['Category']['id']] = $category['Category']['name'];
+		}
 
-		$results['faq'] = $faq;
-		$results['comments'] = $comments;
-		$results['contentStatus'] = $faq['Faq']['status'];
+		$results = array(
+			'faq' => $faq,
+			'comments' => $comments,
+			'contentStatus' => $faq['Faq']['status'],
+			'categoryOptions' => $categoryOptions,
+		);
 		$results = $this->camelizeKeyRecursive($results);
 		$this->set($results);
 	}
