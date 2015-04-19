@@ -23,39 +23,39 @@ class CategoriesController extends FaqsAppController {
  *
  * @var array
  */
-	public $uses = array(
-		'Frames.Frame',
-		'Blocks.Block',
-		'Categories.Category',
-		'Categories.CategoryOrder',
-	);
+//	public $uses = array(
+//		'Frames.Frame',
+//		'Blocks.Block',
+//		'Categories.Category',
+//		'Categories.CategoryOrder',
+//	);
 
 /**
  * use component
  *
  * @var array
  */
-	public $components = array(
-		'NetCommons.NetCommonsBlock',
-		'NetCommons.NetCommonsFrame',
-		'NetCommons.NetCommonsRoomRole' => array(
-			//コンテンツの権限設定
-			'allowedActions' => array(
-				'contentEditable' => array('edit'),
-			),
-		),
-		'Categories.CategoryAction',
-		'Security' => array('validatePost' => false),
-	);
+//	public $components = array(
+//		'NetCommons.NetCommonsBlock',
+//		'NetCommons.NetCommonsFrame',
+//		'NetCommons.NetCommonsRoomRole' => array(
+//			//コンテンツの権限設定
+//			'allowedActions' => array(
+//				'contentEditable' => array('edit'),
+//			),
+//		),
+//		'Categories.CategoryAction',
+//		'Security' => array('validatePost' => false),
+//	);
 
 /**
  * use helpers
  *
  * @var array
  */
-	public $helpers = array(
-		'NetCommons.Token'
-	);
+//	public $helpers = array(
+//		'NetCommons.Token'
+//	);
 
 /**
  * edit method
@@ -65,18 +65,18 @@ class CategoriesController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function edit($frameId = 0, $blockId = 0) {
-		$frame = $this->Frame->findById($frameId);
-		$block = $this->Block->find('first', array(
-			'conditions' => array('id' => $blockId),
-			'recursive' => -1
-		));
-		$result = array(
-			'frame' => $frame['Frame'],
-			'block' => $block['Block'],
-		);
-		$result = $this->camelizeKeyRecursive($result);
-		$this->set($result);
-
-		$this->CategoryAction->edit($block);
+//		$frame = $this->Frame->findById($frameId);
+//		$block = $this->Block->find('first', array(
+//			'conditions' => array('id' => $blockId),
+//			'recursive' => -1
+//		));
+//		$result = array(
+//			'frame' => $frame['Frame'],
+//			'block' => $block['Block'],
+//		);
+//		$result = $this->camelizeKeyRecursive($result);
+//		$this->set($result);
+//
+//		$this->CategoryAction->edit($block);
 	}
 }

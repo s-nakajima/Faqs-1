@@ -24,38 +24,38 @@ class FaqOrdersController extends FaqsAppController {
  *
  * @var array
  */
-	public $uses = array(
-		'Faqs.Faq',
-		'Faqs.FaqOrder',
-		'Categories.Category',
-		'Comments.Comment',
-	);
+//	public $uses = array(
+//		'Faqs.Faq',
+//		'Faqs.FaqOrder',
+//		'Categories.Category',
+//		'Comments.Comment',
+//	);
 
 /**
  * use component
  *
  * @var array
  */
-	public $components = array(
-		'Security' => array('validatePost' => false),
-		'NetCommons.NetCommonsBlock',
-		'NetCommons.NetCommonsFrame',
-		'NetCommons.NetCommonsRoomRole' => array(
-			//コンテンツの権限設定
-			'allowedActions' => array(
-				'contentEditable' => array('edit'),
-			),
-		),
-	);
+//	public $components = array(
+//		'Security' => array('validatePost' => false),
+//		'NetCommons.NetCommonsBlock',
+//		'NetCommons.NetCommonsFrame',
+//		'NetCommons.NetCommonsRoomRole' => array(
+//			//コンテンツの権限設定
+//			'allowedActions' => array(
+//				'contentEditable' => array('edit'),
+//			),
+//		),
+//	);
 
 /**
  * use helpers
  *
  * @var array
  */
-	public $helpers = array(
-		'NetCommons.Token'
-	);
+//	public $helpers = array(
+//		'NetCommons.Token'
+//	);
 
 /**
  * beforeFilter
@@ -74,19 +74,19 @@ class FaqOrdersController extends FaqsAppController {
  * @return CakeResponse A response object containing the rendered view.
  */
 	public function edit($frameId = 0) {
-		$this->__initFaqOrder();
-		if ($this->request->isGet()) {
-			CakeSession::write('backUrl', $this->request->referer());
-		}
-		if ($this->request->isPost()) {
-			$this->FaqOrder->saveFaqOrders($this->data, $this->viewVars['blockKey']);
-
-			if (!$this->request->is('ajax')) {
-				$backUrl = CakeSession::read('backUrl');
-				CakeSession::delete('backUrl');
-				$this->redirect($backUrl);
-			}
-		}
+//		$this->__initFaqOrder();
+//		if ($this->request->isGet()) {
+//			CakeSession::write('backUrl', $this->request->referer());
+//		}
+//		if ($this->request->isPost()) {
+//			$this->FaqOrder->saveFaqOrders($this->data, $this->viewVars['blockKey']);
+//
+//			if (!$this->request->is('ajax')) {
+//				$backUrl = CakeSession::read('backUrl');
+//				CakeSession::delete('backUrl');
+//				$this->redirect($backUrl);
+//			}
+//		}
 	}
 
 /**
@@ -94,10 +94,10 @@ class FaqOrdersController extends FaqsAppController {
  *
  * @return void
  */
-	private function __initFaqOrder() {
-		$results['faqs'] = $this->Faq->getFaqs($this->viewVars['blockId']);
-		$results = $this->camelizeKeyRecursive($results);
-		$this->set($results);
-	}
+//	private function __initFaqOrder() {
+//		$results['faqs'] = $this->Faq->getFaqs($this->viewVars['blockId']);
+//		$results = $this->camelizeKeyRecursive($results);
+//		$this->set($results);
+//	}
 
 }
