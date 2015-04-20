@@ -1,6 +1,6 @@
 <?php
 /**
- * faq block index template
+ * block index template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -10,109 +10,97 @@
  */
 ?>
 
-<?php
-	echo $this->Html->script('/net_commons/base/js/workflow.js', false);
-	echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false);
-	echo $this->Html->script('http://rawgit.com/angular/bower-angular-sanitize/v1.2.25/angular-sanitize.js', false);
-	echo $this->Html->script('http://rawgit.com/m-e-conroy/angular-dialog-service/v5.2.0/src/dialogs.js', false);
-	echo $this->Html->script('/frames/js/frames.js', false);
-	echo $this->Html->script('/faqs/js/faqs.js', false);
+<div class="modal-body">
+	<?php echo $this->element('NetCommons.setting_tabs', array(
+			'tabs' => array(
+				'block_index' => '/faqs/blocks/index/' . $frameId
+			),
+			'active' => 'block_index'
+		)); ?>
 
-	echo $this->Html->css('/faqs/css/faqs.css');
-?>
+	<div class="tab-content">
+		<div class="text-right">
+			<a class="btn btn-success" href="<?php echo $this->Html->url('/faqs/blocks/add/' . $frameId);?>">
+				<span class="glyphicon glyphicon-plus"> </span>
+			</a>
+		</div>
 
-<?php echo $this->element('Faqs.frame_menu', array('tab' => 'block')); ?>
+		<div id="nc-faq-setting-<?php echo $frameId; ?>">
+			<?php echo $this->Form->create('', array(
+					'url' => '/frames/frames/edit/' . $frameId
+				)); ?>
 
-<div class="text-right">
-	<a  class="btn btn-sm btn-success"
-		href="<?php echo $this->Html->url('/faqs/blocks/edit/' . $frameId);?>">
+				<?php echo $this->Form->hidden('Frame.id', array(
+						'value' => $frameId,
+					)); ?>
 
-		<span class="glyphicon glyphicon-plus"></span>
-	</a>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>
+								<?php echo $this->Paginator->sort('Block.name', __d('faqs', 'FAQ Name')); ?>
+							</th>
+							<th>
+								<?php echo $this->Paginator->sort('Block.public_type', __d('faqs', 'Public Type')); ?>
+							</th>
+							<th>
+								<?php echo $this->Paginator->sort('Block.modified', __d('faqs', 'Updated Date')); ?>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($faqs as $faq) : ?>
+							<tr<?php echo ($blockId === $faq['block']['id'] ? ' class="active"' : ''); ?>>
+								<td>
+									<?php echo $this->Form->input('Frame.block_id',
+										array(
+											'type' => 'radio',
+											'name' => 'data[Frame][block_id]',
+											'options' => array((int)$faq['block']['id'] => ''),
+											'div' => false,
+											'legend' => false,
+											'label' => false,
+											'hiddenField' => false,
+											'checked' => (int)$faq['block']['id'] === (int)$blockId,
+											'onclick' => 'submit()'
+										)); ?>
+								</td>
+								<td>
+									<a href="<?php echo $this->Html->url('/faqs/blocks/edit/' . $frameId . '/' . (int)$faq['block']['id']); ?>">
+										<?php echo h($faq['block']['name']); ?>
+									</a>
+								</td>
+								<td>
+									<?php if ($faq['block']['publicType'] === '0') : ?>
+										<?php echo __d('blocks', 'Private'); ?>
+									<?php elseif ($faq['block']['publicType'] === '1') : ?>
+										<?php echo __d('blocks', 'Public'); ?>
+									<?php elseif ($faq['block']['publicType'] === '2') : ?>
+										<?php echo __d('blocks', 'Limited Public'); ?>
+									<?php endif; ?>
+								</td>
+								<td>
+									<?php echo $this->Date->dateFormat($faq['block']['modified']); ?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+				</table>
+			<?php echo $this->Form->end(); ?>
+
+			<div class="text-center">
+				<?php echo $this->element('NetCommons.paginator', array(
+						'url' => Hash::merge(
+							array('controller' => 'blocks', 'action' => 'index', $frameId),
+							$this->Paginator->params['named']
+						)
+					)); ?>
+			</div>
+		</div>
+	</div>
 </div>
 
-	<?php if (! count($blocks)) : ?>
-		<?php echo __d('faqs', 'Currently FAQ has not been created.'); ?>
 
-	<?php else : ?>
-		<div id="nc-faq-container-<?php echo $frameId; ?>"
-			 ng-controller="Faqs"
-			 ng-init="
-				blocks = <?php echo h(json_encode($blocks)); ?>;
-				frameId = <?php echo h(json_encode($frameId)); ?>;
-				selectedBlockId = <?php echo h(json_encode($blockId)); ?>;
-			 ">
 
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th></th>
-						<th>
-							<a href="#" ng-click="orderBlock('block.name')">
-								<?php echo __d('blocks', 'Name'); ?>
-							</a>
-						</th>
-						<th>
-							<a href="#" ng-click="orderBlock('block.publicType')">
-								<?php echo __d('blocks', 'Public Type'); ?>
-							</a>
-						</th>
-						<th>
-							<a href="#" ng-click="orderBlock('block.modified')">
-								<?php echo __d('net_commons', 'Updated Date'); ?>
-							</a>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php echo $this->Form->create(null, array(
-							'name' => 'BlockForm' . $frameId,
-							'novalidate' => true,
-						)); ?>
-					<tr ng-repeat="block in blocks | orderBy:orderByField:isOrderDesc">
-						<td>
-							<?php echo $this->Form->input('Block.id',
-								array(
-									'type' => 'radio',
-									'name' => 'data[Block][id]',
-									'options' => false,
-									'div' => false,
-									'legend' => false,
-									'checked' => true,
-									'ng-value' => 'block.faqBlock.id',
-									'ng-click' => 'setBlock(frameId, block.faqBlock.id);',
-									'ng-checked' => 'block.faqBlock.id === selectedBlockId',
-								)); ?>
-						</td>
-						<td>
-							<div>
-								<a href="<?php echo $this->Html->url('/' . h($frame['pluginKey']) . '/blocks/edit/' . $frameId . '/{{block.faqBlock.id}}');?>" ng-bind="block.faqBlock.name"></a>
-							</div>
-						</td>
-						<td>
-							<div ng-switch on="block.faqBlock.publicType">
-								<span ng-switch-when="<?php echo FaqBlock::TYPE_PRIVATE; ?>">
-									<?php echo __d('blocks', 'Private'); ?>
-								</span>
-								<span ng-switch-when="<?php echo FaqBlock::TYPE_PUBLIC; ?>">
-									<?php echo __d('blocks', 'Public'); ?>
-								</span>
-								<span ng-switch-when="<?php echo FaqBlock::TYPE_LIMITED_PUBLIC; ?>">
-									<?php echo __d('blocks', 'Limited Public'); ?>
-								</span>
-							</div>
-						</td>
-						<td>
-							<span ng-bind="parseDate(block.faqBlock.modified) | date: 'yyyy/MM/dd'"></span>
-						</td>
-					</tr>
 
-					<?php echo $this->Form->end(); ?>
-				</tbody>
-			</table>
-			<div>
-				<?php echo $this->Paginator->numbers(); ?>
-			</div>
-
-		</div>
-	<?php endif;

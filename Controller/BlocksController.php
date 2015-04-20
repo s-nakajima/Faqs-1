@@ -28,6 +28,7 @@ class BlocksController extends FaqsAppController {
 	public $uses = array(
 		'Blocks.Block',
 		'Frames.Frame',
+		'Faqs.FaqBlock'
 	);
 
 /**
@@ -45,6 +46,15 @@ class BlocksController extends FaqsAppController {
 			),
 		),
 		'Paginator',
+	);
+
+/**
+ * use helpers
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'NetCommons.Date',
 	);
 
 /**
@@ -74,7 +84,7 @@ class BlocksController extends FaqsAppController {
 					'conditions' => array(
 						'Block.language_id' => $this->viewVars['languageId'],
 						'Block.room_id' => $this->viewVars['roomId'],
-						'Block.plugin_key ' => $this->param[''],
+						'Block.plugin_key ' => $this->params['plugin'],
 					),
 					//'limit' => 1
 				)
@@ -82,7 +92,7 @@ class BlocksController extends FaqsAppController {
 			$faqs = $this->Paginator->paginate('Block');
 
 			if (! $faqs) {
-				$this->view = 'Blocks/noBbs';
+				$this->view = 'Blocks/not_found';
 				return;
 			}
 
@@ -97,24 +107,41 @@ class BlocksController extends FaqsAppController {
 			$this->params['named'] = array();
 			$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
 		}
+	}
 
-//		$frame = $this->Frame->findById($frameId);
-//		$this->Paginator->settings = array('FaqBlock' =>
-//			array(
-//				'recursive' => -1,
-//				'limit' => 5,
-//				'conditions' => array(
-//					'room_id' => $this->viewVars['roomId'],
-//					'plugin_key' => 'faqs'
-//				)));
-//		$blocks = $this->Paginator->paginate('FaqBlock');
-//
-//		$result = array(
-//			'frame' => $frame['Frame'],
-//			'blocks' => $blocks,
-//		);
-//		$result = $this->camelizeKeyRecursive($result);
-//		$this->set($result);
+/**
+ * add
+ *
+ * @return void
+ */
+	public function add() {
+		$this->view = 'Blocks/edit';
+
+		$this->set('blockId', null);
+		$data = $this->Block->create(
+			array(
+				'id' => null,
+				'key' => null,
+				'name' => __d('faqs', 'New FAQ %s', date('YmdHis')),
+			)
+		);
+
+		if ($this->request->isPost()) {
+			$data = $this->__parseRequestData();
+
+			$this->FaqBlock->saveBlock($data);
+			if ($this->handleValidationError($this->FaqBlock->validationErrors)) {
+				if (! $this->request->is('ajax')) {
+					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+				}
+				return;
+			}
+			$data['Block']['id'] = null;
+			$data['Block']['key'] = null;
+		}
+
+		$results = $this->camelizeKeyRecursive($data);
+		$this->set($results);
 	}
 
 /**
@@ -244,4 +271,22 @@ class BlocksController extends FaqsAppController {
 //		}
 //		return date($format, $timestamp);
 //	}
+
+/**
+ * Parse data from request
+ *
+ * @return array
+ */
+	private function __parseRequestData() {
+		$data = $this->data;
+		if ($data['Block']['public_type'] === '2') {
+			//$data['Block']['from'] = implode('-', $data['Block']['from']);
+			//$data['Block']['to'] = implode('-', $data['Block']['to']);
+		} else {
+			unset($data['Block']['from'], $data['Block']['to']);
+		}
+
+		return $data;
+	}
+
 }
