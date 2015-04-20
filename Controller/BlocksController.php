@@ -19,50 +19,85 @@ App::uses('FaqsAppController', 'Faqs.Controller');
  */
 class BlocksController extends FaqsAppController {
 
-/**
- * use model
- *
- * @var array
- */
-	//public $uses = array(
-	//	'Frames.Frame',
-	//	'Faqs.Faq',
-	//	'Faqs.FaqBlock',
-	//	'Categories.Category',
-	//);
 
 /**
- * use component
+ * use models
  *
  * @var array
  */
-	//public $components = array(
-	//	'NetCommons.NetCommonsBlock',
-	//	'NetCommons.NetCommonsFrame',
-	//	'NetCommons.NetCommonsRoomRole',
-	//	'Paginator',
-	//	'Security' => array(
-	//		'validatePost' => false,
-	//		'csrfCheck' => false
-	//	),
-	//);
+	public $uses = array(
+		'Blocks.Block',
+		'Frames.Frame',
+	);
+
+/**
+ * use components
+ *
+ * @var array
+ */
+	public $components = array(
+		'NetCommons.NetCommonsFrame',
+		'NetCommons.NetCommonsWorkflow',
+		'NetCommons.NetCommonsRoomRole' => array(
+			//コンテンツの権限設定
+			'allowedActions' => array(
+				'blockEditable' => array('index', 'add', 'edit', 'delete')
+			),
+		),
+		'Paginator',
+	);
 
 /**
  * beforeFilter
  *
  * @return void
  */
-	//public function beforeFilter() {
-	//	parent::beforeFilter();
-	//}
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->deny('index');
+
+		$this->layout = 'NetCommons.setting';
+		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
+		$this->set($results);
+	}
 
 /**
- * index method
+ * index
  *
- * @param int $frameId frames.id
  * @return void
  */
 	public function index() {
+		try {
+			$this->Paginator->settings = array(
+				'Block' => array(
+					'order' => array('Block.id' => 'desc'),
+					'conditions' => array(
+						'Block.language_id' => $this->viewVars['languageId'],
+						'Block.room_id' => $this->viewVars['roomId'],
+						'Block.plugin_key ' => $this->param[''],
+					),
+					//'limit' => 1
+				)
+			);
+			$faqs = $this->Paginator->paginate('Block');
+
+			if (! $faqs) {
+				$this->view = 'Blocks/noBbs';
+				return;
+			}
+
+			$results = array(
+				'faqs' => $faqs,
+				'current' => $this->current
+			);
+			$results = $this->camelizeKeyRecursive($results);
+			$this->set($results);
+
+		} catch (Exception $ex) {
+			$this->params['named'] = array();
+			$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+		}
+
 //		$frame = $this->Frame->findById($frameId);
 //		$this->Paginator->settings = array('FaqBlock' =>
 //			array(
@@ -83,13 +118,11 @@ class BlocksController extends FaqsAppController {
 	}
 
 /**
- * edit method
+ * edit
  *
- * @param int $frameId frames.id
- * @param int $blockId blocks.id
- * @return CakeResponse A response object containing the rendered view.
+ * @return void
  */
-	public function edit($frameId = 0, $blockId = 0) {
+	public function edit() {
 //		$frame = $this->Frame->findById($frameId);
 //		$block = ($blockId) ?
 //			$this->__getEditBlock($blockId, $this->viewVars['roomId'], 'faqs') :
