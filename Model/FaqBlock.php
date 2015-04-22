@@ -26,11 +26,40 @@ class FaqBlock extends FaqsAppModel {
 	public $useTable = 'blocks';
 
 /**
+ * Alias name for model.
+ *
+ * @var string
+ */
+	public $alias = 'Block';
+
+/**
  * Validation rules
  *
  * @var array
  */
 	public $validate = array();
+
+/**
+ * Get block data
+ *
+ * @param int $blockId blocks.id
+ * @param int $roomId rooms.id
+ * @return array
+ */
+	public function getBlock($blockId, $roomId) {
+		$conditions = array(
+			$this->alias . '.id' => $blockId,
+			$this->alias . '.room_id' => $roomId,
+		);
+
+		$block = $this->find('first', array(
+				'recursive' => -1,
+				'conditions' => $conditions,
+			)
+		);
+
+		return $block;
+	}
 
 /**
  * Save block
@@ -56,6 +85,60 @@ class FaqBlock extends FaqsAppModel {
 			}
 			//ブロックの登録
 			$this->Block->saveByFrameId($data['Frame']['id']);
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return true;
+	}
+
+/**
+ * Delete bbses
+ *
+ * @param array $data received post data
+ * @return mixed On success Model::$data if its not empty or true, false on failure
+ * @throws InternalErrorException
+ */
+	public function deleteBlock($data) {
+		$this->setDataSource('master');
+
+		$this->loadModels([
+			'Faq' => 'Faqs.Faq',
+			'FaqOrder' => 'Faqs.FaqOrder',
+			'Block' => 'Blocks.Block',
+			'BlockRolePermission' => 'Blocks.BlockRolePermission',
+			'Comment' => 'Comments.Comment',
+		]);
+
+		//トランザクションBegin
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		try {
+			//Faqデータ削除
+			$this->Faq->deleteByBlockKey($data['Block']['key']);
+
+			//FaqOrderデータ削除
+			if (! $this->FaqOrder->deleteAll(array($this->FaqOrder->alias . '.block_key' => $data['Block']['key']), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//Blockデータ削除
+			$this->Block->deleteBlock($data['Block']['key']);
+
+			//BlockRolePermissionデータ削除
+			if (! $this->BlockRolePermission->deleteAll(array($this->BlockRolePermission->alias . '.block_key' => $data['Block']['key']), true)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//TODO:Category、Comment
 
 			//トランザクションCommit
 			$dataSource->commit();

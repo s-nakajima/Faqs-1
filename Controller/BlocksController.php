@@ -19,7 +19,6 @@ App::uses('FaqsAppController', 'Faqs.Controller');
  */
 class BlocksController extends FaqsAppController {
 
-
 /**
  * use models
  *
@@ -150,6 +149,62 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
+		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+
+		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$block = $this->camelizeKeyRecursive($block);
+		$this->set($block);
+
+		if ($this->request->isPost()) {
+			$data = $this->__parseRequestData();
+
+			$this->FaqBlock->saveBlock($data);
+			if ($this->handleValidationError($this->FaqBlock->validationErrors)) {
+				if (! $this->request->is('ajax')) {
+					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+				}
+				return;
+			}
+
+			$results = $this->camelizeKeyRecursive($data);
+			$this->set($results);
+		}
+	}
+
+/**
+ * delete
+ *
+ * @return void
+ */
+	public function delete() {
+		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+
+		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
+			$this->throwBadRequest();
+			return false;
+		}
+
+		if ($this->request->isDelete()) {
+			if ($this->FaqBlock->deleteBlock($this->data)) {
+				if (! $this->request->is('ajax')) {
+					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+				}
+				return;
+			}
+		}
+
+		$this->throwBadRequest();
+	}
+
+/**
+ * edit
+ *
+ * @return void
+ */
+//	public function edit() {
 //		$frame = $this->Frame->findById($frameId);
 //		$block = ($blockId) ?
 //			$this->__getEditBlock($blockId, $this->viewVars['roomId'], 'faqs') :
@@ -184,7 +239,7 @@ class BlocksController extends FaqsAppController {
 //				$this->redirect($backUrl);
 //			}
 //		}
-	}
+//	}
 
 /**
  * editAuth method
@@ -279,7 +334,7 @@ class BlocksController extends FaqsAppController {
  */
 	private function __parseRequestData() {
 		$data = $this->data;
-		if ($data['Block']['public_type'] === '2') {
+		if ($data['Block']['public_type'] === Block::TYPE_LIMITED) {
 			//$data['Block']['from'] = implode('-', $data['Block']['from']);
 			//$data['Block']['to'] = implode('-', $data['Block']['to']);
 		} else {
