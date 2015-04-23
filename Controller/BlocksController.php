@@ -27,7 +27,7 @@ class BlocksController extends FaqsAppController {
 	public $uses = array(
 		'Blocks.Block',
 		'Frames.Frame',
-		'Faqs.FaqBlock'
+		'Faqs.Faq'
 	);
 
 /**
@@ -68,6 +68,9 @@ class BlocksController extends FaqsAppController {
 		$this->layout = 'NetCommons.setting';
 		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
 		$this->set($results);
+
+		$results = $this->camelizeKeyRecursive(['current' => $this->current]);
+		$this->set($results);
 	}
 
 /**
@@ -78,7 +81,7 @@ class BlocksController extends FaqsAppController {
 	public function index() {
 		try {
 			$this->Paginator->settings = array(
-				'Block' => array(
+				'Faq' => array(
 					'order' => array('Block.id' => 'desc'),
 					'conditions' => array(
 						'Block.language_id' => $this->viewVars['languageId'],
@@ -88,7 +91,7 @@ class BlocksController extends FaqsAppController {
 					//'limit' => 1
 				)
 			);
-			$faqs = $this->Paginator->paginate('Block');
+			$faqs = $this->Paginator->paginate('Faq');
 
 			if (! $faqs) {
 				$this->view = 'Blocks/not_found';
@@ -96,8 +99,7 @@ class BlocksController extends FaqsAppController {
 			}
 
 			$results = array(
-				'faqs' => $faqs,
-				'current' => $this->current
+				'faqs' => $faqs
 			);
 			$results = $this->camelizeKeyRecursive($results);
 			$this->set($results);
@@ -117,19 +119,25 @@ class BlocksController extends FaqsAppController {
 		$this->view = 'Blocks/edit';
 
 		$this->set('blockId', null);
-		$data = $this->Block->create(
+		$faq = $this->Faq->create(
 			array(
 				'id' => null,
 				'key' => null,
+				'block_id' => null,
 				'name' => __d('faqs', 'New FAQ %s', date('YmdHis')),
 			)
 		);
+		$block = $this->Block->create(
+			array('id' => null, 'key' => null)
+		);
+
+		$data = Hash::merge($faq, $block);
 
 		if ($this->request->isPost()) {
 			$data = $this->__parseRequestData();
 
-			$this->FaqBlock->saveBlock($data);
-			if ($this->handleValidationError($this->FaqBlock->validationErrors)) {
+			$this->Faq->saveFaq($data);
+			if ($this->handleValidationError($this->Faq->validationErrors)) {
 				if (! $this->request->is('ajax')) {
 					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
 				}
@@ -149,29 +157,29 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
-		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-
-		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
-			$this->throwBadRequest();
-			return false;
-		}
-		$block = $this->camelizeKeyRecursive($block);
-		$this->set($block);
-
-		if ($this->request->isPost()) {
-			$data = $this->__parseRequestData();
-
-			$this->FaqBlock->saveBlock($data);
-			if ($this->handleValidationError($this->FaqBlock->validationErrors)) {
-				if (! $this->request->is('ajax')) {
-					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
-				}
-				return;
-			}
-
-			$results = $this->camelizeKeyRecursive($data);
-			$this->set($results);
-		}
+//		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+//
+//		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
+//			$this->throwBadRequest();
+//			return false;
+//		}
+//		$block = $this->camelizeKeyRecursive($block);
+//		$this->set($block);
+//
+//		if ($this->request->isPost()) {
+//			$data = $this->__parseRequestData();
+//
+//			$this->FaqBlock->saveBlock($data);
+//			if ($this->handleValidationError($this->FaqBlock->validationErrors)) {
+//				if (! $this->request->is('ajax')) {
+//					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+//				}
+//				return;
+//			}
+//
+//			$results = $this->camelizeKeyRecursive($data);
+//			$this->set($results);
+//		}
 	}
 
 /**
@@ -180,152 +188,24 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function delete() {
-		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-
-		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
-			$this->throwBadRequest();
-			return false;
-		}
-
-		if ($this->request->isDelete()) {
-			if ($this->FaqBlock->deleteBlock($this->data)) {
-				if (! $this->request->is('ajax')) {
-					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
-				}
-				return;
-			}
-		}
-
-		$this->throwBadRequest();
-	}
-
-/**
- * edit
- *
- * @return void
- */
-//	public function edit() {
-//		$frame = $this->Frame->findById($frameId);
-//		$block = ($blockId) ?
-//			$this->__getEditBlock($blockId, $this->viewVars['roomId'], 'faqs') :
-//			$this->FaqBlock->create(['id' => '']);
-//		$categoryList = $this->Category->getCategoryList($blockId);
+//		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
 //
-//		$result = array(
-//			'frame' => $frame['Frame'],
-//			'block' => $block['FaqBlock'],
-//			'categoryList' => $categoryList,
-//		);
-//		$result = $this->camelizeKeyRecursive($result);
-//		$this->set($result);
-//
-//		if ($this->request->isGet()) {
-//			CakeSession::write('backUrl', $this->request->referer());
+//		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
+//			$this->throwBadRequest();
+//			return false;
 //		}
 //
-//		if ($this->request->isPost()) {
-//			if (isset($this->data['delete'])) {
-//				$this->Faq->deleteBlock($block);
-//			} else {
-//				$this->FaqBlock->saveBlock($this->data, $frame);
-//				if (!$this->handleValidationError($this->FaqBlock->validationErrors)) {
-//					return;
+//		if ($this->request->isDelete()) {
+//			if ($this->FaqBlock->deleteBlock($this->data)) {
+//				if (! $this->request->is('ajax')) {
+//					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
 //				}
-//			}
-//
-//			if (!$this->request->is('ajax')) {
-//				$backUrl = CakeSession::read('backUrl');
-//				CakeSession::delete('backUrl');
-//				$this->redirect($backUrl);
+//				return;
 //			}
 //		}
-//	}
-
-/**
- * editAuth method
- *
- * @param int $frameId frames.id
- * @param int $blockId blocks.id
- * @return CakeResponse A response object containing the rendered view.
- */
-//	public function editAuth($frameId = 0, $blockId = 0) {
-//		$frame = $this->Frame->findById($frameId);
-//		$block = $this->__getEditBlock($blockId, $this->viewVars['roomId'], 'faqs');
-//		$result = array(
-//			'frame' => $frame['Frame'],
-//			'block' => $block['FaqBlock'],
-//		);
-//		$result = $this->camelizeKeyRecursive($result);
-//		$this->set($result);
-//	}
-
-/**
- * setBlock method
- *
- * @param int $frameId frames.id
- * @param int $blockId blocks.id
- * @return void
- * @throws MethodNotAllowedException
- * @throws InternalErrorException
- */
-//	public function setBlock($frameId, $blockId) {
-//		if (! $this->request->isPost()) {
-//			throw new MethodNotAllowedException();
-//		}
 //
-//		$options = array('recursive' => -1, 'conditions' => array('id' => $frameId));
-//		if (! $frame = $this->Frame->find('first', $options)) {
-//			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//		}
-//
-//		$frame['Frame']['block_id'] = $blockId;
-//		if (! $this->Frame->save($frame)) {
-//			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//		}
-//	}
-
-/**
- * get block
- *
- * @param int $blockId blocks.id
- * @param int $roomId rooms id
- * @param string $pluginKey plugin key
- * @return array block data
- * @throws InternalErrorException
- */
-//	private function __getEditBlock($blockId, $roomId, $pluginKey) {
-//		$options = array(
-//			'recursive' => -1,
-//			'conditions' => array(
-//				'id' => $blockId,
-//				'room_id' => $roomId,
-//				'plugin_key' => $pluginKey,
-//			));
-//		$block = $this->FaqBlock->find('first', $options);
-//		if (! $block) {
-//			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//		}
-//
-//		$format = 'Y/m/d H:i';
-//		$block['FaqBlock']['from'] = $this->__formatStrDate($block['FaqBlock']['from'], $format);
-//		$block['FaqBlock']['to'] = $this->__formatStrDate($block['FaqBlock']['to'], $format);
-//		return $block;
-//	}
-
-/**
- * format string date
- *
- * @param string $str string date
- * @param string $format date format
- * @return string format date
- */
-//	private function __formatStrDate($str, $format) {
-//		$timestamp = strtotime($str);
-//		if ($timestamp === false) {
-//			return null;
-//		}
-//		return date($format, $timestamp);
-//	}
+//		$this->throwBadRequest();
+	}
 
 /**
  * Parse data from request

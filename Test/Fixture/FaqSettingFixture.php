@@ -1,6 +1,6 @@
 <?php
 /**
- * FaqFixture
+ * FaqSettingFixture
  *
 * @author   Jun Nishikawa <topaz2@m0n0m0n0.com>
 * @link     http://www.netcommons.org NetCommons Project
@@ -8,9 +8,9 @@
  */
 
 /**
- * Summary for FaqFixture
+ * Summary for FaqSettingFixture
  */
-class FaqFixture extends CakeTestFixture {
+class FaqSettingFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -19,11 +19,10 @@ class FaqFixture extends CakeTestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary', 'comment' => 'ID | | | '),
-		'key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'faq key | FAQキー | Hash値 | ', 'charset' => 'utf8'),
-		'block_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'FAQ name | FAQ名称 | | ', 'charset' => 'utf8'),
-		'is_auto_translated' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => 'translation type. 0:original , 1:auto translation | 翻訳タイプ 0:オリジナル、1:自動翻訳 | | '),
-		'translation_engine' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'translation engine | 翻訳エンジン | | ', 'charset' => 'utf8'),
+		'faq_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'Faq key | FAQキー | Hash値 | ', 'charset' => 'utf8'),
+		'use_workflow' => array('type' => 'boolean', 'null' => false, 'default' => '1', 'comment' => 'Use of the workflow, 0:Unused 1:Use | コンテンツの承認機能 0:使わない 1:使う | | '),
+		'use_comment' => array('type' => 'boolean', 'null' => false, 'default' => '1', 'comment' => 'Use of comments, 0:Unused 1:Use | コメント機能 0:使わない 1:使う | | '),
+		'use_comment_approval' => array('type' => 'boolean', 'null' => false, 'default' => '1', 'comment' => 'Use of comments approval, 0:Unused 1:Use | コメントの承認機能 0:使わない 1:使う | | '),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => '0', 'comment' => 'created user | 作成者 | users.id | '),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => 'created datetime | 作成日時 | | '),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => '0', 'comment' => 'modified user | 更新者 | users.id | '),
@@ -42,15 +41,14 @@ class FaqFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'key' => 'Lorem ipsum dolor sit amet',
-			'block_id' => 1,
-			'name' => 'Lorem ipsum dolor sit amet',
-			'is_auto_translated' => 1,
-			'translation_engine' => 'Lorem ipsum dolor sit amet',
+			'faq_key' => 'Lorem ipsum dolor sit amet',
+			'use_workflow' => 1,
+			'use_comment' => 1,
+			'use_comment_approval' => 1,
 			'created_user' => 1,
-			'created' => '2015-04-22 15:26:11',
+			'created' => '2015-04-22 15:26:21',
 			'modified_user' => 1,
-			'modified' => '2015-04-22 15:26:11'
+			'modified' => '2015-04-22 15:26:21'
 		),
 	);
 
