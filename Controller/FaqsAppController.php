@@ -27,4 +27,15 @@ class FaqsAppController extends AppController {
 	public $components = array(
 		'Security',
 	);
+
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		$results = $this->camelizeKeyRecursive(['current' => $this->current]);
+		$this->set($results);
+	}
+
 }

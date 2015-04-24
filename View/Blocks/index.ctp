@@ -39,7 +39,7 @@
 						<tr>
 							<th>#</th>
 							<th>
-								<?php echo $this->Paginator->sort('Block.name', __d('faqs', 'FAQ Name')); ?>
+								<?php echo $this->Paginator->sort('Faq.name', __d('faqs', 'FAQ Name')); ?>
 							</th>
 							<th>
 								<?php echo $this->Paginator->sort('Block.public_type', __d('faqs', 'Public Type')); ?>
@@ -68,7 +68,7 @@
 								</td>
 								<td>
 									<a href="<?php echo $this->Html->url('/faqs/blocks/edit/' . $frameId . '/' . (int)$faq['block']['id']); ?>">
-										<?php echo h($faq['block']['name']); ?>
+										<?php echo h($faq['faq']['name']); ?>
 									</a>
 								</td>
 								<td>

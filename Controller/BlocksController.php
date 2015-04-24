@@ -68,9 +68,6 @@ class BlocksController extends FaqsAppController {
 		$this->layout = 'NetCommons.setting';
 		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
 		$this->set($results);
-
-		$results = $this->camelizeKeyRecursive(['current' => $this->current]);
-		$this->set($results);
 	}
 
 /**

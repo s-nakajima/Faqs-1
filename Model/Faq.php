@@ -29,6 +29,15 @@ class Faq extends FaqsAppModel {
  */
 	public $validate = array();
 
+/**
+ * use behaviors
+ *
+ * @var array
+ */
+	public $actsAs = array(
+		'NetCommons.OriginalKey'
+	);
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
@@ -85,7 +94,7 @@ class Faq extends FaqsAppModel {
 					//'allowEmpty' => false,
 					//'required' => false,
 					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'block_id' => array(
@@ -95,7 +104,7 @@ class Faq extends FaqsAppModel {
 					//'allowEmpty' => false,
 					//'required' => false,
 					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'name' => array(
@@ -143,6 +152,146 @@ class Faq extends FaqsAppModel {
 		);
 
 		return $faq;
+	}
+
+/**
+ * Save faq
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveFaq($data) {
+		$this->loadModels([
+			'Faq' => 'Faqs.Faq',
+			'FaqSetting' => 'Faqs.FaqSetting',
+			'Block' => 'Blocks.Block',
+			'Frame' => 'Frames.Frame',
+		]);
+
+		//トランザクションBegin
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		try {
+			//バリデーション
+			if (! $this->validateFaq($data, ['faqSetting', 'block'])) {
+				return false;
+			}
+
+			//ブロックの登録
+			$block = $this->Block->saveByFrameId($data['Frame']['id']);
+
+			//登録処理
+			$this->data['Faq']['block_id'] = (int)$block['Block']['id'];
+			if (! $faq = $this->save(null, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			$this->FaqSetting->data['FaqSetting']['faq_key'] = $faq['Faq']['key'];
+			if (! $this->FaqSetting->save(null, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return true;
+	}
+
+/**
+ * validate faq
+ *
+ * @param array $data received post data
+ * @param array $contains Optional validate sets
+ * @return bool True on success, false on validation errors
+ */
+	public function validateFaq($data, $contains = []) {
+		$this->set($data);
+		$this->validates();
+		if ($this->validationErrors) {
+			return false;
+		}
+
+		if (in_array('faqSetting', $contains, true)) {
+			if (! $this->FaqSetting->validateFaqSetting($data)) {
+				$this->validationErrors = Hash::merge($this->validationErrors, $this->FaqSetting->validationErrors);
+				return false;
+			}
+		}
+
+		if (in_array('block', $contains, true)) {
+			if (! $this->Block->validateBlock($data)) {
+				$this->validationErrors = Hash::merge($this->validationErrors, $this->Block->validationErrors);
+				return false;
+			}
+		}
+		return true;
+	}
+
+/**
+ * Delete faq
+ *
+ * @param array $data received post data
+ * @return mixed On success Model::$data if its not empty or true, false on failure
+ * @throws InternalErrorException
+ */
+	public function deleteFaq($data) {
+		$this->setDataSource('master');
+
+		$this->loadModels([
+			'Faq' => 'Faqs.Faq',
+			'FaqSetting' => 'Faqs.FaqSetting',
+			//'FaqPost' => 'Faqs.FaqPost',
+			//'FaqPostI18n' => 'Faqs.FaqPostI18n',
+			'Block' => 'Blocks.Block',
+			'BlockRolePermission' => 'Blocks.BlockRolePermission',
+			//'Comment' => 'Comments.Comment',
+		]);
+
+		//トランザクションBegin
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		try {
+			if (! $this->deleteAll(array($this->alias . '.key' => $data['Faq']['key']), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			if (! $this->FaqSetting->deleteAll(array($this->FaqSetting->alias . '.faq_key' => $data['Faq']['key']), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//if (! $this->FaqPost->deleteAll(array($this->FaqPost->alias . '.faq_key' => $data['Faq']['key']), true)) {
+			//	throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			//}
+
+			//Blockデータ削除
+			$this->Block->deleteBlock($data['Block']['key']);
+
+			//BlockRolePermissionデータ削除
+			if (! $this->BlockRolePermission->deleteAll(array($this->BlockRolePermission->alias . '.block_key' => $data['Block']['key']), true)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return true;
 	}
 
 }

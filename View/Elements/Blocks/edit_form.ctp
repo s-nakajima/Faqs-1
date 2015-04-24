@@ -37,13 +37,13 @@
 <div class="row form-group">
 	<div class="col-xs-12">
 		<?php echo $this->Form->input(
-				'Block.name', array(
+				'Faq.name', array(
 					'type' => 'text',
 					'label' => __d('faqs', 'FAQ Name') . $this->element('NetCommons.required'),
 					'error' => false,
 					'class' => 'form-control',
 					'autofocus' => true,
-					'value' => (isset($block['name']) ? $block['name'] : '')
+					'value' => (isset($faq['name']) ? $faq['name'] : '')
 				)
 			); ?>
 	</div>
