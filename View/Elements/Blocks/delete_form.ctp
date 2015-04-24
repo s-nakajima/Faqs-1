@@ -19,6 +19,9 @@
 <?php echo $this->Form->hidden('Block.key', array(
 		'value' => isset($block['key']) ? $block['key'] : null,
 	)); ?>
+<?php echo $this->Form->hidden('Faq.key', array(
+		'value' => isset($faq['key']) ? $faq['key'] : null,
+	)); ?>
 <?php echo $this->Form->button('<span class="glyphicon glyphicon-trash"> </span> ' . __d('net_commons', 'Delete'), array(
 		'name' => 'delete',
 		'class' => 'btn btn-danger pull-right',

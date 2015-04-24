@@ -27,7 +27,8 @@ class BlocksController extends FaqsAppController {
 	public $uses = array(
 		'Blocks.Block',
 		'Frames.Frame',
-		'Faqs.Faq'
+		'Faqs.Faq',
+		'Faqs.FaqSetting'
 	);
 
 /**
@@ -154,29 +155,23 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
-//		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-//
-//		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
-//			$this->throwBadRequest();
-//			return false;
-//		}
-//		$block = $this->camelizeKeyRecursive($block);
-//		$this->set($block);
-//
-//		if ($this->request->isPost()) {
-//			$data = $this->__parseRequestData();
-//
-//			$this->FaqBlock->saveBlock($data);
-//			if ($this->handleValidationError($this->FaqBlock->validationErrors)) {
-//				if (! $this->request->is('ajax')) {
-//					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
-//				}
-//				return;
-//			}
-//
-//			$results = $this->camelizeKeyRecursive($data);
-//			$this->set($results);
-//		}
+		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+		$this->initFaq(['faqSetting']);
+
+		if ($this->request->isPost()) {
+			$data = $this->__parseRequestData();
+
+			$this->Faq->saveFaq($data);
+			if ($this->handleValidationError($this->Faq->validationErrors)) {
+				if (! $this->request->is('ajax')) {
+					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+				}
+				return;
+			}
+
+			$results = $this->camelizeKeyRecursive($data);
+			$this->set($results);
+		}
 	}
 
 /**
@@ -185,6 +180,20 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function delete() {
+		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+		$this->initFaq();
+
+		if ($this->request->isDelete()) {
+			if ($this->Faq->deleteFaq($this->data)) {
+				if (! $this->request->is('ajax')) {
+					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+				}
+				return;
+			}
+		}
+
+		$this->throwBadRequest();
+
 //		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
 //
 //		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {

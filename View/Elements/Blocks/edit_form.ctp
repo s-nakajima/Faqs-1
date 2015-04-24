@@ -34,6 +34,18 @@
 		'value' => $this->params['plugin'],
 	)); ?>
 
+<?php echo $this->Form->hidden('Faq.id', array(
+		'value' => isset($faq['id']) ? (int)$faq['id'] : null,
+	)); ?>
+
+<?php echo $this->Form->hidden('Faq.key', array(
+		'value' => isset($faq['key']) ? $faq['key'] : null,
+	)); ?>
+
+<?php echo $this->Form->hidden('FaqSetting.id', array(
+		'value' => isset($faqSetting['id']) ? (int)$faqSetting['id'] : null,
+	)); ?>
+
 <div class="row form-group">
 	<div class="col-xs-12">
 		<?php echo $this->Form->input(

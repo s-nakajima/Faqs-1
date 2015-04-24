@@ -20,48 +20,7 @@ class FaqSetting extends FaqsAppModel {
  *
  * @var array
  */
-	public $validate = array(
-		'faq_key' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'use_workflow' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'use_comment' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'use_comment_approval' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+	public $validate = array();
 
 /**
  * Called during validation operations, before validation. Please note that custom
@@ -132,6 +91,26 @@ class FaqSetting extends FaqsAppModel {
 			return false;
 		}
 		return true;
+	}
+
+/**
+ * Get faq setting data
+ *
+ * @param string $faqKey faq.key
+ * @return array
+ */
+	public function getFaqSetting($faqKey) {
+		$conditions = array(
+			'faq_key' => $faqKey
+		);
+
+		$faqSetting = $this->find('first', array(
+				'recursive' => -1,
+				'conditions' => $conditions,
+			)
+		);
+
+		return $faqSetting;
 	}
 
 }
