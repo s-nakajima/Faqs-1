@@ -63,7 +63,7 @@ class FaqSetting extends FaqsAppModel {
 					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				),
 			),
-			'is_comment_auto_apploval' => array(
+			'is_comment_auto_approval' => array(
 				'boolean' => array(
 					'rule' => array('boolean'),
 					//'message' => 'Your custom message here',
@@ -76,21 +76,6 @@ class FaqSetting extends FaqsAppModel {
 		));
 
 		return parent::beforeValidate($options);
-	}
-
-/**
- * validate faqSettings
- *
- * @param array $data received post data
- * @return bool True on success, false on validation errors
- */
-	public function validateFaqSetting($data) {
-		$this->set($data);
-		$this->validates();
-		if ($this->validationErrors) {
-			return false;
-		}
-		return true;
 	}
 
 /**
@@ -111,6 +96,71 @@ class FaqSetting extends FaqsAppModel {
 		);
 
 		return $faqSetting;
+	}
+
+/**
+ * Save faq settings
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on failure
+ * @throws InternalErrorException
+ */
+	public function saveFaqSetting($data) {
+		$this->loadModels([
+			'FaqSetting' => 'Faqs.FaqSetting',
+			'BlockRolePermission' => 'Blocks.BlockRolePermission',
+		]);
+
+		//トランザクションBegin
+		$this->setDataSource('master');
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		try {
+			if (! $this->validateFaqSetting($data)) {
+				return false;
+			}
+			foreach ($data[$this->BlockRolePermission->alias] as $value) {
+				if (! $this->BlockRolePermission->validateBlockRolePermissions($value)) {
+					$this->validationErrors = Hash::merge($this->validationErrors, $this->BlockRolePermission->validationErrors);
+					return false;
+				}
+			}
+
+			if (! $this->save(null, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+			foreach ($data[$this->BlockRolePermission->alias] as $value) {
+				if (! $this->BlockRolePermission->saveMany($value, ['validate' => false])) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return true;
+	}
+
+/**
+ * validate faqSettings
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ */
+	public function validateFaqSetting($data) {
+		$this->set($data);
+		$this->validates();
+		if ($this->validationErrors) {
+			return false;
+		}
+		return true;
 	}
 
 }

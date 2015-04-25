@@ -103,8 +103,13 @@ class BlocksController extends FaqsAppController {
 			$this->set($results);
 
 		} catch (Exception $ex) {
-			$this->params['named'] = array();
-			$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+			if ($this->params['named']) {
+				$this->params['named'] = array();
+				$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+			} else {
+				CakeLog::error($ex);
+				throw $ex;
+			}
 		}
 	}
 

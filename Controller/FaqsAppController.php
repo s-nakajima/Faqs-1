@@ -34,6 +34,7 @@ class FaqsAppController extends AppController {
  * @return void
  */
 	public function beforeFilter() {
+		parent::beforeFilter();
 		$results = $this->camelizeKeyRecursive(['current' => $this->current]);
 		$this->set($results);
 	}

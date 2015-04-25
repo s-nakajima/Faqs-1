@@ -30,6 +30,8 @@ class BlockRolePermissionsController extends FaqsAppController {
 		'Blocks.Block',
 		'Blocks.BlockRolePermission',
 		'Rooms.RolesRoom',
+		'Faqs.Faq',
+		'Faqs.FaqSetting'
 	);
 
 /**
@@ -78,7 +80,7 @@ class BlockRolePermissionsController extends FaqsAppController {
  */
 	public function edit() {
 		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-		//$this->initBbs();
+		$this->initFaq(['faqSetting']);
 
 		if (! $block = $this->Block->find('first', array(
 			'recursive' => -1,
@@ -108,7 +110,7 @@ class BlockRolePermissionsController extends FaqsAppController {
 			['content_creatable', 'content_publishable']
 		);
 
-		var_dump($permissions);
+		//var_dump($permissions);
 
 		//$rolesRooms = $this->RolesRoom->find('all', array(
 		//	'recursive' => -1,
@@ -147,20 +149,19 @@ class BlockRolePermissionsController extends FaqsAppController {
 		if ($this->request->isPost()) {
 			$data = $this->data;
 
-			$this->BbsSetting->setDataSource('master');
-			$this->BbsSetting->saveBbsSetting($data);
-			if ($this->handleValidationError($this->BbsSetting->validationErrors)) {
+			$this->FaqSetting->saveFaqSetting($data);
+			if ($this->handleValidationError($this->FaqSetting->validationErrors)) {
 				if (! $this->request->is('ajax')) {
-					$this->redirect('/bbses/blocks/index/' . $this->viewVars['frameId']);
+					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
 				}
 				return;
 			}
 		}
 
 		$results = array(
-			'blockPermissions' => $blockPermissions,
+			'BlockRolePermissions' => $permissions['BlockRolePermissions'],
 			//'defaultPermissions' => $defaultPermissions,
-			'roles' => $roles,
+			'roles' => $permissions['Roles'],
 			//'rolesRooms' => $rolesRooms,
 			'current' => $this->current,
 		);
