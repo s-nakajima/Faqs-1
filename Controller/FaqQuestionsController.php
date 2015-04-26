@@ -84,10 +84,7 @@ class FaqQuestionsController extends FaqsAppController {
 		}
 
 		//取得
-		if (! $faqQuestions = $this->FaqQuestion->getFaqQuestions($conditions)) {
-			$this->throwBadRequest();
-			return false;
-		}
+		$faqQuestions = $this->FaqQuestion->getFaqQuestions($conditions);
 
 		$results = array(
 			'faqQuestions' => $faqQuestions

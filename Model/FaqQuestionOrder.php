@@ -77,18 +77,20 @@ class FaqQuestionOrder extends FaqsAppModel {
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
 	public function beforeDelete($cascade = true) {
-		if (isset($this->data[$this->name]['faq_key']) && isset($this->data[$this->name]['faq_question_key'])) {
+		if (isset($this->data[$this->name]['faq_question_key'])) {
 			$order = $this->find('first', array(
-				'recursive' => -1,
-				'fields' => array('weight'),
-				'conditions' => array('faq_question_key' => $this->data[$this->name]['faq_question_key']),
-			));
+					'recursive' => -1,
+					'fields' => array('faq_key', 'weight'),
+					'conditions' => array(
+						'faq_question_key' => $this->data[$this->name]['faq_question_key']
+					),
+				));
 
 			$this->updateAll(
 				array($this->name . '.weight' => $this->name . '.weight - 1'),
 				array(
 					$this->name . '.weight > ' => $order[$this->name]['weight'],
-					$this->name . '.faq_key' => $this->data[$this->name]['faq_key'],
+					$this->name . '.faq_key' => $order[$this->name]['faq_key'],
 				)
 			);
 		}

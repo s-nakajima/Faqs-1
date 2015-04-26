@@ -269,7 +269,6 @@ class FaqQuestion extends FaqsAppModel {
 
 			$this->FaqQuestionOrder->data = array(
 				$this->FaqQuestionOrder->name => array(
-					'faq_key' => $data['Faq']['key'],
 					'faq_question_key' => $data['FaqQuestion']['key'],
 				)
 			);
