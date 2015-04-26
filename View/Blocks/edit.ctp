@@ -31,7 +31,7 @@
 				'controller' => 'Blocks',
 				'action' => h($this->request->params['action']) . '/' . $frameId . '/' . $blockId,
 				'callback' => 'Faqs.Blocks/edit_form',
-				'cancel' => '/faqs/blocks/index/' . $frameId
+				'cancelUrl' => '/faqs/blocks/index/' . $frameId
 			)); ?>
 
 		<?php if ($this->request->params['action'] === 'edit') : ?>
