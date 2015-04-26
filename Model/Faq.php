@@ -61,8 +61,8 @@ class Faq extends FaqsAppModel {
  * @var array
  */
 	public $hasMany = array(
-		'FaqQuestionAnswer' => array(
-			'className' => 'FaqQuestionAnswer',
+		'FaqQuestion' => array(
+			'className' => 'FaqQuestion',
 			'foreignKey' => 'faq_id',
 			'dependent' => false,
 			'conditions' => '',

@@ -1,16 +1,21 @@
 <?php
 /**
- * FaqQuestionAnswerFixture
+ * FaqQuestionFixture
  *
-* @author   Jun Nishikawa <topaz2@m0n0m0n0.com>
-* @link     http://www.netcommons.org NetCommons Project
-* @license  http://www.netcommons.org/license.txt NetCommons License
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 /**
- * Summary for FaqQuestionAnswerFixture
+ * FaqQuestionFixture
+ *
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @package NetCommons\Faqs\Test\Fixture
  */
-class FaqQuestionAnswerFixture extends CakeTestFixture {
+class FaqQuestionFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -23,8 +28,8 @@ class FaqQuestionAnswerFixture extends CakeTestFixture {
 		'key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'faq key | FAQKey |  | ', 'charset' => 'utf8'),
 		'category_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'category id | カテゴリーID | categories.id | '),
 		'status' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 4, 'comment' => 'public status, 1: public, 2: public pending, 3: draft during 4: remand | 公開状況  1:公開中、2:公開申請中、3:下書き中、4:差し戻し |  | '),
-		'question' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'question | 質問 |  | ', 'charset' => 'utf8'),
-		'answer' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'answer | 回答 |  | ', 'charset' => 'utf8'),
+		'question' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'question | 質問 |  | ', 'charset' => 'utf8'),
+		'answer' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'answer | 回答 |  | ', 'charset' => 'utf8'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'created user | 作成者 | users.id | '),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => 'created datetime | 作成日時 |  | '),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'modified user | 更新者 | users.id | '),
@@ -50,9 +55,9 @@ class FaqQuestionAnswerFixture extends CakeTestFixture {
 			'question' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'answer' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'created_user' => 1,
-			'created' => '2015-04-22 15:26:45',
+			'created' => '2015-04-25 07:53:57',
 			'modified_user' => 1,
-			'modified' => '2015-04-22 15:26:45'
+			'modified' => '2015-04-25 07:53:57'
 		),
 	);
 

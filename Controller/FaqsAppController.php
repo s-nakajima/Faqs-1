@@ -43,7 +43,7 @@ class FaqsAppController extends AppController {
  * initFaq
  *
  * @param array $contains Optional result sets
- * @return void
+ * @return bool True on success, False on failure
  */
 	public function initFaq($contains = []) {
 		if (! $faq = $this->Faq->getFaq($this->viewVars['blockId'], $this->viewVars['roomId'])) {
@@ -63,8 +63,16 @@ class FaqsAppController extends AppController {
 			$this->set($faqSetting);
 		}
 
+		if (in_array('categories', $contains, true)) {
+			$categories = array();
+
+			$categories = $this->camelizeKeyRecursive($categories);
+			$this->set(['categories' => $categories]);
+		}
 
 		$this->set('userId', (int)$this->Auth->user('id'));
+
+		return true;
 	}
 
 }

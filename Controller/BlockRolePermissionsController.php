@@ -80,7 +80,9 @@ class BlockRolePermissionsController extends FaqsAppController {
  */
 	public function edit() {
 		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-		$this->initFaq(['faqSetting']);
+		if (! $this->initFaq(['faqSetting'])) {
+			return;
+		}
 
 		if (! $block = $this->Block->find('first', array(
 			'recursive' => -1,
@@ -94,57 +96,10 @@ class BlockRolePermissionsController extends FaqsAppController {
 		$this->set('blockId', $block['Block']['id']);
 		$this->set('blockKey', $block['Block']['key']);
 
-//		$roles = $this->Role->find('all', array(
-//			'recursive' => -1,
-//			'conditions' => array(
-//				'Role.type' => 2, //後で定数化
-//				'Role.language_id' => $this->viewVars['languageId'],
-//			),
-//		));
-//var_dump($roles);
-//
-//		$roles = Hash::combine($roles, '{n}.Role.key', '{n}.Role');
-
 		$permissions = $this->NetCommonsBlock->getBlockRolePermissions(
 			$this->viewVars['blockKey'],
 			['content_creatable', 'content_publishable']
 		);
-
-		//var_dump($permissions);
-
-		//$rolesRooms = $this->RolesRoom->find('all', array(
-		//	'recursive' => -1,
-		//	'conditions' => array(
-		//		'RolesRoom.room_id' => $this->viewVars['roomId'],
-		//	),
-		//));
-		//$rolesRooms = Hash::combine($rolesRooms, '{n}.RolesRoom.role_key', '{n}.RolesRoom');
-		//
-		//$defaultPermissions = $this->DefaultRolePermission->find('all', array(
-		//	'recursive' => -1,
-		//	'conditions' => array(
-		//		'DefaultRolePermission.type' => 'bbs_block_role',
-		//	),
-		//));
-		//$defaultPermissions = Hash::combine(
-		//	$defaultPermissions,
-		//	'{n}.DefaultRolePermission.role_key',
-		//	'{n}.DefaultRolePermission',
-		//	'{n}.DefaultRolePermission.permission'
-		//);
-		//
-		//$blockPermissions = $this->BlockRolePermission->find('all', array(
-		//	'recursive' => -1,
-		//	'conditions' => array(
-		//		'BlockRolePermission.block_key' => $this->viewVars['blockKey'],
-		//	),
-		//));
-		//$blockPermissions = Hash::combine(
-		//	$blockPermissions,
-		//	'{n}.BlockRolePermission.roles_room_id',
-		//	'{n}.BlockRolePermission',
-		//	'{n}.BlockRolePermission.permission'
-		//);
 
 		if ($this->request->isPost()) {
 			$data = $this->data;
@@ -160,10 +115,7 @@ class BlockRolePermissionsController extends FaqsAppController {
 
 		$results = array(
 			'BlockRolePermissions' => $permissions['BlockRolePermissions'],
-			//'defaultPermissions' => $defaultPermissions,
 			'roles' => $permissions['Roles'],
-			//'rolesRooms' => $rolesRooms,
-			'current' => $this->current,
 		);
 		$results = $this->camelizeKeyRecursive($results);
 		$this->set($results);

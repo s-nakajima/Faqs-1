@@ -1,6 +1,5 @@
-<?php
 /**
- * faqs edit template
+ * faqs.css
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
@@ -9,8 +8,18 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-$tokens = $this->Token->getToken($tokenFields, $hiddenFields);
+.nc-faqs-transparent {
+	background-color:transparent;
+}
 
-$results['faq'] += $tokens;
+.nc-faqs-font-normal {
+	font-weight:normal;
+}
 
-echo $this->element('NetCommons.json', array('results' => $results));
+.nc-faqs-tab {
+	margin-bottom:10px;
+}
+
+.nc-faqs-input-date {
+	margin-bottom:5px;
+}

@@ -1,16 +1,21 @@
 <?php
 /**
- * FaqQuestionAnswerOrderFixture
+ * FaqQuestionOrderFixture
  *
-* @author   Jun Nishikawa <topaz2@m0n0m0n0.com>
-* @link     http://www.netcommons.org NetCommons Project
-* @license  http://www.netcommons.org/license.txt NetCommons License
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 /**
- * Summary for FaqQuestionAnswerOrderFixture
+ * FaqQuestionOrderFixture
+ *
+ * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @package NetCommons\Faqs\Test\Fixture
  */
-class FaqQuestionAnswerOrderFixture extends CakeTestFixture {
+class FaqQuestionOrderFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -20,7 +25,7 @@ class FaqQuestionAnswerOrderFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary', 'comment' => 'ID |  |  | '),
 		'faq_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'faq key | FAQKey | faqs.key | ', 'charset' => 'utf8'),
-		'faq_question_answer_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'faq_question_answer key | AnswerKey | faq_question_answers.key | ', 'charset' => 'utf8'),
+		'faq_question_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'faq_question_answer key | AnswerKey | faq_question_answers.key | ', 'charset' => 'utf8'),
 		'weight' => array('type' => 'integer', 'null' => false, 'default' => '0', 'comment' => 'The weight of the display(display order) | 表示の重み(表示順序) |  | '),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'created user | 作成者 | users.id | '),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => 'created datetime | 作成日時 |  | '),
@@ -41,12 +46,12 @@ class FaqQuestionAnswerOrderFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'faq_key' => 'Lorem ipsum dolor sit amet',
-			'faq_question_answer_key' => 'Lorem ipsum dolor sit amet',
+			'faq_question_key' => 'Lorem ipsum dolor sit amet',
 			'weight' => 1,
 			'created_user' => 1,
-			'created' => '2015-04-22 15:26:54',
+			'created' => '2015-04-25 07:55:24',
 			'modified_user' => 1,
-			'modified' => '2015-04-22 15:26:54'
+			'modified' => '2015-04-25 07:55:24'
 		),
 	);
 

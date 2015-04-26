@@ -2,7 +2,6 @@
 /**
  * FaqsApp Model
  *
- *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
  * @link http://www.netcommons.org NetCommons Project
@@ -14,6 +13,9 @@ App::uses('AppModel', 'Model');
 
 /**
  * FaqsApp Model
+ *
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @package NetCommons\Faqs\Model
  */
 class FaqsAppModel extends AppModel {
 

@@ -75,6 +75,7 @@ class BlocksController extends FaqsAppController {
  * index
  *
  * @return void
+ * @throws Exception
  */
 	public function index() {
 		try {
@@ -161,7 +162,9 @@ class BlocksController extends FaqsAppController {
  */
 	public function edit() {
 		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-		$this->initFaq(['faqSetting']);
+		if (! $this->initFaq(['faqSetting'])) {
+			return;
+		}
 
 		if ($this->request->isPost()) {
 			$data = $this->__parseRequestData();
@@ -186,7 +189,9 @@ class BlocksController extends FaqsAppController {
  */
 	public function delete() {
 		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-		$this->initFaq();
+		if (! $this->initFaq()) {
+
+		}
 
 		if ($this->request->isDelete()) {
 			if ($this->Faq->deleteFaq($this->data)) {
@@ -198,24 +203,6 @@ class BlocksController extends FaqsAppController {
 		}
 
 		$this->throwBadRequest();
-
-//		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
-//
-//		if (! $block = $this->FaqBlock->getBlock($this->viewVars['blockId'], $this->viewVars['roomId'])) {
-//			$this->throwBadRequest();
-//			return false;
-//		}
-//
-//		if ($this->request->isDelete()) {
-//			if ($this->FaqBlock->deleteBlock($this->data)) {
-//				if (! $this->request->is('ajax')) {
-//					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
-//				}
-//				return;
-//			}
-//		}
-//
-//		$this->throwBadRequest();
 	}
 
 /**
