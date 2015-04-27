@@ -63,26 +63,28 @@ class FaqQuestionOrdersController extends FaqsAppController {
 
 		$this->Paginator->settings = array(
 			'FaqQuestion' => array(
-				'order' => array('FaqQuestionOrder.weight' => 'desc'),
+				'order' => array('FaqQuestionOrder.weight' => 'asc'),
 				'conditions' => array(
 					'FaqQuestion.faq_id' => $this->viewVars['faq']['id'],
 					'FaqQuestion.is_latest' => true,
 				),
-//				'joins' => array(
-//					'Category',
-//					array(
-//						'table' => 'category_orders',
-//						'alias' => 'CategoryOrder',
-//						'type' => 'left',
-//						'conditions' => array(
-//							'Category.key = CategoryOrder.category_key'
-//						)
-//					)
-//				),
 				'limit' => -1
 			)
 		);
 		$faqQuestions = $this->Paginator->paginate('FaqQuestion');
+
+		//POST処理
+		if ($this->request->isPost()) {
+			//登録処理
+			$data = $this->data;
+			$this->FaqQuestionOrder->saveFaqQuestionOrders($data);
+			//validationError
+			if ($this->handleValidationError($this->FaqQuestionOrder->validationErrors)) {
+				//リダイレクト
+				$this->redirectByFrameId();
+				return;
+			}
+		}
 
 		$results = array(
 			'faqQuestions' => $faqQuestions

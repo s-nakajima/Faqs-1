@@ -208,9 +208,6 @@ class FaqQuestionsController extends FaqsAppController {
 					'created_user' => $this->viewVars['faqQuestion']['createdUser']
 				))
 			);
-
-			CakeLog::debug('FaqQuestionsController $data = ' . print_r($data, true));
-
 			unset($data['FaqQuestion']['id']);
 
 			$this->FaqQuestion->saveFaqQuestion($data);

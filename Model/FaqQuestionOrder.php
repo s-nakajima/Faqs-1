@@ -129,4 +129,50 @@ class FaqQuestionOrder extends FaqsAppModel {
 		return (isset($order[$this->alias]['weight']) ? $order[$this->alias]['weight'] : 0);
 	}
 
+/**
+ * Save FaqQuestionOrder
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveFaqQuestionOrders($data) {
+		$this->loadModels([
+			'FaqQuestionOrder' => 'Faqs.FaqQuestionOrder',
+		]);
+
+		//トランザクションBegin
+		$this->setDataSource('master');
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		try {
+			//バリデーション
+			$indexes = array_keys($data['FaqQuestionOrders']);
+			foreach ($indexes as $i) {
+				if (! $this->validateFaqQuestionOrder($data['FaqQuestionOrders'][$i])) {
+					return false;
+				}
+			}
+
+			//登録処理
+			foreach ($indexes as $i) {
+				if (! $this->save($data['FaqQuestionOrders'][$i], false)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return true;
+	}
+
 }

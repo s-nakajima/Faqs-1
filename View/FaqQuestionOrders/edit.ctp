@@ -63,10 +63,10 @@
 							<span class="glyphicon glyphicon-arrow-down"></span>
 						</button>
 
-						<input type="hidden" name="data[FaqQuestions][{{$index}}][FaqQuestionOrder][id]" ng-value="q.faqQuestionOrder.id">
-						<input type="hidden" name="data[FaqQuestions][{{$index}}][faqQuestionOrder][faq_key]" ng-value="q.faqQuestionOrder.faqKey">
-						<input type="hidden" name="data[FaqQuestions][{{$index}}][faqQuestionOrder][faq_question_key]" ng-value="q.faqQuestionOrder.faqQuestionKey">
-						<input type="hidden" name="data[FaqQuestions][{{$index}}][FaqQuestionOrder][weight]" ng-value="{{$index + 1}}">
+						<input type="hidden" name="data[FaqQuestionOrders][{{$index}}][FaqQuestionOrder][id]" ng-value="q.faqQuestionOrder.id">
+						<input type="hidden" name="data[FaqQuestionOrders][{{$index}}][FaqQuestionOrder][faq_key]" ng-value="q.faqQuestionOrder.faqKey">
+						<input type="hidden" name="data[FaqQuestionOrders][{{$index}}][FaqQuestionOrder][faq_question_key]" ng-value="q.faqQuestionOrder.faqQuestionKey">
+						<input type="hidden" name="data[FaqQuestionOrders][{{$index}}][FaqQuestionOrder][weight]" ng-value="{{$index + 1}}">
 					</td>
 					<td>
 						{{q.faqQuestion.question}}
@@ -78,9 +78,8 @@
 			</tbody>
 		</table>
 
-		<hr>
 		<div class="text-center">
-			<button type="button" class="btn btn-default btn-workflow" onclick="location.href = '<?php echo $cancelUrl; ?>'">
+			<button type="button" class="btn btn-default btn-workflow" onclick="location.href = '/<?php echo $cancelUrl; ?>'">
 				<span class="glyphicon glyphicon-remove"></span>
 				<?php echo __d('net_commons', 'Cancel'); ?>
 			</button>
