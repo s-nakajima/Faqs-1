@@ -52,7 +52,9 @@
 
 <?php if (is_array($categories) && count($categories) > 0) : ?>
 	<div class='form-group'>
-		<?php echo $this->Form->input('Faq.category_id',
+		<?php $categories = Hash::combine($categories, '{n}.category.id', '{n}.category.name'); ?>
+
+		<?php echo $this->Form->input('FaqQuestion.category_id',
 			array(
 				'label' => __d('categories', 'Category'),
 				'type' => 'select',
@@ -60,6 +62,7 @@
 				'class' => 'form-control',
 				'empty' => array(0 => __d('categories', 'Select Category')),
 				'options' => $categories,
+				'value' => (isset($faqQuestion['categoryId']) ? $faqQuestion['categoryId'] : '0')
 			)); ?>
 		<div>
 			<?php echo $this->element(

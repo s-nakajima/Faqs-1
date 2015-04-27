@@ -44,7 +44,7 @@ $hidden = $this->params['action'] === 'index' ? 'hidden' : '';
 				<span class="glyphicon glyphicon-question-sign"> </span>
 				<?php echo h($faqQuestion['faqQuestion']['question']); ?>
 			</a>
-
+		
 		<?php else : ?>
 			<small>
 				<span class="glyphicon glyphicon-question-sign"> </span>

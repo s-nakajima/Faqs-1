@@ -11,16 +11,28 @@
 ?>
 <?php echo $this->Html->script('/faqs/js/faqs.js', false); ?>
 
-<div class="nc-content-list" ng-controller="FaqIndex">
-	<article>
-		<div class="row">
-			<div class="col-xs-10">
-				<h1>
-					<small><?php echo h($faq['name']); ?></small>
-				</h1>
-			</div>
-			<div class="col-xs-2 text-right">
-				<h2>
+<div class="frame">
+	<div class="nc-content-list" ng-controller="FaqIndex">
+		<article>
+			<h1>
+				<small><?php echo h($faq['name']); ?></small>
+			</h1>
+
+			<div class="clearfix">
+				<div class="pull-left">
+					<?php if ($contentCreatable) : ?>
+						<?php echo $this->element('FaqQuestions/select_status'); ?>
+					<?php endif; ?>
+					<?php echo $this->element('FaqQuestions/select_category'); ?>
+				</div>
+				<div class="pull-right">
+					<?php if ($contentEditable) : ?>
+						<span class="nc-tooltip " tooltip="<?php echo __d('faqs', 'Create question'); ?>">
+							<a href="<?php echo $this->Html->url('/faqs/faq_question_orders/edit/' . $frameId); ?>" class="btn btn-default">
+								<span class="glyphicon glyphicon-sort"> </span>
+							</a>
+						</span>
+					<?php endif; ?>
 					<?php if ($contentCreatable) : ?>
 						<span class="nc-tooltip " tooltip="<?php echo __d('faqs', 'Create question'); ?>">
 							<a href="<?php echo $this->Html->url('/faqs/faq_questions/add/' . $frameId); ?>" class="btn btn-success">
@@ -28,17 +40,18 @@
 							</a>
 						</span>
 					<?php endif; ?>
-				</h2>
+				</div>
 			</div>
-		</div>
 
-		<hr>
-		<?php foreach($faqQuestions as $faqQuestion): ?>
-			<?php echo $this->element('FaqQuestions/article', array(
-					'faqQuestion' => $faqQuestion,
-				)); ?>
 
 			<hr>
-		<?php endforeach; ?>
-	</article>
+			<?php foreach($faqQuestions as $faqQuestion): ?>
+				<?php echo $this->element('FaqQuestions/article', array(
+						'faqQuestion' => $faqQuestion,
+					)); ?>
+
+				<hr>
+			<?php endforeach; ?>
+		</article>
+	</div>
 </div>

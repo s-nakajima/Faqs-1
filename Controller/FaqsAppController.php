@@ -63,13 +63,6 @@ class FaqsAppController extends AppController {
 			$this->set($faqSetting);
 		}
 
-		if (in_array('categories', $contains, true)) {
-			$categories = array();
-
-			$categories = $this->camelizeKeyRecursive($categories);
-			$this->set(['categories' => $categories]);
-		}
-
 		$this->set('userId', (int)$this->Auth->user('id'));
 
 		return true;

@@ -8,7 +8,7 @@
  * FaqIndex Javascript
  *
  * @param {string} Controller name
- * @param {function($scope, NetCommonsWysiwyg)} Controller
+ * @param {function($scope)} Controller
  */
 NetCommonsApp.controller('FaqIndex', function($scope) {
   /**
@@ -34,25 +34,68 @@ NetCommonsApp.controller('FaqIndex', function($scope) {
  * @param {string} Controller name
  * @param {function($scope, NetCommonsWysiwyg)} Controller
  */
-NetCommonsApp.controller('FaqQuestion',
-    function($scope, NetCommonsWysiwyg) {
+NetCommonsApp.controller('FaqQuestions', function($scope, NetCommonsWysiwyg) {
 
-      /**
-       * tinymce
-       *
-       * @type {object}
-       */
-      $scope.tinymce = NetCommonsWysiwyg.new();
+  /**
+   * tinymce
+   *
+   * @type {object}
+   */
+  $scope.tinymce = NetCommonsWysiwyg.new();
 
-      /**
-       * initialize
-       *
-       * @return {void}
-       */
-      $scope.initialize = function(data) {
-        $scope.faqQuestion = data.faqQuestion;
-      };
-    });
+  /**
+   * initialize
+   *
+   * @return {void}
+   */
+  $scope.initialize = function(data) {
+    $scope.faqQuestion = data.faqQuestion;
+  };
+});
+
+
+/**
+ * FaqQuestionOrders Javascript
+ *
+ * @param {string} Controller name
+ * @param {function($scope)} Controller
+ */
+NetCommonsApp.controller('FaqQuestionOrders', function($scope) {
+
+  /**
+   * FaqQuestions
+   *
+   * @type {object}
+   */
+  $scope.faqQuestions = [];
+
+  /**
+   * initialize
+   *
+   * @return {void}
+   */
+  $scope.initialize = function(data) {
+    $scope.faqQuestions = data.faqQuestions;
+  };
+
+  /**
+   * move
+   *
+   * @return {void}
+   */
+  $scope.move = function(type, index) {
+    var dest = (type === 'up') ? index - 1 : index + 1;
+    if (angular.isUndefined($scope.faqQuestions[dest])) {
+      return false;
+    }
+
+    var destQuestion = angular.copy($scope.faqQuestions[dest]);
+    var targetQuestion = angular.copy($scope.faqQuestions[index]);
+    $scope.faqQuestions[index] = destQuestion;
+    $scope.faqQuestions[dest] = targetQuestion;
+  };
+
+});
 
 
 //NetCommonsApp.controller('Faqs',

@@ -170,6 +170,7 @@ class Faq extends FaqsAppModel {
 		]);
 
 		//トランザクションBegin
+		$this->setDataSource('master');
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
 

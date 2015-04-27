@@ -52,19 +52,26 @@ class FaqQuestion extends FaqsAppModel {
 			'foreignKey' => false,
 			'conditions' => 'FaqQuestionOrder.faq_question_key=FaqQuestion.key',
 			'fields' => '',
-			'order' => array('weight' => 'ASC')
+			'order' => array('FaqQuestionOrder.weight' => 'ASC')
 		),
 		'Faq' => array(
-			'className' => 'Faq',
+			'className' => 'Faqs.Faq',
 			'foreignKey' => 'faq_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
 		'Category' => array(
-			'className' => 'Category',
+			'className' => 'Categories.Category',
 			'foreignKey' => 'category_id',
 			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'CategoryOrder' => array(
+			'className' => 'Categories.CategoryOrder',
+			'foreignKey' => false,
+			'conditions' => 'CategoryOrder.category_key=Category.key',
 			'fields' => '',
 			'order' => ''
 		)
@@ -174,6 +181,7 @@ class FaqQuestion extends FaqsAppModel {
 		]);
 
 		//トランザクションBegin
+		$this->setDataSource('master');
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
 
@@ -198,6 +206,7 @@ class FaqQuestion extends FaqsAppModel {
 			}
 			//Comment登録
 			if (isset($data['Comment']) && $this->Comment->data) {
+				$this->Comment->data[$this->Comment->name]['content_key'] = $faqQuestion[$this->name]['key'];
 				if (! $this->Comment->save(null, false)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 				}
@@ -259,6 +268,7 @@ class FaqQuestion extends FaqsAppModel {
 		]);
 
 		//トランザクションBegin
+		$this->setDataSource('master');
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
 

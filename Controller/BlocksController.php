@@ -28,7 +28,8 @@ class BlocksController extends FaqsAppController {
 		'Blocks.Block',
 		'Frames.Frame',
 		'Faqs.Faq',
-		'Faqs.FaqSetting'
+		'Faqs.FaqSetting',
+		'Categories.Category',
 	);
 
 /**
@@ -38,7 +39,7 @@ class BlocksController extends FaqsAppController {
  */
 	public $components = array(
 		'NetCommons.NetCommonsFrame',
-		'NetCommons.NetCommonsWorkflow',
+		//'NetCommons.NetCommonsWorkflow',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
@@ -46,6 +47,7 @@ class BlocksController extends FaqsAppController {
 			),
 		),
 		'Paginator',
+		'Categories.Categories',
 	);
 
 /**
@@ -165,6 +167,9 @@ class BlocksController extends FaqsAppController {
 		if (! $this->initFaq(['faqSetting'])) {
 			return;
 		}
+		if (! $this->Categories->initCategories()) {
+			return;
+		}
 
 		if ($this->request->isPost()) {
 			$data = $this->__parseRequestData();
@@ -190,7 +195,7 @@ class BlocksController extends FaqsAppController {
 	public function delete() {
 		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
 		if (! $this->initFaq()) {
-
+			return;
 		}
 
 		if ($this->request->isDelete()) {

@@ -15,7 +15,7 @@
 
 <div class="frame">
 	<div id="nc-faqs-<?php echo $frameId; ?>" class="nc-content-list"
-		 ng-controller="FaqQuestion"
+		 ng-controller="FaqQuestions"
 		 ng-init="initialize(<?php echo h(json_encode(array('frameId' => $frameId, 'faqQuestion' => $faqQuestion))); ?>)">
 
 		<article>

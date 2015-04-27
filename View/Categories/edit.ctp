@@ -1,6 +1,6 @@
 <?php
 /**
- * BbsSettings edit template
+ * Categories index
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -9,8 +9,6 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 ?>
-
-<?php echo $this->Html->script('/faqs/js/faqs.js', false); ?>
 
 <div class="modal-body">
 	<?php echo $this->element('NetCommons.setting_tabs', array(
@@ -23,17 +21,16 @@
 	<div class="tab-content">
 		<?php echo $this->element('Blocks.setting_tabs', array(
 				'tabs' => array(
-					'block_settings' => '/faqs/blocks/edit/' . $frameId . '/' . $blockId,
+					'block_settings' => '/faqs/blocks/' . h($this->request->params['action']) . '/' . $frameId . '/' . $blockId,
 					'role_permissions' => '/faqs/block_role_permissions/edit/' . $frameId . '/' . $blockId
 				),
-				'active' => 'role_permissions'
+				'active' => 'block_settings'
 			)); ?>
 
-		<?php echo $this->element('Blocks.edit_form', array(
-				'controller' => 'BlockRolePermission',
-				'action' => 'edit' . '/' . $frameId . '/' . $blockId,
-				'callback' => 'Faqs.BlockRolePermissions/edit_form',
-				'cancelUrl' => '/faqs/blocks/index/' . $frameId,
+		<?php echo $this->element('Categories.edit_form', array(
+				'cancelUrl' => '/faqs/blocks/' . h($this->request->params['action']) . '/' . $frameId . '/' . $blockId,
 			)); ?>
+
 	</div>
 </div>
+

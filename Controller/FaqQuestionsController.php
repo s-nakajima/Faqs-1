@@ -48,6 +48,7 @@ class FaqQuestionsController extends FaqsAppController {
 			),
 		),
 		'Paginator',
+		'Categories.Categories',
 	);
 
 /**
@@ -58,6 +59,16 @@ class FaqQuestionsController extends FaqsAppController {
 	public $helpers = array(
 		'NetCommons.Token'
 	);
+
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Categories->initCategories();
+	}
 
 /**
  * index
@@ -115,7 +126,7 @@ class FaqQuestionsController extends FaqsAppController {
 		$this->view = 'edit';
 
 		//データ取得
-		if (! $this->initFaq(['categories'])) {
+		if (! $this->initFaq()) {
 			return;
 		}
 
@@ -138,7 +149,7 @@ class FaqQuestionsController extends FaqsAppController {
 		);
 		$data = Hash::merge(
 			$faqQuestion, $faqQuestionOrder,
-			['contentStatus' => null, 'comments' => [], 'categories' => []]
+			['contentStatus' => null, 'comments' => []]
 		);
 
 		//POSTの場合、登録処理
@@ -176,13 +187,13 @@ class FaqQuestionsController extends FaqsAppController {
 		$this->set('faqQuestionKey', isset($this->params['pass'][1]) ? $this->params['pass'][1] : null);
 
 		//データ取得
-		if (! $this->__initFaqQuestion(['comments', 'categories'])) {
+		if (! $this->__initFaqQuestion(['comments'])) {
 			return;
 		}
 
 		$data = Hash::merge(
 			$this->viewVars,
-			['contentStatus' => $this->viewVars['faqQuestion']['status'], 'categories' => []]
+			['contentStatus' => $this->viewVars['faqQuestion']['status']]
 		);
 
 		//POSTの場合、登録処理
@@ -274,10 +285,7 @@ class FaqQuestionsController extends FaqsAppController {
 
 		$conditions = array(
 			'FaqQuestion.faq_id' => $this->viewVars['faq']['id'],
-			'OR' => array(
-				'AND' => $activeConditions,
-				'AND' => $latestConditons
-			)
+			'OR' => array($activeConditions, $latestConditons)
 		);
 
 		return $conditions;
