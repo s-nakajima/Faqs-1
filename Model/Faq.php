@@ -90,41 +90,31 @@ class Faq extends FaqsAppModel {
 			'key' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => false,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'block_id' => array(
 				'numeric' => array(
 					'rule' => array('numeric'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => false,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'name' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('faqs', 'FAQ')),
+					'allowEmpty' => false,
+					'required' => true,
 				),
 			),
 			'is_auto_translated' => array(
 				'boolean' => array(
 					'rule' => array('boolean'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'message' => __d('net_commons', 'Invalid request.'),
 				),
 			),
 		));
@@ -250,16 +240,25 @@ class Faq extends FaqsAppModel {
 		$this->loadModels([
 			'Faq' => 'Faqs.Faq',
 			'FaqSetting' => 'Faqs.FaqSetting',
-			//'FaqPost' => 'Faqs.FaqPost',
-			//'FaqPostI18n' => 'Faqs.FaqPostI18n',
+			'FaqQuestion' => 'Faqs.FaqQuestion',
+			'FaqQuestionOrder' => 'Faqs.FaqQuestionOrder',
 			'Block' => 'Blocks.Block',
-			'BlockRolePermission' => 'Blocks.BlockRolePermission',
-			//'Comment' => 'Comments.Comment',
+			'Category' => 'Categories.Category',
 		]);
 
 		//トランザクションBegin
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
+
+		$conditions = array(
+			$this->alias . '.key' => $data['Faq']['key']
+		);
+		$faqs = $this->find('list', array(
+				'recursive' => -1,
+				'conditions' => $conditions,
+			)
+		);
+		$faqs = array_keys($faqs);
 
 		try {
 			if (! $this->deleteAll(array($this->alias . '.key' => $data['Faq']['key']), false)) {
@@ -270,17 +269,19 @@ class Faq extends FaqsAppModel {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
-			//if (! $this->FaqPost->deleteAll(array($this->FaqPost->alias . '.faq_key' => $data['Faq']['key']), true)) {
-			//	throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			//}
+			if (! $this->FaqQuestion->deleteAll(array($this->FaqQuestion->alias . '.faq_id' => $faqs), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			if (! $this->FaqQuestionOrder->deleteAll(array($this->FaqQuestionOrder->alias . '.faq_key' => $data['Faq']['key']), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//Categoryデータ削除
+			$this->Category->deleteByBlockKey($data['Block']['key']);
 
 			//Blockデータ削除
 			$this->Block->deleteBlock($data['Block']['key']);
-
-			//BlockRolePermissionデータ削除
-			if (! $this->BlockRolePermission->deleteAll(array($this->BlockRolePermission->alias . '.block_key' => $data['Block']['key']), true)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
 
 			//トランザクションCommit
 			$dataSource->commit();

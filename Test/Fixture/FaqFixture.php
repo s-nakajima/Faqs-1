@@ -46,16 +46,30 @@ class FaqFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => 1,
-			'key' => 'Lorem ipsum dolor sit amet',
-			'block_id' => 1,
-			'name' => 'Lorem ipsum dolor sit amet',
-			'is_auto_translated' => 1,
-			'translation_engine' => 'Lorem ipsum dolor sit amet',
-			'created_user' => 1,
-			'created' => '2015-04-22 15:26:11',
-			'modified_user' => 1,
-			'modified' => '2015-04-22 15:26:11'
+			'id' => '1',
+			'key' => 'faq_1',
+			'block_id' => '100',
+			'name' => 'faq name 100',
+			//'is_auto_translated' => 1,
+			//'translation_engine' => 'Lorem ipsum dolor sit amet',
+		),
+		array(
+			'id' => '2',
+			'key' => 'faq_2',
+			'block_id' => '101',
+			'name' => 'faq name 101',
+			//'is_auto_translated' => 1,
+			//'translation_engine' => 'Lorem ipsum dolor sit amet',
+
+		),
+		array(
+			'id' => '3',
+			'key' => 'faq_3',
+			'block_id' => '102',
+			'name' => 'faq name 102',
+			//'is_auto_translated' => 1,
+			//'translation_engine' => 'Lorem ipsum dolor sit amet',
+
 		),
 	);
 

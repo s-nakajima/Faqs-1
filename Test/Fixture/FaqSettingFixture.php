@@ -45,11 +45,11 @@ class FaqSettingFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => 1,
-			'faq_key' => 'Lorem ipsum dolor sit amet',
-			'use_workflow' => 1,
-			'use_comment' => 1,
-			'use_comment_approval' => 1,
+			'id' => '1',
+			'faq_key' => 'faq_1',
+			'use_workflow' => '1',
+			'use_comment' => '1',
+			'use_comment_approval' => '1',
 			'created_user' => 1,
 			'created' => '2015-04-22 15:26:21',
 			'modified_user' => 1,

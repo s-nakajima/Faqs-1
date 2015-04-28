@@ -47,13 +47,13 @@ class FaqQuestionFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => 1,
-			'faq_id' => 1,
-			'key' => 'Lorem ipsum dolor sit amet',
-			'category_id' => 1,
-			'status' => 1,
-			'question' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'answer' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+			'id' => '1',
+			'faq_id' => '1',
+			'key' => 'faq_question_1',
+			'category_id' => '1',
+			'status' => '1',
+			'question' => 'Question value',
+			'answer' => 'Answer value',
 			'created_user' => 1,
 			'created' => '2015-04-25 07:53:57',
 			'modified_user' => 1,

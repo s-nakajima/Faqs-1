@@ -93,7 +93,6 @@ class BlocksController extends FaqsAppController {
 				)
 			);
 			$faqs = $this->Paginator->paginate('Faq');
-
 			if (! $faqs) {
 				$this->view = 'Blocks/not_found';
 				return;

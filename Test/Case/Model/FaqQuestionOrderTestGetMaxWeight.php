@@ -1,8 +1,8 @@
 <?php
 /**
- * Common code of Faq model test
+ * Test of FaqQuestionOrder->getMaxWeight()
  *
- * @property Faq $Faq
+ * @property FaqQuestionOrder $FaqQuestionOrder
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -11,33 +11,22 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqsBaseModel', 'Faqs.Test/Case/Model');
+App::uses('FaqQuestionOrderTest', 'Faqs.Test/Case/Model');
 
 /**
- * Common code of Faq model test
+ * Test of FaqQuestionOrder->getMaxWeight()
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqTest extends FaqsBaseModel {
+class FaqQuestionOrderTestGetMaxWeight extends FaqQuestionOrderTest {
 
 /**
- * setUp
+ * Expect to get max weight the FaqQuestionOrder
  *
  * @return void
  */
-	public function setUp() {
-		parent::setUp();
-		$this->Faq = ClassRegistry::init('Faqs.Faq');
+	public function test() {
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
-	public function tearDown() {
-		unset($this->Faq);
-		parent::tearDown();
-	}
 }

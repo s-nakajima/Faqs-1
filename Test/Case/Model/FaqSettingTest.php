@@ -1,8 +1,8 @@
 <?php
 /**
- * Common code of Faq model test
+ * Common code of FaqSetting model test
  *
- * @property Faq $Faq
+ * @property FaqSetting $FaqSetting
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -14,12 +14,12 @@
 App::uses('FaqsBaseModel', 'Faqs.Test/Case/Model');
 
 /**
- * Common code of Faq model test
+ * Common code of FaqSetting model test
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqTest extends FaqsBaseModel {
+class FaqSettingTest extends FaqsBaseModel {
 
 /**
  * setUp
@@ -28,7 +28,7 @@ class FaqTest extends FaqsBaseModel {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Faq = ClassRegistry::init('Faqs.Faq');
+		$this->FaqSetting = ClassRegistry::init('Faqs.FaqSetting');
 	}
 
 /**
@@ -37,7 +37,7 @@ class FaqTest extends FaqsBaseModel {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Faq);
+		unset($this->FaqSetting);
 		parent::tearDown();
 	}
 }

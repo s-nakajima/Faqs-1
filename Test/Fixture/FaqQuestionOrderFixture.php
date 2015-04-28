@@ -44,10 +44,10 @@ class FaqQuestionOrderFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => 1,
-			'faq_key' => 'Lorem ipsum dolor sit amet',
-			'faq_question_key' => 'Lorem ipsum dolor sit amet',
-			'weight' => 1,
+			'id' => '1',
+			'faq_key' => 'faq_1',
+			'faq_question_key' => 'faq_question_1',
+			'weight' => '1',
 			'created_user' => 1,
 			'created' => '2015-04-25 07:55:24',
 			'modified_user' => 1,
