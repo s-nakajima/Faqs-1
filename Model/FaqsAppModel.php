@@ -19,17 +19,4 @@ App::uses('AppModel', 'Model');
  */
 class FaqsAppModel extends AppModel {
 
-/**
- * before save
- *
- * @param array $options Options passed from Model::save().
- * @return bool True if the operation should continue, false if it should abort
- */
-	public function beforeSave($options = array()) {
-		if (! isset($this->data[$this->name]['id']) || empty($this->data[$this->name]['id'])) {
-			$this->data[$this->name]['created_user'] = CakeSession::read('Auth.User.id');
-		}
-		$this->data[$this->name]['modified_user'] = CakeSession::read('Auth.User.id');
-		return true;
-	}
 }
