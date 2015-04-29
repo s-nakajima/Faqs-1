@@ -27,4 +27,45 @@ class FaqsAppController extends AppController {
 	public $components = array(
 		'Security',
 	);
+
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$results = $this->camelizeKeyRecursive(['current' => $this->current]);
+		$this->set($results);
+	}
+
+/**
+ * initFaq
+ *
+ * @param array $contains Optional result sets
+ * @return bool True on success, False on failure
+ */
+	public function initFaq($contains = []) {
+		if (! $faq = $this->Faq->getFaq($this->viewVars['blockId'], $this->viewVars['roomId'])) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$faq = $this->camelizeKeyRecursive($faq);
+		$this->set($faq);
+
+		if (in_array('faqSetting', $contains, true)) {
+			if (! $faqSetting = $this->FaqSetting->getFaqSetting($faq['faq']['key'])) {
+				$faqSetting = $this->FaqSetting->create(
+					array('id' => null)
+				);
+			}
+			$faqSetting = $this->camelizeKeyRecursive($faqSetting);
+			$this->set($faqSetting);
+		}
+
+		$this->set('userId', (int)$this->Auth->user('id'));
+
+		return true;
+	}
+
 }

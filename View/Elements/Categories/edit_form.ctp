@@ -10,40 +10,12 @@
  */
 ?>
 
-<?php echo $this->Form->hidden('Frame.id', array(
-		'value' => $frameId,
-	)); ?>
-
 <?php echo $this->Form->hidden('Block.id', array(
 		'value' => $block['id'],
 	)); ?>
 
 <?php echo $this->Form->hidden('Block.key', array(
 		'value' => $block['key'],
-	)); ?>
-
-<?php echo $this->Form->hidden('Block.language_id', array(
-		'value' => $languageId,
-	)); ?>
-
-<?php echo $this->Form->hidden('Block.room_id', array(
-		'value' => $roomId,
-	)); ?>
-
-<?php echo $this->Form->hidden('Block.plugin_key', array(
-		'value' => $this->params['plugin'],
-	)); ?>
-
-<?php echo $this->Form->hidden('Faq.id', array(
-		'value' => isset($faq['id']) ? (int)$faq['id'] : null,
-	)); ?>
-
-<?php echo $this->Form->hidden('Faq.key', array(
-		'value' => isset($faq['key']) ? $faq['key'] : null,
-	)); ?>
-
-<?php echo $this->Form->hidden('FaqSetting.id', array(
-		'value' => isset($faqSetting['id']) ? (int)$faqSetting['id'] : null,
 	)); ?>
 
 <div class="row form-group">
@@ -70,10 +42,4 @@
 	</div>
 </div>
 
-<?php echo $this->element('Blocks.public_type'); ?>
-
-<?php if ($this->request->params['action'] === 'edit') : ?>
-	<?php echo $this->element('Categories.index', array(
-			'categories' => $categories
-		)); ?>
-<?php endif;
+<?php echo $this->element('Blocks.public_type');

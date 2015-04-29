@@ -3,18 +3,19 @@
  * Categories Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
- * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('FaqsAppController', 'Faqs.Controller');
+
 /**
  * Categories Controller
  *
- * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
- * @package NetCommons\AccessCounters\Controller
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @package NetCommons\Faqs\Controller
  */
 class CategoriesController extends FaqsAppController {
 
@@ -24,59 +25,48 @@ class CategoriesController extends FaqsAppController {
  * @var array
  */
 	public $uses = array(
-		'Frames.Frame',
-		'Blocks.Block',
 		'Categories.Category',
-		'Categories.CategoryOrder',
 	);
 
 /**
- * use component
+ * use components
  *
  * @var array
  */
 	public $components = array(
-		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'contentEditable' => array('edit'),
+				'blockEditable' => array('edit')
 			),
 		),
-		'Categories.CategoryAction',
-		'Security' => array('validatePost' => false),
+		'Categories.Categories',
 	);
 
 /**
- * use helpers
+ * beforeFilter
  *
- * @var array
+ * @return void
  */
-	public $helpers = array(
-		'NetCommons.Token'
-	);
+	public function beforeFilter() {
+		$this->layout = 'NetCommons.setting';
+		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
+		$this->set($results);
+	}
 
 /**
- * edit method
+ * edit
  *
- * @param int $frameId frames.id
- * @param int $blockId blocks.id
- * @return CakeResponse A response object containing the rendered view.
+ * @return void
  */
-	public function edit($frameId = 0, $blockId = 0) {
-		$frame = $this->Frame->findById($frameId);
-		$block = $this->Block->find('first', array(
-			'conditions' => array('id' => $blockId),
-			'recursive' => -1
-		));
-		$result = array(
-			'frame' => $frame['Frame'],
-			'block' => $block['Block'],
-		);
-		$result = $this->camelizeKeyRecursive($result);
-		$this->set($result);
-
-		$this->CategoryAction->edit($block);
+	public function edit() {
+		//blockId取得
+		if (! $this->validateBlockId()) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$this->set('blockId', (int)$this->params['pass'][1]);
+		$this->Categories->edit();
 	}
 }
