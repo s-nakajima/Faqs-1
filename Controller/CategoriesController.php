@@ -61,6 +61,12 @@ class CategoriesController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
+		//blockId取得
+		if (! $this->validateBlockId()) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$this->set('blockId', (int)$this->params['pass'][1]);
 		$this->Categories->edit();
 	}
 }

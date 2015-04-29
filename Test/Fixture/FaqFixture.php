@@ -60,7 +60,6 @@ class FaqFixture extends CakeTestFixture {
 			'name' => 'faq name 101',
 			//'is_auto_translated' => 1,
 			//'translation_engine' => 'Lorem ipsum dolor sit amet',
-
 		),
 		array(
 			'id' => '3',

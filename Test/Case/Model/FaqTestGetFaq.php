@@ -58,8 +58,8 @@ class FaqTestGetFaq extends FaqTest {
  */
 	public function testAnotherRoomId() {
 		//データ生成
-		$blockId = 100;
-		$roomId = 2;
+		$blockId = '100';
+		$roomId = '2';
 
 		//処理実行
 		$result = $this->Faq->getFaq($blockId, $roomId);

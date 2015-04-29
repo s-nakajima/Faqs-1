@@ -92,6 +92,7 @@ class Faq extends FaqsAppModel {
 					'rule' => array('notEmpty'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => false,
+					'required' => true,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),

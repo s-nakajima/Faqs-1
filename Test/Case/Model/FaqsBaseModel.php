@@ -27,7 +27,7 @@ App::uses('FaqQuestionOrder', 'Faqs.Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqsBaseModel extends CakeTestCase {
+class FaqsBaseModel extends YACakeTestCase {
 
 /**
  * Fixtures
@@ -36,6 +36,7 @@ class FaqsBaseModel extends CakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.blocks.block',
+		'plugin.blocks.block_role_permission',
 		'plugin.boxes.box',
 		'plugin.categories.category',
 		'plugin.categories.category_order',
@@ -47,9 +48,28 @@ class FaqsBaseModel extends CakeTestCase {
 		'plugin.frames.frame',
 		'plugin.frames.plugin',
 		'plugin.m17n.language',
+		'plugin.rooms.roles_room',
 		'plugin.rooms.room',
 		'plugin.users.user_attributes_user',
 		'plugin.users.user',
+	);
+
+/**
+ * Test case of notEmpty
+ *
+ * @var array
+ */
+	public $validateNotEmpty = array(
+		null, '', false,
+	);
+
+/**
+ * Test case of boolean
+ *
+ * @var array
+ */
+	public $validateBoolean = array(
+		null, '', 'a', '99', 'false', 'true'
 	);
 
 /**
@@ -57,25 +77,36 @@ class FaqsBaseModel extends CakeTestCase {
  *
  * @param array $expected expected data
  * @param array $result result data
+ * @param int $path remove path
  * @return void
  */
-	protected function _assertArray($expected, $result) {
-		$result = Hash::remove($result, 'created');
-		$result = Hash::remove($result, 'created_user');
-		$result = Hash::remove($result, 'modified');
-		$result = Hash::remove($result, 'modified_user');
-		$result = Hash::remove($result, '{s}.created');
-		$result = Hash::remove($result, '{s}.created_user');
-		$result = Hash::remove($result, '{s}.modified');
-		$result = Hash::remove($result, '{s}.modified_user');
-		$result = Hash::remove($result, '{n}.{s}.created');
-		$result = Hash::remove($result, '{n}.{s}.created_user');
-		$result = Hash::remove($result, '{n}.{s}.modified');
-		$result = Hash::remove($result, '{n}.{s}.modified_user');
-		$result = Hash::remove($result, 'TrackableCreator');
-		$result = Hash::remove($result, 'TrackableUpdater');
-		$result = Hash::remove($result, '{n}.TrackableCreator');
-		$result = Hash::remove($result, '{n}.TrackableUpdater');
+	protected function _assertArray($expected, $result, $path = 3) {
+		if ($path >= 1) {
+			$result = Hash::remove($result, 'created');
+			$result = Hash::remove($result, 'created_user');
+			$result = Hash::remove($result, 'modified');
+			$result = Hash::remove($result, 'modified_user');
+		}
+		if ($path >= 2) {
+			$result = Hash::remove($result, '{n}.created');
+			$result = Hash::remove($result, '{n}.created_user');
+			$result = Hash::remove($result, '{n}.modified');
+			$result = Hash::remove($result, '{n}.modified_user');
+			$result = Hash::remove($result, '{s}.created');
+			$result = Hash::remove($result, '{s}.created_user');
+			$result = Hash::remove($result, '{s}.modified');
+			$result = Hash::remove($result, '{s}.modified_user');
+			$result = Hash::remove($result, 'TrackableCreator');
+			$result = Hash::remove($result, 'TrackableUpdater');
+		}
+		if ($path >= 3) {
+			$result = Hash::remove($result, '{n}.{s}.created');
+			$result = Hash::remove($result, '{n}.{s}.created_user');
+			$result = Hash::remove($result, '{n}.{s}.modified');
+			$result = Hash::remove($result, '{n}.{s}.modified_user');
+			$result = Hash::remove($result, '{n}.TrackableCreator');
+			$result = Hash::remove($result, '{n}.TrackableUpdater');
+		}
 
 		$this->assertEquals($expected, $result);
 	}

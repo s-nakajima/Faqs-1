@@ -40,41 +40,16 @@ class FaqSetting extends FaqsAppModel {
 			'faq_key' => array(
 				'notEmpty' => array(
 					'rule' => array('notEmpty'),
-					//'message' => 'Your custom message here',
+					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => false,
-					'required' => false,
-					//'last' => false, // Stop validation after this rule
+					'required' => true,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'use_workflow' => array(
 				'boolean' => array(
 					'rule' => array('boolean'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			'use_comment' => array(
-				'boolean' => array(
-					'rule' => array('boolean'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			'is_comment_auto_approval' => array(
-				'boolean' => array(
-					'rule' => array('boolean'),
-					//'message' => 'Your custom message here',
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'message' => __d('net_commons', 'Invalid request.'),
 				),
 			),
 		));

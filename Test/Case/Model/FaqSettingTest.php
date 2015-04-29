@@ -28,7 +28,9 @@ class FaqSettingTest extends FaqsBaseModel {
  */
 	public function setUp() {
 		parent::setUp();
+		$this->Faq = ClassRegistry::init('Faqs.Faq');
 		$this->FaqSetting = ClassRegistry::init('Faqs.FaqSetting');
+		$this->BlockRolePermission = ClassRegistry::init('Blocks.BlockRolePermission');
 	}
 
 /**
@@ -37,7 +39,9 @@ class FaqSettingTest extends FaqsBaseModel {
  * @return void
  */
 	public function tearDown() {
+		unset($this->Faq);
 		unset($this->FaqSetting);
+		unset($this->BlockRolePermission);
 		parent::tearDown();
 	}
 }

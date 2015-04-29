@@ -162,7 +162,12 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
-		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+		if (! $this->validateBlockId()) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$this->set('blockId', (int)$this->params['pass'][1]);
+
 		if (! $this->initFaq(['faqSetting'])) {
 			return;
 		}
@@ -172,6 +177,7 @@ class BlocksController extends FaqsAppController {
 
 		if ($this->request->isPost()) {
 			$data = $this->__parseRequestData();
+			$data['FaqSetting']['faq_key'] = $data['Faq']['key'];
 
 			$this->Faq->saveFaq($data);
 			if ($this->handleValidationError($this->Faq->validationErrors)) {
@@ -192,7 +198,12 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function delete() {
-		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+		if (! $this->validateBlockId()) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$this->set('blockId', (int)$this->params['pass'][1]);
+
 		if (! $this->initFaq()) {
 			return;
 		}

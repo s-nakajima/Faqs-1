@@ -29,6 +29,12 @@ class FaqTest extends FaqsBaseModel {
 	public function setUp() {
 		parent::setUp();
 		$this->Faq = ClassRegistry::init('Faqs.Faq');
+		$this->FaqSetting = ClassRegistry::init('Faqs.FaqSetting');
+		$this->FaqQuestion = ClassRegistry::init('Faqs.FaqQuestion');
+		$this->FaqQuestionOrder = ClassRegistry::init('Faqs.FaqQuestionOrder');
+		$this->Category = ClassRegistry::init('Categories.Category');
+		$this->CategoryOrder = ClassRegistry::init('Categories.CategoryOrder');
+		$this->Block = ClassRegistry::init('Blocks.Block');
 	}
 
 /**
@@ -38,6 +44,12 @@ class FaqTest extends FaqsBaseModel {
  */
 	public function tearDown() {
 		unset($this->Faq);
+		unset($this->FaqSetting);
+		unset($this->FaqQuestion);
+		unset($this->FaqQuestionOrder);
+		unset($this->Category);
+		unset($this->CategoryOrder);
+		unset($this->Block);
 		parent::tearDown();
 	}
 }

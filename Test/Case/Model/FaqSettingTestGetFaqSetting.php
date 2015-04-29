@@ -27,6 +27,42 @@ class FaqSettingTestGetFaqSetting extends FaqSettingTest {
  * @return void
  */
 	public function test() {
+		//データ生成
+		$faqKey = 'faq_1';
+
+		//処理実行
+		$result = $this->FaqSetting->getFaqSetting($faqKey);
+
+		//期待値の生成
+		$expected = array(
+			'FaqSetting' => array(
+				'id' => '1',
+				'faq_key' => $faqKey,
+				'use_workflow' => true,
+			),
+		);
+
+		//テスト実施
+		$this->_assertArray($expected, $result);
+	}
+
+/**
+ * Expect empty
+ *
+ * @return void
+ */
+	public function testEmpty() {
+		//データ生成
+		$faqKey = 'faq_999';
+
+		//処理実行
+		$result = $this->FaqSetting->getFaqSetting($faqKey);
+
+		//期待値の生成
+		$expected = array();
+
+		//テスト実施
+		$this->_assertArray($expected, $result);
 	}
 
 }

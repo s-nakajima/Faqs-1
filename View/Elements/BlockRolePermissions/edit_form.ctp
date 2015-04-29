@@ -14,6 +14,14 @@
 		'value' => isset($faqSetting['id']) ? (int)$faqSetting['id'] : null,
 	)); ?>
 
+<?php echo $this->Form->hidden('FaqSetting.faq_key', array(
+		'value' => isset($faqSetting['faqKey']) ? $faqSetting['faqKey'] : null,
+	)); ?>
+
+<?php echo $this->Form->hidden('Block.id', array(
+		'value' => $blockId,
+	)); ?>
+
 <?php echo $this->element('Blocks.content_role_setting', array(
 		'roles' => $roles,
 		'permissions' => isset($blockRolePermissions) ? $blockRolePermissions : null,

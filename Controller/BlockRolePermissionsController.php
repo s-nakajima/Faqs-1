@@ -79,7 +79,11 @@ class BlockRolePermissionsController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
-		$this->set('blockId', isset($this->params['pass'][1]) ? (int)$this->params['pass'][1] : null);
+		if (! $this->validateBlockId()) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$this->set('blockId', (int)$this->params['pass'][1]);
 		if (! $this->initFaq(['faqSetting'])) {
 			return;
 		}
@@ -103,7 +107,6 @@ class BlockRolePermissionsController extends FaqsAppController {
 
 		if ($this->request->isPost()) {
 			$data = $this->data;
-
 			$this->FaqSetting->saveFaqSetting($data);
 			if ($this->handleValidationError($this->FaqSetting->validationErrors)) {
 				if (! $this->request->is('ajax')) {

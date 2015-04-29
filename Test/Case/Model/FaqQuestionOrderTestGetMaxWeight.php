@@ -27,6 +27,28 @@ class FaqQuestionOrderTestGetMaxWeight extends FaqQuestionOrderTest {
  * @return void
  */
 	public function test() {
+		$faqKey = 'faq_1';
+
+		//処理実行
+		$result = $this->FaqQuestionOrder->getMaxWeight($faqKey);
+
+		//テスト実施
+		$this->assertNotEmpty($result);
+	}
+
+/**
+ * Expect to empty of FaqQuestionOrder->getMaxWeight()
+ *
+ * @return void
+ */
+	public function testEmpty() {
+		$faqKey = 'faq_2';
+
+		//処理実行
+		$result = $this->FaqQuestionOrder->getMaxWeight($faqKey);
+
+		//テスト実施
+		$this->assertEmpty($result);
 	}
 
 }
