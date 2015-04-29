@@ -21,7 +21,6 @@ App::uses('FaqTest', 'Faqs.Test/Case/Model');
  */
 class FaqTestValidateFaq extends FaqTest {
 
-
 /**
  * Default save data
  *

@@ -29,19 +29,19 @@ class FaqQuestionOrderTestValidateFaqQuestionOrder extends FaqQuestionOrderTest 
  * @param array $expected Expected value
  * @return void
  */
-	private function __assertValidationError($field, $data, $expected) {
-		//初期処理
-		$this->setUp();
-		//validate処理実行
-		$result = $this->FaqQuestionOrder->validateFaqQuestionOrder($data);
-		//戻り値チェック
-		$expectMessage = 'Expect `' . $field . '` field, error data: ' . print_r($data, true);
-		$this->assertFalse($result, $expectMessage);
-		//validationErrorsチェック
-		$this->assertEquals($this->FaqQuestionOrder->validationErrors, $expected);
-		//終了処理
-		$this->tearDown();
-	}
+	//private function __assertValidationError($field, $data, $expected) {
+	//	//初期処理
+	//	$this->setUp();
+	//	//validate処理実行
+	//	$result = $this->FaqQuestionOrder->validateFaqQuestionOrder($data);
+	//	//戻り値チェック
+	//	$expectMessage = 'Expect `' . $field . '` field, error data: ' . print_r($data, true);
+	//	$this->assertFalse($result, $expectMessage);
+	//	//validationErrorsチェック
+	//	$this->assertEquals($this->FaqQuestionOrder->validationErrors, $expected);
+	//	//終了処理
+	//	$this->tearDown();
+	//}
 
 /**
  * Expect to validate the FaqQuestionOrders
