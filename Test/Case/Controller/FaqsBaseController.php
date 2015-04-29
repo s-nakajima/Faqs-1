@@ -34,6 +34,8 @@ class FaqsBaseController extends YAControllerTestCase {
 		'plugin.blocks.block_role_permission',
 		'plugin.boxes.box',
 		'plugin.boxes.boxes_page',
+		'plugin.categories.category',
+		'plugin.categories.category_order',
 		'plugin.comments.comment',
 		'plugin.containers.container',
 		'plugin.containers.containers_page',
