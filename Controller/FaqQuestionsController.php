@@ -111,7 +111,11 @@ class FaqQuestionsController extends FaqsAppController {
  * @return void
  */
 	public function view() {
-		$this->set('faqQuestionKey', isset($this->params['pass'][1]) ? $this->params['pass'][1] : null);
+		$faqQuestionKey = null;
+		if (isset($this->params['pass'][1])) {
+			$faqQuestionKey = $this->params['pass'][1];
+		}
+		$this->set('faqQuestionKey', $faqQuestionKey);
 
 		//データ取得
 		$this->__initFaqQuestion();
@@ -184,7 +188,11 @@ class FaqQuestionsController extends FaqsAppController {
  * @return void
  */
 	public function edit() {
-		$this->set('faqQuestionKey', isset($this->params['pass'][1]) ? $this->params['pass'][1] : null);
+		$faqQuestionKey = null;
+		if (isset($this->params['pass'][1])) {
+			$faqQuestionKey = $this->params['pass'][1];
+		}
+		$this->set('faqQuestionKey', $faqQuestionKey);
 
 		//データ取得
 		if (! $this->__initFaqQuestion(['comments'])) {
@@ -232,7 +240,11 @@ class FaqQuestionsController extends FaqsAppController {
  * @return void
  */
 	public function delete() {
-		$this->set('faqQuestionKey', isset($this->params['pass'][1]) ? $this->params['pass'][1] : null);
+		$faqQuestionKey = null;
+		if (isset($this->params['pass'][1])) {
+			$faqQuestionKey = $this->params['pass'][1];
+		}
+		$this->set('faqQuestionKey', $faqQuestionKey);
 
 		//データ取得
 		if (! $this->__initFaqQuestion()) {
@@ -315,7 +327,7 @@ class FaqQuestionsController extends FaqsAppController {
 			$comments = $this->Comment->getComments(
 				array(
 					'plugin_key' => 'faqs',
-					'content_key' => isset($this->viewVars['faqQuestionKey']) ? $this->viewVars['faqQuestionKey'] : null,
+					'content_key' => $this->viewVars['faqQuestionKey'],
 				)
 			);
 			$comments = $this->camelizeKeyRecursive($comments);

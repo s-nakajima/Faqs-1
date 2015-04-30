@@ -126,7 +126,12 @@ class FaqQuestionOrder extends FaqsAppModel {
 				'order' => array('weight' => 'DESC')
 			));
 
-		return (isset($order[$this->alias]['weight']) ? $order[$this->alias]['weight'] : 0);
+		if (isset($order[$this->alias]['weight'])) {
+			$weight = isset($order[$this->alias]['weight']);
+		} else {
+			$weight = 0;
+		}
+		return $weight;
 	}
 
 /**

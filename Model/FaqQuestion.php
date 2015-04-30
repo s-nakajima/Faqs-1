@@ -290,7 +290,6 @@ class FaqQuestion extends FaqsAppModel {
 
 			//トランザクションCommit
 			$dataSource->commit();
-			//$dataSource->rollback();
 
 		} catch (Exception $ex) {
 			//トランザクションRollback
