@@ -69,6 +69,7 @@ class FaqQuestionTestValidateFaqQuestion extends FaqQuestionTest {
 		unset($this->FaqQuestion->Comment);
 		parent::tearDown();
 	}
+
 /**
  * __assertValidationError
  *

@@ -40,7 +40,7 @@ class AllFaqsTest extends CakeTestSuite {
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestGetFaqQuestion.php');
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestGetFaqQuestions.php');
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestSaveFaqQuestion.php');
-		$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestValidateFaqQuestion.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestValidateFaqQuestion.php');
 
 		return $suite;
 	}

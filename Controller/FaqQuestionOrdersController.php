@@ -77,6 +77,7 @@ class FaqQuestionOrdersController extends FaqsAppController {
 		if ($this->request->isPost()) {
 			//登録処理
 			$data = $this->data;
+
 			$this->FaqQuestionOrder->saveFaqQuestionOrders($data);
 			//validationError
 			if ($this->handleValidationError($this->FaqQuestionOrder->validationErrors)) {

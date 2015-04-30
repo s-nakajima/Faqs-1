@@ -30,27 +30,27 @@ class FaqQuestionOrderTestSaveFaqQuestionOrders extends FaqQuestionOrderTest {
 		'FaqQuestionOrders' => array(
 			0 => array(
 				'FaqQuestionOrder' => array(
-					'id' => '1',
-					'faq_key' => 'faq_1',
-					'faq_question_key' => 'faq_question_1',
-					'weight' => '1',
-				)
-			),
-			1 => array(
-				'FaqQuestionOrder' => array(
 					'id' => '2',
 					'faq_key' => 'faq_1',
 					'faq_question_key' => 'faq_question_2',
+					'weight' => '1',
+				),
+			),
+			1 => array(
+				'FaqQuestionOrder' => array(
+					'id' => '3',
+					'faq_key' => 'faq_1',
+					'faq_question_key' => 'faq_question_3',
 					'weight' => '2',
 				),
 			),
 			2 => array(
 				'FaqQuestionOrder' => array(
-					'id' => '3',
+					'id' => '1',
 					'faq_key' => 'faq_1',
-					'faq_question_key' => 'faq_question_3',
+					'faq_question_key' => 'faq_question_1',
 					'weight' => '3',
-				),
+				)
 			),
 		)
 	);

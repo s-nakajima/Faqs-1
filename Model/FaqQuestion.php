@@ -273,7 +273,7 @@ class FaqQuestion extends FaqsAppModel {
 		$dataSource->begin();
 
 		try {
-			if (! $this->deleteAll(array($this->alias . '.key' => $data['FaqQuestion']['key']), true, true)) {
+			if (! $this->deleteAll(array($this->alias . '.key' => $data['FaqQuestion']['key']), false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
@@ -283,7 +283,7 @@ class FaqQuestion extends FaqsAppModel {
 				)
 			);
 			if (! $this->FaqQuestionOrder->deleteAll(
-				$this->FaqQuestionOrder->data[$this->FaqQuestionOrder->name], true, true
+				$this->FaqQuestionOrder->data[$this->FaqQuestionOrder->name], false
 			)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
