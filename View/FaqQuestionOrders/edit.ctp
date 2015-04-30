@@ -15,6 +15,10 @@
 <div ng-controller="FaqQuestionOrders"
 	 ng-init="initialize(<?php echo h(json_encode(['faqQuestions' => $faqQuestions])); ?>)">
 
+	<h1>
+		<small><?php echo h($faq['name']); ?></small>
+	</h1>
+
 	<?php echo $this->Form->create('FaqQuestionOrder', array('novalidate' => true)); ?>
 		<?php $this->Form->unlockField('FaqQuestionOrders'); ?>
 
