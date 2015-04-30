@@ -75,6 +75,9 @@ class FaqQuestionOrderTestSaveFaqQuestionOrders extends FaqQuestionOrderTest {
 				'conditions' => array(
 					'faq_key' => $faqKey
 				),
+				'order' => array(
+					'weight' => 'asc'
+				),
 			)
 		);
 

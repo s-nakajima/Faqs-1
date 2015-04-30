@@ -42,6 +42,10 @@ class AllFaqsTest extends CakeTestSuite {
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestSaveFaqQuestion.php');
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestValidateFaqQuestion.php');
 
+		$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestGetMaxWeight.php');
+		$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestSaveFaqQuestionOrders.php');
+		$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestValidateFaqQuestionOrder.php');
+
 		return $suite;
 	}
 }
