@@ -88,4 +88,45 @@ class FaqQuestionOrderTestSaveFaqQuestionOrders extends FaqQuestionOrderTest {
 		$this->_assertArray($expected['FaqQuestionOrders'], $result);
 	}
 
+/**
+ * Expect to fail on $this->FaqQuestionOrder->saveFaqQuestionOrders()
+ * e.g.) connection error
+ *
+ * @return  void
+ */
+	public function testFailOnSave() {
+		$this->setExpectedException('InternalErrorException');
+
+		$data = $this->__defaultData;
+
+		$this->FaqQuestionOrder = $this->getMockForModel('Faqs.FaqQuestionOrder', array('save'));
+		$this->FaqQuestionOrder->expects($this->any())
+			->method('save')
+			->will($this->returnValue(false));
+
+		$this->FaqQuestionOrder->saveFaqQuestionOrders($data);
+	}
+
+/**
+ * Expect to validation error $this->FaqQuestionOrder->saveFaqQuestionOrders()
+ *
+ * @return void
+ */
+	public function testFaqQuestionOrderValidationError() {
+		//データ生成
+		$data = Hash::merge($this->__defaultData, array(
+			'FaqQuestionOrders' => array(
+				0 => array(
+					'FaqQuestionOrder' => array(
+						'weight' => 'aa',
+					),
+				),
+			)
+		));
+
+		//処理実行
+		$result = $this->FaqQuestionOrder->saveFaqQuestionOrders($data);
+		$this->assertFalse($result);
+	}
+
 }

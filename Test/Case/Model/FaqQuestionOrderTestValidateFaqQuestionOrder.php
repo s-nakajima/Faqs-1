@@ -22,6 +22,20 @@ App::uses('FaqQuestionOrderTest', 'Faqs.Test/Case/Model');
 class FaqQuestionOrderTestValidateFaqQuestionOrder extends FaqQuestionOrderTest {
 
 /**
+ * Default save data
+ *
+ * @var array
+ */
+	private $__defaultData = array(
+		'FaqQuestionOrder' => array(
+			'id' => '1',
+			'faq_key' => 'faq_1',
+			'faq_question_key' => 'faq_question_1',
+			'weight' => '1',
+		),
+	);
+
+/**
  * __assertValidationError
  *
  * @param string $field Field name
@@ -29,19 +43,19 @@ class FaqQuestionOrderTestValidateFaqQuestionOrder extends FaqQuestionOrderTest 
  * @param array $expected Expected value
  * @return void
  */
-	//private function __assertValidationError($field, $data, $expected) {
-	//	//初期処理
-	//	$this->setUp();
-	//	//validate処理実行
-	//	$result = $this->FaqQuestionOrder->validateFaqQuestionOrder($data);
-	//	//戻り値チェック
-	//	$expectMessage = 'Expect `' . $field . '` field, error data: ' . print_r($data, true);
-	//	$this->assertFalse($result, $expectMessage);
-	//	//validationErrorsチェック
-	//	$this->assertEquals($this->FaqQuestionOrder->validationErrors, $expected);
-	//	//終了処理
-	//	$this->tearDown();
-	//}
+	private function __assertValidationError($field, $data, $expected) {
+		//初期処理
+		$this->setUp();
+		//validate処理実行
+		$result = $this->FaqQuestionOrder->validateFaqQuestionOrder($data);
+		//戻り値チェック
+		$expectMessage = 'Expect `' . $field . '` field, error data: ' . print_r($data, true);
+		$this->assertFalse($result, $expectMessage);
+		//validationErrorsチェック
+		$this->assertEquals($this->FaqQuestionOrder->validationErrors, $expected);
+		//終了処理
+		$this->tearDown();
+	}
 
 /**
  * Expect to validate the FaqQuestionOrders
@@ -49,6 +63,92 @@ class FaqQuestionOrderTestValidateFaqQuestionOrder extends FaqQuestionOrderTest 
  * @return void
  */
 	public function test() {
+		//データ生成
+		$data = $this->__defaultData;
+
+		//処理実行
+		$result = $this->FaqQuestionOrder->validateFaqQuestionOrder($data);
+		$this->assertTrue($result);
+	}
+
+/**
+ * Expect FaqQuestionOrder `faq_key` error by notEmpty error on update
+ *
+ * @return void
+ */
+	public function testFaqKeyErrorByNotEmptyOnUpdate() {
+		$field = 'faq_key';
+		$message = __d('net_commons', 'Invalid request.');
+
+		//データ生成
+		$data = $this->__defaultData;
+
+		//期待値
+		$expected = array(
+			$field => array($message)
+		);
+
+		//テスト実施(カラムなし)
+		unset($data['FaqQuestionOrder'][$field]);
+		$this->__assertValidationError($field, $data, $expected);
+
+		//テスト実施
+		foreach ($this->validateNotEmpty as $check) {
+			$data['FaqQuestionOrder'][$field] = $check;
+			$this->__assertValidationError($field, $data, $expected);
+		}
+	}
+
+/**
+ * Expect FaqQuestionOrder `faq_key` error by notEmpty error on update
+ *
+ * @return void
+ */
+	public function testFaqQuestionKeyErrorByNotEmptyOnUpdate() {
+		$field = 'faq_question_key';
+		$message = __d('net_commons', 'Invalid request.');
+
+		//データ生成
+		$data = $this->__defaultData;
+
+		//期待値
+		$expected = array(
+			$field => array($message)
+		);
+
+		//テスト実施(カラムなし)
+		unset($data['FaqQuestionOrder'][$field]);
+		$this->__assertValidationError($field, $data, $expected);
+
+		//テスト実施
+		foreach ($this->validateNotEmpty as $check) {
+			$data['FaqQuestionOrder'][$field] = $check;
+			$this->__assertValidationError($field, $data, $expected);
+		}
+	}
+
+/**
+ * Expect FaqQuestion `faq_id` error by notEmpty error on update
+ *
+ * @return void
+ */
+	public function testWeightByNumber() {
+		$field = 'weight';
+		$message = __d('net_commons', 'Invalid request.');
+
+		//データ生成
+		$data = $this->__defaultData;
+
+		//期待値
+		$expected = array(
+			$field => array($message)
+		);
+
+		//テスト実施
+		foreach ($this->validateNumber as $check) {
+			$data['FaqQuestionOrder'][$field] = $check;
+			$this->__assertValidationError($field, $data, $expected);
+		}
 	}
 
 }
