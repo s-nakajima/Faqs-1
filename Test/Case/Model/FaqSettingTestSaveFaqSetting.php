@@ -78,6 +78,7 @@ class FaqSettingTestSaveFaqSetting extends FaqSettingTest {
 		$result = $this->FaqSetting->saveFaqSetting($data);
 		$this->assertTrue($result);
 
+		//成否のデータ取得
 		$result = $this->FaqSetting->getFaqSetting($data['FaqSetting']['faq_key']);
 		$blockRolePermissions = $this->BlockRolePermission->find('all', array(
 				'recursive' => -1,

@@ -85,6 +85,18 @@ class FaqQuestionFixture extends CakeTestFixture {
 			'question' => 'Question value 3',
 			'answer' => 'Answer value 3',
 		),
+		array(
+			'id' => '4',
+			'faq_id' => '1',
+			'key' => 'faq_question_3',
+			'language_id' => '2',
+			'category_id' => null,
+			'status' => '1',
+			'is_active' => true,
+			'is_latest' => true,
+			'question' => 'Question value 4',
+			'answer' => 'Answer value 4',
+		),
 	);
 
 }

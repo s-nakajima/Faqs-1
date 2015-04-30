@@ -55,6 +55,12 @@ class FaqQuestionOrderFixture extends CakeTestFixture {
 			'faq_question_key' => 'faq_question_2',
 			'weight' => '2',
 		),
+		array(
+			'id' => '3',
+			'faq_key' => 'faq_1',
+			'faq_question_key' => 'faq_question_3',
+			'weight' => '3',
+		),
 	);
 
 }

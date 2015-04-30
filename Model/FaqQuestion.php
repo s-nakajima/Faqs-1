@@ -222,7 +222,7 @@ class FaqQuestion extends FaqsAppModel {
 			throw $ex;
 		}
 
-		return true;
+		return $faqQuestion;
 	}
 
 /**

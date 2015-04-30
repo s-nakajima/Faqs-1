@@ -25,7 +25,23 @@ class AllFaqsTest extends CakeTestSuite {
 	public static function suite() {
 		$plugin = preg_replace('/^All([\w]+)Test$/', '$1', __CLASS__);
 		$suite = new CakeTestSuite(sprintf('All %s Plugin tests', $plugin));
-		$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
+		//$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
+
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestDeleteFaq.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestGetFaq.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestSaveFaq.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestValidateFaq.php');
+
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqSettingTestGetFaqSetting.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqSettingTestSaveFaqSetting.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqSettingTestValidateFaqSetting.php');
+
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestDeleteFaqQuestion.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestGetFaqQuestion.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestGetFaqQuestions.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestSaveFaqQuestion.php');
+		$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestValidateFaqQuestion.php');
+
 		return $suite;
 	}
 }

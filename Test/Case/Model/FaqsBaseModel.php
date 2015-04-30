@@ -73,39 +73,48 @@ class FaqsBaseModel extends YACakeTestCase {
 	);
 
 /**
+ * Test case of boolean
+ *
+ * @var array
+ */
+	public $validateNumber = array(
+		null, '', 'abcde', false, true, '123abcd', 'false', 'true'
+	);
+
+/**
  * Do test assert, after created_date, created_user, modified_date and modified_user fields remove.
  *
  * @param array $expected expected data
  * @param array $result result data
  * @param int $path remove path
+ * @param array $fields target fields
  * @return void
  */
-	protected function _assertArray($expected, $result, $path = 3) {
-		if ($path >= 1) {
-			$result = Hash::remove($result, 'created');
-			$result = Hash::remove($result, 'created_user');
-			$result = Hash::remove($result, 'modified');
-			$result = Hash::remove($result, 'modified_user');
-		}
-		if ($path >= 2) {
-			$result = Hash::remove($result, '{n}.created');
-			$result = Hash::remove($result, '{n}.created_user');
-			$result = Hash::remove($result, '{n}.modified');
-			$result = Hash::remove($result, '{n}.modified_user');
-			$result = Hash::remove($result, '{s}.created');
-			$result = Hash::remove($result, '{s}.created_user');
-			$result = Hash::remove($result, '{s}.modified');
-			$result = Hash::remove($result, '{s}.modified_user');
-			$result = Hash::remove($result, 'TrackableCreator');
-			$result = Hash::remove($result, 'TrackableUpdater');
-		}
-		if ($path >= 3) {
-			$result = Hash::remove($result, '{n}.{s}.created');
-			$result = Hash::remove($result, '{n}.{s}.created_user');
-			$result = Hash::remove($result, '{n}.{s}.modified');
-			$result = Hash::remove($result, '{n}.{s}.modified_user');
-			$result = Hash::remove($result, '{n}.TrackableCreator');
-			$result = Hash::remove($result, '{n}.TrackableUpdater');
+	protected function _assertArray($expected, $result, $path = 3, $fields = ['created', 'created_user', 'modified', 'modified_user']) {
+		foreach ($fields as $field) {
+			if ($path >= 1) {
+				$result = Hash::remove($result, $field);
+			}
+			if ($path >= 2) {
+				$result = Hash::remove($result, '{n}.' . $field);
+				$result = Hash::remove($result, '{s}.' . $field);
+				if ($field === 'created_user') {
+					$result = Hash::remove($result, 'TrackableCreator');
+				}
+				if ($field === 'modified_user') {
+					$result = Hash::remove($result, 'TrackableUpdater');
+				}
+			}
+			if ($path >= 3) {
+				$result = Hash::remove($result, '{n}.{n}.' . $field);
+				$result = Hash::remove($result, '{n}.{s}.' . $field);
+				if ($field === 'created_user') {
+					$result = Hash::remove($result, '{n}.TrackableCreator');
+				}
+				if ($field === 'modified_user') {
+					$result = Hash::remove($result, '{n}.TrackableUpdater');
+				}
+			}
 		}
 
 		$this->assertEquals($expected, $result);

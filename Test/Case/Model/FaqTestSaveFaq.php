@@ -82,6 +82,7 @@ class FaqTestSaveFaq extends FaqTest {
 		$result = $this->Faq->saveFaq($data);
 		$this->assertTrue($result);
 
+		//成否のデータ取得
 		$blockId = '100';
 		$roomId = '1';
 		$faq = $this->Faq->getFaq($blockId, $roomId);
@@ -136,6 +137,7 @@ class FaqTestSaveFaq extends FaqTest {
 		$result = $this->Faq->saveFaq($data);
 		$this->assertTrue($result);
 
+		//成否のデータ取得
 		$blockId = $this->Faq->Block->getLastInsertID();
 		$faqId = $this->Faq->getLastInsertID();
 		$faqSettingId = $this->Faq->FaqSetting->getLastInsertID();
@@ -205,6 +207,7 @@ class FaqTestSaveFaq extends FaqTest {
 		$result = $this->Faq->saveFaq($data);
 		$this->assertTrue($result);
 
+		//成否のデータ取得
 		$blockId = $this->Faq->Block->getLastInsertID();
 		$faqId = $this->Faq->getLastInsertID();
 		$faqSettingId = $this->Faq->FaqSetting->getLastInsertID();
@@ -261,6 +264,7 @@ class FaqTestSaveFaq extends FaqTest {
 		$result = $this->Faq->saveFaq($data);
 		$this->assertFalse($result);
 
+		//成否のデータ取得
 		$blockId = '100';
 		$roomId = '1';
 		$faq = $this->Faq->getFaq($blockId, $roomId);
