@@ -64,7 +64,7 @@
 		<?php echo $this->element(
 			'NetCommons.errors', [
 				'errors' => $this->validationErrors,
-				'model' => 'Block',
+				'model' => 'Faq',
 				'field' => 'name',
 			]); ?>
 	</div>
