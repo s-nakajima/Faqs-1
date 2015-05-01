@@ -25,7 +25,8 @@ class AllFaqsTest extends CakeTestSuite {
 	public static function suite() {
 		$plugin = preg_replace('/^All([\w]+)Test$/', '$1', __CLASS__);
 		$suite = new CakeTestSuite(sprintf('All %s Plugin tests', $plugin));
-		$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
+		//$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
+		//$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller');
 
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestDeleteFaq.php');
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestGetFaq.php');
@@ -45,6 +46,14 @@ class AllFaqsTest extends CakeTestSuite {
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestGetMaxWeight.php');
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestSaveFaqQuestionOrders.php');
 		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestValidateFaqQuestionOrder.php');
+
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'FaqsControllerTestIndex.php');
+
+		$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'BlockRolePermissionsControllerTestEdit.php');
+
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'FaqsControllerTestIndex.php');
+		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'FaqsControllerTestIndex.php');
+
 
 		return $suite;
 	}
