@@ -19,7 +19,7 @@ $currentCategoryId = isset($this->params['named']['category_id']) ? $this->param
 $options = array(
 	'0' => array(
 		'name' => __d('categories', 'Select Category'),
-		'id' => '0',
+		'id' => null,
 	),
 );
 $options = Hash::merge($options, Hash::combine($categories, '{n}.category.id', '{n}.category'));
@@ -32,7 +32,7 @@ $options = Hash::merge($options, Hash::combine($categories, '{n}.category.id', '
 	</button>
 	<ul class="dropdown-menu" role="menu">
 		<?php foreach ($options as $key => $category) : ?>
-			<li<?php echo ($category['id'] === $currentCategoryId ? ' class="active"' : ''); ?>>
+			<li<?php echo ((int)$key === (int)$currentCategoryId ? ' class="active"' : ''); ?>>
 				<?php echo $this->Html->link($category['name'],
 						Hash::merge($url, array('category_id' => $category['id']))
 					); ?>
