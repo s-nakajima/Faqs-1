@@ -1,6 +1,6 @@
 <?php
 /**
- * Test of BlocksController
+ * Index test on BlocksController
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -13,7 +13,7 @@ App::uses('BlocksController', 'Faqs.Controller');
 App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 
 /**
- * Test of BlocksController
+ * Index test on BlocksController
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
@@ -21,7 +21,7 @@ App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 class BlocksControllerTestIndex extends FaqsBaseController {
 
 /**
- * setUp method
+ * setUp
  *
  * @return void
  */
