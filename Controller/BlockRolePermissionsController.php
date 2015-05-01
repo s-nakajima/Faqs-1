@@ -42,11 +42,10 @@ class BlockRolePermissionsController extends FaqsAppController {
 	public $components = array(
 		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsBlock',
-		//'NetCommons.NetCommonsWorkflow',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
-				'blockEditable' => array('edit')
+				'permissionEditable' => array('edit')
 			),
 		),
 	);
