@@ -45,23 +45,23 @@ class BlocksControllerTestAdd extends FaqsBaseController {
  * @return void
  */
 	public function testAdd() {
-//		RolesControllerTest::login($this);
-//
-//		$frameId = '100';
-//		$view = $this->testAction(
-//				'/faqs/blocks/index/' . $frameId,
-//				array(
-//					'method' => 'get',
-//					'return' => 'view',
-//				)
-//			);
-//		$this->assertTextEquals('index', $this->controller->view);
-//
-//		$this->assertTextContains('/frames/frames/edit/' . $frameId, $view);
-//		$this->assertTextContains('/faqs/blocks/add/' . $frameId, $view);
-//		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/100', $view);
-//		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/101', $view);
-//
-//		AuthGeneralControllerTest::logout($this);
+		//RolesControllerTest::login($this);
+		//
+		//$frameId = '100';
+		//$view = $this->testAction(
+		//		'/faqs/blocks/index/' . $frameId,
+		//		array(
+		//			'method' => 'get',
+		//			'return' => 'view',
+		//		)
+		//	);
+		//$this->assertTextEquals('index', $this->controller->view);
+		//
+		//$this->assertTextContains('/frames/frames/edit/' . $frameId, $view);
+		//$this->assertTextContains('/faqs/blocks/add/' . $frameId, $view);
+		//$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/100', $view);
+		//$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/101', $view);
+		//
+		//AuthGeneralControllerTest::logout($this);
 	}
 }

@@ -40,28 +40,62 @@ class BlockRolePermissionsControllerTestEdit extends FaqsBaseController {
 	}
 
 /**
- * Expect edit action
+ * Expect user with permissionEditable can access on GET request
  *
  * @return void
  */
-	public function testEdit() {
-//		RolesControllerTest::login($this);
-//
-//		$frameId = '100';
-//		$view = $this->testAction(
-//				'/faqs/blocks/index/' . $frameId,
-//				array(
-//					'method' => 'get',
-//					'return' => 'view',
-//				)
-//			);
-//		$this->assertTextEquals('index', $this->controller->view);
-//
-//		$this->assertTextContains('/frames/frames/edit/' . $frameId, $view);
-//		$this->assertTextContains('/faqs/blocks/add/' . $frameId, $view);
-//		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/100', $view);
-//		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/101', $view);
-//
-//		AuthGeneralControllerTest::logout($this);
+	public function testEditGetPermissionEditable() {
+		RolesControllerTest::login($this);
+
+		$frameId = '100';
+		$blockId = '100';
+
+		$view = $this->testAction(
+				'/faqs/block_role_permmisions/edit/' . $frameId . '/' . $blockId,
+				array(
+					'method' => 'get',
+					'return' => 'view',
+				)
+			);
+		$this->assertTextEquals('edit', $this->controller->view);
+
+		$this->assertTextContains('/faqs/block_role_permissions/edit/' . $frameId . '/' . $blockId, $view);
+		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/' . $blockId, $view);
+		$this->assertTextContains('name="data[Block][id]"', $view);
+		$this->assertTextContains('name="data[FaqSetting][faq_key]"', $view);
+		$this->assertTextContains('name="data[FaqSetting][id]"', $view);
+		$this->assertTextContains('name="data[FaqSetting][use_workflow]"', $view);
+		$this->assertTextContains('name="data[BlockRolePermission][content_creatable]', $view);
+		$this->assertTextContains('name="data[BlockRolePermission][content_publishable]', $view);
+
+		AuthGeneralControllerTest::logout($this);
+	}
+
+/**
+ * Expect user with permissionEditable cannot access on GET request
+ *
+ * @return void
+ */
+	public function testEditGetWOPermissionEditable() {
+		//
+		// NetCommonsRoomRoleComponent::_isAllowに不具合があり、ForbiddenExceptionにならない
+		//
+
+		//$this->setExpectedException('ForbiddenException');
+		//
+		//RolesControllerTest::login($this, 'editor');
+		//
+		//$frameId = '100';
+		//$blockId = '100';
+		//
+		//$view = $this->testAction(
+		//		'/faqs/block_role_permmisions/edit/' . $frameId . '/' . $blockId,
+		//		array(
+		//			'method' => 'get',
+		//			'return' => 'view',
+		//		)
+		//	);
+		//
+		//AuthGeneralControllerTest::logout($this);
 	}
 }

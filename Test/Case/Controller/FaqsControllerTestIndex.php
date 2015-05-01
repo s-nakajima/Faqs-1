@@ -46,7 +46,7 @@ class FaqsControllerTestIndex extends FaqsBaseController {
  */
 	public function testIndex() {
 		$frameId = '100';
-		$view = $this->testAction(
+		$this->testAction(
 				'/faqs/faqs/index/' . $frameId,
 				array(
 					'method' => 'get',
