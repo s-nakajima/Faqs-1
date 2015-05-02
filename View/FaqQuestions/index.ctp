@@ -27,7 +27,7 @@
 				</div>
 				<div class="pull-right">
 					<?php if ($contentEditable) : ?>
-						<span class="nc-tooltip " tooltip="<?php echo __d('faqs', 'Create question'); ?>">
+						<span class="nc-tooltip " tooltip="<?php echo __d('faqs', 'Sort question'); ?>">
 							<a href="<?php echo $this->Html->url('/faqs/faq_question_orders/edit/' . $frameId); ?>" class="btn btn-default">
 								<span class="glyphicon glyphicon-sort"> </span>
 							</a>
