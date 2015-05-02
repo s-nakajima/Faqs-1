@@ -171,9 +171,7 @@ class BlocksController extends FaqsAppController {
 		if (! $this->initFaq(['faqSetting'])) {
 			return;
 		}
-		if (! $this->Categories->initCategories()) {
-			return;
-		}
+		$this->Categories->initCategories();
 
 		if ($this->request->isPost()) {
 			$data = $this->__parseRequestData();
