@@ -10,7 +10,7 @@
  */
 ?>
 
-<?php echo $this->Html->script('/net_commons/base/js/wysiwyg.js', false); ?>
+<?php echo $this->Html->script('/net_commons/js/wysiwyg.js', false); ?>
 <?php echo $this->Html->script('/faqs/js/faqs.js', false); ?>
 
 <div class="frame">
