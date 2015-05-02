@@ -26,6 +26,7 @@ class FaqsAppController extends AppController {
  */
 	public $components = array(
 		'Security',
+		'NetCommons.NetCommonsFrame',
 	);
 
 /**

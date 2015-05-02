@@ -40,7 +40,6 @@ class BlockRolePermissionsController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
-		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定

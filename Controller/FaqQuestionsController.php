@@ -39,7 +39,6 @@ class FaqQuestionsController extends FaqsAppController {
  */
 	public $components = array(
 		'NetCommons.NetCommonsBlock',
-		'NetCommons.NetCommonsFrame',
 		'NetCommons.NetCommonsWorkflow',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定

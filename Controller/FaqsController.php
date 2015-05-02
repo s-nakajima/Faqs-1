@@ -20,15 +20,6 @@ App::uses('FaqsAppController', 'Faqs.Controller');
 class FaqsController extends FaqsAppController {
 
 /**
- * use component
- *
- * @var array
- */
-	public $components = array(
-		'NetCommons.NetCommonsFrame',
-	);
-
-/**
  * index
  *
  * @return void
@@ -39,6 +30,8 @@ class FaqsController extends FaqsAppController {
 			array('return')
 		);
 
-		$this->set('html', $html);
+		if ($html) {
+			$this->set('html', $html);
+		}
 	}
 }
