@@ -57,39 +57,7 @@ class CategoriesController extends FaqsAppController {
 		$this->set($results);
 
 		//タブの設定
-		$settingTabs = array(
-			'tabs' => array(
-				'block_index' => array(
-					'plugin' => $this->params['plugin'],
-					'controller' => 'blocks',
-					'action' => 'index',
-					$this->viewVars['frameId'],
-				),
-			),
-			'active' => 'block_index'
-		);
-		$this->set('settingTabs', $settingTabs);
-
-		$blockSettingTabs = array(
-			'tabs' => array(
-				'block_settings' => array(
-					'plugin' => $this->params['plugin'],
-					'controller' => 'blocks',
-					'action' => $this->params['action'],
-					$this->viewVars['frameId'],
-					$this->viewVars['blockId']
-				),
-				'role_permissions' => array(
-					'plugin' => $this->params['plugin'],
-					'controller' => 'block_role_permissions',
-					'action' => 'edit',
-					$this->viewVars['frameId'],
-					$this->viewVars['blockId']
-				),
-			),
-			'active' => 'block_settings'
-		);
-		$this->set('blockSettingTabs', $blockSettingTabs);
+		$this->initTabs('block_index', 'block_settings');
 	}
 
 /**

@@ -231,7 +231,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			'FaqQuestionOrder' => array(
 				'id' => $faqQuestionOrderId,
 				'faq_question_key' => $faqQuestionKey,
-				'weight' => '2',
+				'weight' => '4',
 			),
 		));
 
