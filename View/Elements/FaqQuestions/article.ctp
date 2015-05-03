@@ -35,16 +35,13 @@ $hidden = $this->params['action'] === 'index' ? 'hidden' : '';
 <article>
 	<h2>
 		<?php if ($this->params['action'] === 'index') : ?>
-			<a class="anchorjs-link" href="<?php echo $viewUrl; ?>">
-				<span class="anchorjs-icon"></span>
-			</a>
 			<a href="<?php echo $viewUrl; ?>" onclick="return false;"
 				ng-click="displayAnswer('#<?php echo $answerKey; ?>')">
 
 				<span class="glyphicon glyphicon-question-sign"> </span>
 				<?php echo h($faqQuestion['faqQuestion']['question']); ?>
 			</a>
-		
+
 		<?php else : ?>
 			<small>
 				<span class="glyphicon glyphicon-question-sign"> </span>

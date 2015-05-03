@@ -150,12 +150,9 @@ class FaqQuestionsController extends FaqsAppController {
 				'faq_question_key' => null,
 			)
 		);
-		$data = Hash::merge(
-			$faqQuestion, $faqQuestionOrder,
-			['contentStatus' => null, 'comments' => []]
-		);
 
 		//POSTの場合、登録処理
+		$data = array();
 		if ($this->request->isPost()) {
 			if (! $status = $this->NetCommonsWorkflow->parseStatus()) {
 				return;
@@ -177,6 +174,10 @@ class FaqQuestionsController extends FaqsAppController {
 		}
 
 		//Viewにセット
+		$data = Hash::merge(
+			$faqQuestion, $faqQuestionOrder, $data,
+			['contentStatus' => null, 'comments' => []]
+		);
 		$results = $this->camelizeKeyRecursive($data);
 		$this->set($results);
 	}
@@ -276,6 +277,7 @@ class FaqQuestionsController extends FaqsAppController {
 		$latestConditons = array();
 
 		if ($this->viewVars['contentEditable']) {
+			$activeConditions = array();
 			$latestConditons = array(
 				'FaqQuestion.is_latest' => true,
 			);
@@ -325,7 +327,7 @@ class FaqQuestionsController extends FaqsAppController {
 		if (in_array('comments', $contains, true)) {
 			$comments = $this->Comment->getComments(
 				array(
-					'plugin_key' => 'faqs',
+					'plugin_key' => $this->params['plugin'],
 					'content_key' => $this->viewVars['faqQuestionKey'],
 				)
 			);

@@ -34,6 +34,7 @@ class CategoriesController extends FaqsAppController {
  * @var array
  */
 	public $components = array(
+		'NetCommons.NetCommonsBlock',
 		'NetCommons.NetCommonsRoomRole' => array(
 			//コンテンツの権限設定
 			'allowedActions' => array(
@@ -49,9 +50,46 @@ class CategoriesController extends FaqsAppController {
  * @return void
  */
 	public function beforeFilter() {
+		parent::beforeFilter();
+
 		$this->layout = 'NetCommons.setting';
 		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
 		$this->set($results);
+
+		//タブの設定
+		$settingTabs = array(
+			'tabs' => array(
+				'block_index' => array(
+					'plugin' => $this->params['plugin'],
+					'controller' => 'blocks',
+					'action' => 'index',
+					$this->viewVars['frameId'],
+				),
+			),
+			'active' => 'block_index'
+		);
+		$this->set('settingTabs', $settingTabs);
+
+		$blockSettingTabs = array(
+			'tabs' => array(
+				'block_settings' => array(
+					'plugin' => $this->params['plugin'],
+					'controller' => 'blocks',
+					'action' => $this->params['action'],
+					$this->viewVars['frameId'],
+					$this->viewVars['blockId']
+				),
+				'role_permissions' => array(
+					'plugin' => $this->params['plugin'],
+					'controller' => 'block_role_permissions',
+					'action' => 'edit',
+					$this->viewVars['frameId'],
+					$this->viewVars['blockId']
+				),
+			),
+			'active' => 'block_settings'
+		);
+		$this->set('blockSettingTabs', $blockSettingTabs);
 	}
 
 /**
@@ -61,7 +99,7 @@ class CategoriesController extends FaqsAppController {
  */
 	public function edit() {
 		//blockId取得
-		if (! $this->validateBlockId()) {
+		if (! $this->NetCommonsBlock->validateBlockId()) {
 			$this->throwBadRequest();
 			return false;
 		}
