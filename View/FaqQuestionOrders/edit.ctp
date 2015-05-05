@@ -39,7 +39,7 @@
 			)); ?>
 
 		<div ng-hide="faqQuestions.length">
-			<p><?php echo __d('categories', 'No category.'); ?></p>
+			<p><?php echo __d('net_commons', 'Not found.'); ?></p>
 		</div>
 
 		<table class="table table-condensed" ng-show="faqQuestions.length">

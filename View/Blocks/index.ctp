@@ -37,10 +37,10 @@
 								<?php echo $this->Paginator->sort('Faq.name', __d('faqs', 'FAQ Name')); ?>
 							</th>
 							<th>
-								<?php echo $this->Paginator->sort('Block.public_type', __d('faqs', 'Public Type')); ?>
+								<?php echo $this->Paginator->sort('Block.public_type', __d('blocks', 'Publishing setting')); ?>
 							</th>
 							<th>
-								<?php echo $this->Paginator->sort('Block.modified', __d('faqs', 'Updated Date')); ?>
+								<?php echo $this->Paginator->sort('Block.modified', __d('net_commons', 'Updated date')); ?>
 							</th>
 						</tr>
 					</thead>
@@ -72,7 +72,7 @@
 									<?php elseif ($faq['block']['publicType'] === '1') : ?>
 										<?php echo __d('blocks', 'Public'); ?>
 									<?php elseif ($faq['block']['publicType'] === '2') : ?>
-										<?php echo __d('blocks', 'Limited Public'); ?>
+										<?php echo __d('blocks', 'Limited'); ?>
 									<?php endif; ?>
 								</td>
 								<td>

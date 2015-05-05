@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-03-19 01:47+0000\n"
+"POT-Creation-Date: 2015-05-05 15:03+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,30 +14,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /Model/Faq.php:75
-#: /View/Elements/Faqs/form_faq.ctp:37
+#: Faqs/Controller/BlocksController.php:134
+msgid "New FAQ %s"
+msgstr ""
+
+#: Faqs/Model/Faq.php:110
+#: Faqs/Test/Case/Model/FaqTestValidateFaq.php:149;178
+#: Faqs/View/Elements/Blocks/delete_form.ctp:14;28
+msgid "FAQ"
+msgstr ""
+
+#: Faqs/Model/FaqQuestion.php:115
+#: Faqs/Test/Case/Model/FaqQuestionTestValidateFaqQuestion.php:357
+#: Faqs/View/Elements/FaqQuestions/delete_form.ctp:38
+#: Faqs/View/Elements/FaqQuestions/edit_form.ctp:81
+#: Faqs/View/FaqQuestionOrders/edit.ctp:50
 msgid "Question"
 msgstr ""
 
-#: /Model/Faq.php:81
-#: /View/Elements/Faqs/form_faq.ctp:59
+#: Faqs/Model/FaqQuestion.php:123
+#: Faqs/Test/Case/Model/FaqQuestionTestValidateFaqQuestion.php:390
+#: Faqs/View/Elements/FaqQuestions/edit_form.ctp:106
 msgid "Answer"
 msgstr ""
 
-#: /View/Blocks/edit.ctp:40
+#: Faqs/View/Blocks/index.ctp:37
+#: Faqs/View/Elements/Blocks/edit_form.ctp:54
 msgid "FAQ Name"
 msgstr ""
 
-#: /View/Elements/Faqs/form_faq.ctp:92
-msgid "Delete FAQ"
+#: Faqs/View/FaqQuestions/index.ctp:30
+msgid "Sort question"
 msgstr ""
 
-#: /View/Faqs/index.ctp:18
-#: /View/Faqs/view.ctp:14
-msgid "Currently FAQ has not been published."
-msgstr ""
-
-#: /View/Faqs/index.ctp:59
-msgid "FAQ does not exist."
+#: Faqs/View/FaqQuestions/index.ctp:37
+msgid "Create question"
 msgstr ""
 
