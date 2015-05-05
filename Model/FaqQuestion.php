@@ -245,7 +245,7 @@ class FaqQuestion extends FaqsAppModel {
 			}
 		}
 		if (in_array('comment', $contains, true) && isset($data['Comment'])) {
-			if (! $this->Comment->validateByStatus($data, array('plugin' => 'faqs', 'caller' => $this->name))) {
+			if (! $this->Comment->validateByStatus($data, array('plugin' => $this->plugin, 'caller' => $this->name))) {
 				$this->validationErrors = Hash::merge($this->validationErrors, $this->Comment->validationErrors);
 				return false;
 			}
