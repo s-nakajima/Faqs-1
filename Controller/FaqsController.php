@@ -30,8 +30,6 @@ class FaqsController extends FaqsAppController {
 			array('return')
 		);
 
-		if ($html) {
-			$this->set('html', $html);
-		}
+		$this->set('html', $html);
 	}
 }
