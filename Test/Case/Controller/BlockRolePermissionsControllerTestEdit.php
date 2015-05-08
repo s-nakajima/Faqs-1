@@ -40,7 +40,7 @@ class BlockRolePermissionsControllerTestEdit extends FaqsBaseController {
 	}
 
 /**
- * Expect user with permissionEditable can access on GET request
+ * Expect user with blockPermissionEditable can access on GET request
  *
  * @return void
  */
@@ -72,30 +72,26 @@ class BlockRolePermissionsControllerTestEdit extends FaqsBaseController {
 	}
 
 /**
- * Expect user with permissionEditable cannot access on GET request
+ * Expect user with blockPermissionEditable cannot access on GET request
  *
  * @return void
  */
 	public function testEditGetWOPermissionEditable() {
-		//
-		// NetCommonsRoomRoleComponent::_isAllowに不具合があり、ForbiddenExceptionにならない
-		//
+		$this->setExpectedException('ForbiddenException');
 
-		//$this->setExpectedException('ForbiddenException');
-		//
-		//RolesControllerTest::login($this, 'editor');
-		//
-		//$frameId = '100';
-		//$blockId = '100';
-		//
-		//$view = $this->testAction(
-		//		'/faqs/block_role_permmisions/edit/' . $frameId . '/' . $blockId,
-		//		array(
-		//			'method' => 'get',
-		//			'return' => 'view',
-		//		)
-		//	);
-		//
-		//AuthGeneralControllerTest::logout($this);
+		RolesControllerTest::login($this, 'editor');
+
+		$frameId = '100';
+		$blockId = '100';
+
+		$this->testAction(
+				'/faqs/block_role_permmisions/edit/' . $frameId . '/' . $blockId,
+				array(
+					'method' => 'get',
+					'return' => 'view',
+				)
+			);
+
+		AuthGeneralControllerTest::logout($this);
 	}
 }
