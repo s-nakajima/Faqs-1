@@ -34,23 +34,12 @@ $hidden = $this->params['action'] === 'index' ? 'hidden' : '';
 
 <article>
 	<h2>
-		<?php if ($this->params['action'] === 'index') : ?>
-			<a href="<?php echo $viewUrl; ?>" onclick="return false;"
-				ng-click="displayAnswer('#<?php echo $answerKey; ?>')">
+		<a href="<?php echo $viewUrl; ?>" onclick="return false;"
+			ng-click="displayAnswer('#<?php echo $answerKey; ?>')">
 
-				<span class="glyphicon glyphicon-question-sign"> </span>
-				<?php echo h($faqQuestion['faqQuestion']['question']); ?>
-			</a>
-
-		<?php else : ?>
-			<small>
-				<span class="glyphicon glyphicon-question-sign"> </span>
-				<strong>
-					<?php echo h($faqQuestion['faqQuestion']['question']); ?>
-				</strong>
-			</small>
-
-		<?php endif; ?>
+			<span class="glyphicon glyphicon-question-sign"> </span>
+			<?php echo h($faqQuestion['faqQuestion']['question']); ?>
+		</a>
 
 		<small>
 			<?php echo $this->element('NetCommons.status_label',

@@ -13,7 +13,7 @@
 <div class="nc-content-list" ng-controller="FaqIndex">
 	<article>
 		<h1>
-			<small><?php echo h($faq['name']); ?></small>
+			<?php echo h($faq['name']); ?>
 		</h1>
 
 		<hr>
