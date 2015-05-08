@@ -20,6 +20,13 @@ App::uses('FaqsAppController', 'Faqs.Controller');
 class BlockRolePermissionsController extends FaqsAppController {
 
 /**
+ * layout
+ *
+ * @var array
+ */
+	public $layout = 'NetCommons.setting';
+
+/**
  * use models
  *
  * @var array
@@ -66,7 +73,6 @@ class BlockRolePermissionsController extends FaqsAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->layout = 'NetCommons.setting';
 		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
 		$this->set($results);
 

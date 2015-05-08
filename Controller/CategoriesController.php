@@ -20,6 +20,13 @@ App::uses('FaqsAppController', 'Faqs.Controller');
 class CategoriesController extends FaqsAppController {
 
 /**
+ * layout
+ *
+ * @var array
+ */
+	public $layout = 'NetCommons.setting';
+
+/**
  * use model
  *
  * @var array
@@ -52,7 +59,6 @@ class CategoriesController extends FaqsAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->layout = 'NetCommons.setting';
 		$results = $this->camelizeKeyRecursive($this->NetCommonsFrame->data);
 		$this->set($results);
 
