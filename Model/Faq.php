@@ -156,6 +156,7 @@ class Faq extends FaqsAppModel {
 		$this->loadModels([
 			'Faq' => 'Faqs.Faq',
 			'FaqSetting' => 'Faqs.FaqSetting',
+			'Category' => 'Categories.Category',
 			'Block' => 'Blocks.Block',
 			'Frame' => 'Frames.Frame',
 		]);
@@ -167,7 +168,7 @@ class Faq extends FaqsAppModel {
 
 		try {
 			//バリデーション
-			if (! $this->validateFaq($data, ['faqSetting', 'block'])) {
+			if (! $this->validateFaq($data, ['faqSetting', 'block', 'category'])) {
 				return false;
 			}
 
@@ -184,6 +185,10 @@ class Faq extends FaqsAppModel {
 			if (! $this->FaqSetting->save(null, false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
+
+			$data['Block']['id'] = (int)$block['Block']['id'];
+			$data['Block']['key'] = $block['Block']['key'];
+			$this->Category->saveCategories($data);
 
 			//トランザクションCommit
 			$dataSource->commit();
@@ -222,6 +227,16 @@ class Faq extends FaqsAppModel {
 		if (in_array('block', $contains, true)) {
 			if (! $this->Block->validateBlock($data)) {
 				$this->validationErrors = Hash::merge($this->validationErrors, $this->Block->validationErrors);
+				return false;
+			}
+		}
+
+		if (in_array('category', $contains, true)) {
+			if (! isset($data['Categories'])) {
+				$data['Categories'] = [];
+			}
+			if (! $data = $this->Category->validateCategories($data)) {
+				$this->validationErrors = Hash::merge($this->validationErrors, $this->Category->validationErrors);
 				return false;
 			}
 		}
