@@ -46,7 +46,7 @@
 			<table class="table table-condensed" ng-show="faqQuestions.length">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th></th>
 						<th>
 							<?php echo $this->Paginator->sort('FaqQuestion.question', __d('faqs', 'Question')); ?>
 						</th>
