@@ -81,10 +81,12 @@ class FaqsAppController extends AppController {
 		$settingTabs = array(
 			'tabs' => array(
 				'block_index' => array(
-					'plugin' => $this->params['plugin'],
-					'controller' => 'blocks',
-					'action' => 'index',
-					$this->viewVars['frameId'],
+					'url' => array(
+						'plugin' => $this->params['plugin'],
+						'controller' => 'blocks',
+						'action' => 'index',
+						$this->viewVars['frameId'],
+					)
 				),
 			),
 			'active' => $mainActiveTab
@@ -94,18 +96,22 @@ class FaqsAppController extends AppController {
 		$blockSettingTabs = array(
 			'tabs' => array(
 				'block_settings' => array(
-					'plugin' => $this->params['plugin'],
-					'controller' => 'blocks',
-					'action' => $this->params['action'],
-					$this->viewVars['frameId'],
-					$this->viewVars['blockId']
+					'url' => array(
+						'plugin' => $this->params['plugin'],
+						'controller' => 'blocks',
+						'action' => $this->params['action'],
+						$this->viewVars['frameId'],
+						$this->viewVars['blockId']
+					)
 				),
 				'role_permissions' => array(
-					'plugin' => $this->params['plugin'],
-					'controller' => 'block_role_permissions',
-					'action' => 'edit',
-					$this->viewVars['frameId'],
-					$this->viewVars['blockId']
+					'url' => array(
+						'plugin' => $this->params['plugin'],
+						'controller' => 'block_role_permissions',
+						'action' => 'edit',
+						$this->viewVars['frameId'],
+						$this->viewVars['blockId']
+					)
 				),
 			),
 			'active' => $blockActiveTab
