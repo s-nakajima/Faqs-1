@@ -80,7 +80,7 @@ class FaqsAppController extends AppController {
 		if (isset($this->params['pass'][1])) {
 			$blockId = (int)$this->params['pass'][1];
 		} else {
-			$blockId = $this->viewVars['blockId'];
+			$blockId = null;
 		}
 
 		//タブの設定
