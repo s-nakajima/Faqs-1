@@ -88,39 +88,39 @@ class BlocksController extends FaqsAppController {
  * @throws Exception
  */
 	public function index() {
+		$this->Paginator->settings = array(
+			'Faq' => array(
+				'order' => array('Block.id' => 'desc'),
+				'conditions' => array(
+					'Block.language_id' => $this->viewVars['languageId'],
+					'Block.room_id' => $this->viewVars['roomId'],
+					'Block.plugin_key ' => $this->params['plugin'],
+				),
+				//'limit' => 1
+			)
+		);
+
 		try {
-			$this->Paginator->settings = array(
-				'Faq' => array(
-					'order' => array('Block.id' => 'desc'),
-					'conditions' => array(
-						'Block.language_id' => $this->viewVars['languageId'],
-						'Block.room_id' => $this->viewVars['roomId'],
-						'Block.plugin_key ' => $this->params['plugin'],
-					),
-					//'limit' => 1
-				)
-			);
 			$faqs = $this->Paginator->paginate('Faq');
-			if (! $faqs) {
-				$this->view = 'Blocks/not_found';
+		} catch (Exception $ex) {
+			if (isset($this->request['paging']) && $this->params['named']) {
+				$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
 				return;
 			}
-
-			$results = array(
-				'faqs' => $faqs
-			);
-			$results = $this->camelizeKeyRecursive($results);
-			$this->set($results);
-
-		} catch (Exception $ex) {
-			if ($this->params['named']) {
-				$this->params['named'] = array();
-				$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
-			} else {
-				CakeLog::error($ex);
-				throw $ex;
-			}
+			CakeLog::error($ex);
+			throw $ex;
 		}
+
+		if (! $faqs) {
+			$this->view = 'Blocks/not_found';
+			return;
+		}
+
+		$results = array(
+			'faqs' => $faqs
+		);
+		$results = $this->camelizeKeyRecursive($results);
+		$this->set($results);
 	}
 
 /**
