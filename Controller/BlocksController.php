@@ -158,6 +158,7 @@ class BlocksController extends FaqsAppController {
 			}
 			$data['Block']['id'] = null;
 			$data['Block']['key'] = null;
+			unset($data['Frame']);
 		}
 
 		$results = $this->camelizeKeyRecursive($data);
@@ -192,6 +193,7 @@ class BlocksController extends FaqsAppController {
 				}
 				return;
 			}
+			unset($data['Frame']);
 
 			$results = $this->camelizeKeyRecursive($data);
 			$this->set($results);
