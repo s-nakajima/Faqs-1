@@ -66,7 +66,7 @@ class BlockRolePermissionsControllerTestEdit extends FaqsBaseController {
 		$this->assertTextContains('name="data[FaqSetting][id]"', $view);
 		$this->assertTextContains('name="data[FaqSetting][use_workflow]"', $view);
 		$this->assertTextContains('name="data[BlockRolePermission][content_creatable]', $view);
-		$this->assertTextContains('name="data[BlockRolePermission][content_publishable]', $view);
+		//$this->assertTextContains('name="data[BlockRolePermission][content_publishable]', $view);
 
 		AuthGeneralControllerTest::logout($this);
 	}
