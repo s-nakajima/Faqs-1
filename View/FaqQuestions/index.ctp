@@ -14,14 +14,13 @@
 <div class="nc-content-list" ng-controller="FaqIndex">
 	<article>
 		<h1>
-			<?php echo h($faq['name']); ?>
+			<small>
+				<?php echo h($faq['name']); ?>
+			</small>
 		</h1>
 
 		<div class="clearfix">
 			<div class="pull-left">
-				<?php if ($contentCreatable) : ?>
-					<?php echo $this->element('FaqQuestions/select_status'); ?>
-				<?php endif; ?>
 				<?php echo $this->element('FaqQuestions/select_category'); ?>
 			</div>
 			<div class="pull-right">
