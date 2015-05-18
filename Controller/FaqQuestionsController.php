@@ -287,7 +287,6 @@ class FaqQuestionsController extends FaqsAppController {
 				'FaqQuestion.created_user !=' => (int)$this->viewVars['userId'],
 			);
 			$latestConditons = array(
-				'FaqQuestion.is_active' => false,
 				'FaqQuestion.is_latest' => true,
 				'FaqQuestion.created_user' => (int)$this->viewVars['userId'],
 			);
