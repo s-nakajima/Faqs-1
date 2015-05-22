@@ -28,6 +28,10 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
  * @var array
  */
 	private $__defaultData = array(
+		'Block' => array(
+			'id' => '100',
+			'key' => 'block_100',
+		),
 		'Faq' => array(
 			'id' => '1',
 			'key' => 'faq_1',
@@ -118,6 +122,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -172,6 +177,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -234,8 +240,8 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 				'weight' => '4',
 			),
 		));
-
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -293,6 +299,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -403,6 +410,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -460,6 +468,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -543,6 +552,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);
@@ -595,6 +605,7 @@ class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
 			),
 		));
 		$expected = Hash::remove($expected, 'Comment');
+		$expected = Hash::remove($expected, 'Block');
 
 		//テスト実施
 		$this->_assertArray($expected, $result, 2, ['created', 'modified', 'modified_user']);

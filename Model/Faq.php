@@ -251,8 +251,6 @@ class Faq extends FaqsAppModel {
  * @throws InternalErrorException
  */
 	public function deleteFaq($data) {
-		$this->setDataSource('master');
-
 		$this->loadModels([
 			'Faq' => 'Faqs.Faq',
 			'FaqSetting' => 'Faqs.FaqSetting',
@@ -260,9 +258,11 @@ class Faq extends FaqsAppModel {
 			'FaqQuestionOrder' => 'Faqs.FaqQuestionOrder',
 			'Block' => 'Blocks.Block',
 			'Category' => 'Categories.Category',
+			'Comment' => 'Comments.Comment',
 		]);
 
 		//トランザクションBegin
+		$this->setDataSource('master');
 		$dataSource = $this->getDataSource();
 		$dataSource->begin();
 
@@ -292,6 +292,9 @@ class Faq extends FaqsAppModel {
 			if (! $this->FaqQuestionOrder->deleteAll(array($this->FaqQuestionOrder->alias . '.faq_key' => $data['Faq']['key']), false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
+
+			//コメントの削除
+			$this->Comment->deleteByBlockKey($data['Block']['key']);
 
 			//Categoryデータ削除
 			$this->Category->deleteByBlockKey($data['Block']['key']);

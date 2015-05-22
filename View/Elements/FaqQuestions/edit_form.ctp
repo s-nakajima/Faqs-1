@@ -10,16 +10,24 @@
  */
 ?>
 
+<?php echo $this->Form->hidden('Frame.id', array(
+	'value' => $frameId
+)); ?>
+
+<?php echo $this->Form->hidden('Block.id', array(
+	'value' => $blockId,
+)); ?>
+
+<?php echo $this->Form->hidden('Block.key', array(
+	'value' => $blockKey,
+)); ?>
+
 <?php echo $this->Form->hidden('Faq.id', array(
 		'value' => $faq['id'],
 	)); ?>
 
 <?php echo $this->Form->hidden('Faq.key', array(
 		'value' => $faq['key'],
-	)); ?>
-
-<?php echo $this->Form->hidden('Frame.id', array(
-		'value' => $frameId,
 	)); ?>
 
 <?php echo $this->Form->hidden('FaqQuestion.id', array(

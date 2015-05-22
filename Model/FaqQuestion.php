@@ -206,6 +206,7 @@ class FaqQuestion extends FaqsAppModel {
 			}
 			//Comment登録
 			if (isset($data['Comment']) && $this->Comment->data) {
+				$this->Comment->data[$this->Comment->name]['block_key'] = $data['Block']['key'];
 				$this->Comment->data[$this->Comment->name]['content_key'] = $faqQuestion[$this->name]['key'];
 				if (! $this->Comment->save(null, false)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
@@ -287,6 +288,9 @@ class FaqQuestion extends FaqsAppModel {
 			)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
+
+			//コメントの削除
+			$this->Comment->deleteByContentKey($data['FaqQuestion']['key']);
 
 			//トランザクションCommit
 			$dataSource->commit();
