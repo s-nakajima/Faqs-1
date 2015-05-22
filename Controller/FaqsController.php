@@ -25,6 +25,10 @@ class FaqsController extends FaqsAppController {
  * @return void
  */
 	public function index() {
+		if (! $this->viewVars['blockId']) {
+			$this->autoRender = false;
+			return;
+		}
 		$html = $this->requestAction(
 			array('controller' => 'faq_questions', 'action' => 'index', $this->viewVars['frameId']),
 			array('return')
