@@ -1,8 +1,8 @@
 <?php
 /**
- * Common code of FaqQuestionOrder model test
+ * Common code of FaqQuestion model test
  *
- * @property FaqQuestionOrder $FaqQuestionOrder
+ * @property FaqQuestion $FaqQuestion
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -11,15 +11,15 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqsBaseModel', 'Faqs.Test/Case/Model');
+App::uses('FaqsModelTestBase', 'Faqs.Test/Case/Model');
 
 /**
- * Common code of FaqQuestionOrder model test
+ * Common code of FaqQuestion model test
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqQuestionOrderTest extends FaqsBaseModel {
+class FaqQuestionTestBase extends FaqsModelTestBase {
 
 /**
  * setUp
@@ -28,7 +28,10 @@ class FaqQuestionOrderTest extends FaqsBaseModel {
  */
 	public function setUp() {
 		parent::setUp();
+		$this->FaqQuestion = ClassRegistry::init('Faqs.FaqQuestion');
 		$this->FaqQuestionOrder = ClassRegistry::init('Faqs.FaqQuestionOrder');
+		$this->Comment = ClassRegistry::init('Comments.Comment');
+		$this->Block = ClassRegistry::init('Blocks.Block');
 	}
 
 /**
@@ -37,7 +40,10 @@ class FaqQuestionOrderTest extends FaqsBaseModel {
  * @return void
  */
 	public function tearDown() {
+		unset($this->FaqQuestion);
 		unset($this->FaqQuestionOrder);
+		unset($this->Comment);
+		unset($this->Block);
 		parent::tearDown();
 	}
 }

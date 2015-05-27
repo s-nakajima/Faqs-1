@@ -11,7 +11,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqQuestionTest', 'Faqs.Test/Case/Model');
+App::uses('FaqQuestionTestBase', 'Faqs.Test/Case/Model');
 
 /**
  * Test of FaqQuestion->getFaqQuestions()
@@ -19,7 +19,7 @@ App::uses('FaqQuestionTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqQuestionGetFaqQuestionsTest extends FaqQuestionTest {
+class FaqQuestionGetFaqQuestionsTest extends FaqQuestionTestBase {
 
 /**
  * Default expected questions data

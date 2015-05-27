@@ -25,34 +25,23 @@ class AllFaqsTest extends CakeTestSuite {
 	public static function suite() {
 		$plugin = preg_replace('/^All([\w]+)Test$/', '$1', __CLASS__);
 		$suite = new CakeTestSuite(sprintf('All %s Plugin tests', $plugin));
-		$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case');
-		//$suite->addTestDirectoryRecursive(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller');
 
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestDeleteFaq.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestGetFaq.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestSaveFaq.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqTestValidateFaq.php');
-
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqSettingTestGetFaqSetting.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqSettingTestSaveFaqSetting.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqSettingTestValidateFaqSetting.php');
-
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestDeleteFaqQuestion.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestGetFaqQuestion.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestGetFaqQuestions.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestSaveFaqQuestion.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionTestValidateFaqQuestion.php');
-
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestGetMaxWeight.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestSaveFaqQuestionOrders.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'FaqQuestionOrderTestValidateFaqQuestionOrder.php');
-
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'FaqsControllerTestIndex.php');
-
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'BlockRolePermissionsControllerTestEdit.php');
-
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'FaqsControllerTestIndex.php');
-		//$suite->addTestFile(CakePlugin::path($plugin) . 'Test' . DS . 'Case' . DS . 'Controller' . DS . 'FaqsControllerTestIndex.php');
+		$directory = CakePlugin::path($plugin) . 'Test' . DS . 'Case';
+		$Folder = new Folder($directory);
+		$exceptions = array(
+			'FaqsControllerTestBase.php',
+			'FaqsModelTestBase.php',
+			'FaqQuestionOrderTestBase.php',
+			'FaqQuestionTestBase.php',
+			'FaqSettingTestBase.php',
+			'FaqTestBase.php',
+		);
+		$files = $Folder->tree(null, $exceptions, 'files');
+		foreach ($files as $file) {
+			if (substr($file, -4) === '.php') {
+				$suite->addTestFile($file);
+			}
+		}
 
 		return $suite;
 	}

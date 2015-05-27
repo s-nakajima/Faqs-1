@@ -10,7 +10,7 @@
  */
 
 App::uses('FaqQuestionsController', 'Faqs.Controller');
-App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
+App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
 
 /**
  * Index test on FaqQuestionsController
@@ -18,7 +18,7 @@ App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionsControllerIndexTest extends FaqsBaseController {
+class FaqQuestionsControllerIndexTest extends FaqsControllerTestBase {
 
 /**
  * setUp

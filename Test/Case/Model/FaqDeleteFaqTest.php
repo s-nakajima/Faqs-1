@@ -11,7 +11,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqTest', 'Faqs.Test/Case/Model');
+App::uses('FaqTestBase', 'Faqs.Test/Case/Model');
 
 /**
  * Test of Faq->deleteFaq()
@@ -19,7 +19,7 @@ App::uses('FaqTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqDeleteFaqTest extends FaqTest {
+class FaqDeleteFaqTest extends FaqTestBase {
 
 /**
  * Default save data

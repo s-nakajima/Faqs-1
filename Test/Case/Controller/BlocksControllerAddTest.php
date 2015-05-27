@@ -10,7 +10,7 @@
  */
 
 App::uses('BlocksController', 'Faqs.Controller');
-App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
+App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
 
 /**
  * Add test on BlocksController
@@ -18,7 +18,7 @@ App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class BlocksControllerAddTest extends FaqsBaseController {
+class BlocksControllerAddTest extends FaqsControllerTestBase {
 
 /**
  * setUp

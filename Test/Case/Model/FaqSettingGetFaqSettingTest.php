@@ -11,7 +11,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqSettingTest', 'Faqs.Test/Case/Model');
+App::uses('FaqSettingTestBase', 'Faqs.Test/Case/Model');
 
 /**
  * Test of FaqSetting->getFaqSetting()
@@ -19,7 +19,7 @@ App::uses('FaqSettingTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqSettingGetFaqSettingTest extends FaqSettingTest {
+class FaqSettingGetFaqSettingTest extends FaqSettingTestBase {
 
 /**
  * Expect to get the FaqSetting

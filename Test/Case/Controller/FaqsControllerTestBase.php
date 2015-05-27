@@ -22,7 +22,7 @@ App::uses('AuthGeneralControllerTest', 'AuthGeneral.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqsBaseController extends YAControllerTestCase {
+class FaqsControllerTestBase extends YAControllerTestCase {
 
 /**
  * Fixtures
@@ -80,13 +80,5 @@ class FaqsBaseController extends YAControllerTestCase {
 		Configure::write('Config.language', null);
 		CakeSession::write('Auth.User', null);
 		parent::tearDown();
-	}
-
-/**
- * testIndex method
- *
- * @return void
- */
-	public function test() {
 	}
 }

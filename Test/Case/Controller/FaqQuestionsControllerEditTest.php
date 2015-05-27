@@ -10,7 +10,7 @@
  */
 
 App::uses('FaqQuestionsController', 'Faqs.Controller');
-App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
+App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
 
 /**
  * Edit test on FaqQuestionsController
@@ -18,7 +18,7 @@ App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionsControllerEditTest extends FaqsBaseController {
+class FaqQuestionsControllerEditTest extends FaqsControllerTestBase {
 
 /**
  * setUp

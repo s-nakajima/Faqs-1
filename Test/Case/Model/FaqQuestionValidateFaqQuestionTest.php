@@ -11,7 +11,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqQuestionTest', 'Faqs.Test/Case/Model');
+App::uses('FaqQuestionTestBase', 'Faqs.Test/Case/Model');
 
 /**
  * Test of FaqQuestion->validateFaqQuestion()
@@ -20,7 +20,7 @@ App::uses('FaqQuestionTest', 'Faqs.Test/Case/Model');
  * @package NetCommons\Faqs\Test\Case\Model
  * @SuppressWarnings(PHPMD.TooManyMethods)
  */
-class FaqQuestionValidateFaqQuestionTest extends FaqQuestionTest {
+class FaqQuestionValidateFaqQuestionTest extends FaqQuestionTestBase {
 
 /**
  * Default save data

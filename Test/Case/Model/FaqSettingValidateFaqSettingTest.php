@@ -11,7 +11,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqSettingTest', 'Faqs.Test/Case/Model');
+App::uses('FaqSettingTestBase', 'Faqs.Test/Case/Model');
 
 /**
  * Test of FaqSetting->validateFaqSetting()
@@ -19,7 +19,7 @@ App::uses('FaqSettingTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqSettingValidateFaqSettingTest extends FaqSettingTest {
+class FaqSettingValidateFaqSettingTest extends FaqSettingTestBase {
 
 /**
  * Default save data

@@ -1,8 +1,8 @@
 <?php
 /**
- * Common code of FaqSetting model test
+ * Common code of Faq model test
  *
- * @property FaqSetting $FaqSetting
+ * @property Faq $Faq
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -11,15 +11,15 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqsBaseModel', 'Faqs.Test/Case/Model');
+App::uses('FaqsModelTestBase', 'Faqs.Test/Case/Model');
 
 /**
- * Common code of FaqSetting model test
+ * Common code of Faq model test
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqSettingTest extends FaqsBaseModel {
+class FaqTestBase extends FaqsModelTestBase {
 
 /**
  * setUp
@@ -30,7 +30,11 @@ class FaqSettingTest extends FaqsBaseModel {
 		parent::setUp();
 		$this->Faq = ClassRegistry::init('Faqs.Faq');
 		$this->FaqSetting = ClassRegistry::init('Faqs.FaqSetting');
-		$this->BlockRolePermission = ClassRegistry::init('Blocks.BlockRolePermission');
+		$this->FaqQuestion = ClassRegistry::init('Faqs.FaqQuestion');
+		$this->FaqQuestionOrder = ClassRegistry::init('Faqs.FaqQuestionOrder');
+		$this->Category = ClassRegistry::init('Categories.Category');
+		$this->CategoryOrder = ClassRegistry::init('Categories.CategoryOrder');
+		$this->Block = ClassRegistry::init('Blocks.Block');
 	}
 
 /**
@@ -41,7 +45,11 @@ class FaqSettingTest extends FaqsBaseModel {
 	public function tearDown() {
 		unset($this->Faq);
 		unset($this->FaqSetting);
-		unset($this->BlockRolePermission);
+		unset($this->FaqQuestion);
+		unset($this->FaqQuestionOrder);
+		unset($this->Category);
+		unset($this->CategoryOrder);
+		unset($this->Block);
 		parent::tearDown();
 	}
 }

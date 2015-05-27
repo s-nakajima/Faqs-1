@@ -27,7 +27,7 @@ App::uses('FaqQuestionOrder', 'Faqs.Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqsBaseModel extends YACakeTestCase {
+class FaqsModelTestBase extends YACakeTestCase {
 
 /**
  * Fixtures
@@ -118,13 +118,5 @@ class FaqsBaseModel extends YACakeTestCase {
 		}
 
 		$this->assertEquals($expected, $result);
-	}
-
-/**
- * Called before the test().
- *
- * @return void
- */
-	public function test() {
 	}
 }

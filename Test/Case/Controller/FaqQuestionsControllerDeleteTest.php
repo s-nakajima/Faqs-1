@@ -10,7 +10,7 @@
  */
 
 App::uses('FaqQuestionsController', 'Faqs.Controller');
-App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
+App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
 
 /**
  * Delete test on FaqQuestionsController
@@ -18,7 +18,7 @@ App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionsControllerDeleteTest extends FaqsBaseController {
+class FaqQuestionsControllerDeleteTest extends FaqsControllerTestBase {
 
 /**
  * setUp
