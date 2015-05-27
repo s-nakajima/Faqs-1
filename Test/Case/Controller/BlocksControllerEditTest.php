@@ -1,6 +1,6 @@
 <?php
 /**
- * Add test on BlocksController
+ * Edit test on BlocksController
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -13,12 +13,12 @@ App::uses('BlocksController', 'Faqs.Controller');
 App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 
 /**
- * Add test on BlocksController
+ * Edit test on BlocksController
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class BlocksControllerTestAdd extends FaqsBaseController {
+class BlocksControllerEditTest extends FaqsBaseController {
 
 /**
  * setUp
@@ -40,11 +40,11 @@ class BlocksControllerTestAdd extends FaqsBaseController {
 	}
 
 /**
- * Expect add action
+ * Expect edit action
  *
  * @return void
  */
-	public function testAdd() {
+	public function testEdit() {
 		//RolesControllerTest::login($this);
 		//
 		//$frameId = '100';

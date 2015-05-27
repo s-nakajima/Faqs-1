@@ -1,6 +1,6 @@
 <?php
 /**
- * Edit test on FaqQuestionOrdersController
+ * Delete test on FaqQuestionsController
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -9,25 +9,25 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqQuestionOrdersController', 'Faqs.Controller');
+App::uses('FaqQuestionsController', 'Faqs.Controller');
 App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 
 /**
- * Edit test on FaqQuestionOrdersController
+ * Delete test on FaqQuestionsController
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionOrdersControllerTestEdit extends FaqsBaseController {
+class FaqQuestionsControllerDeleteTest extends FaqsBaseController {
 
 /**
- * setUp method
+ * setUp
  *
  * @return void
  */
 	public function setUp() {
 		$this->generate(
-			'Faqs.FaqQuestionOrders',
+			'Faqs.FaqQuestions',
 			[
 				'components' => [
 					'Auth' => ['user'],
@@ -40,11 +40,11 @@ class FaqQuestionOrdersControllerTestEdit extends FaqsBaseController {
 	}
 
 /**
- * Expect edit action
+ * Expect delete action
  *
  * @return void
  */
-	public function testEdit() {
+	public function testDelete() {
 		//RolesControllerTest::login($this);
 		//
 		//$frameId = '100';

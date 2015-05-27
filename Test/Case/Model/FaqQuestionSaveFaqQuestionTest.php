@@ -20,7 +20,7 @@ App::uses('FaqQuestionTest', 'Faqs.Test/Case/Model');
  * @package NetCommons\Faqs\Test\Case\Model
  * @SuppressWarnings(PHPMD.TooManyMethods)
  */
-class FaqQuestionTestSaveFaqQuestion extends FaqQuestionTest {
+class FaqQuestionSaveFaqQuestionTest extends FaqQuestionTest {
 
 /**
  * Default save data

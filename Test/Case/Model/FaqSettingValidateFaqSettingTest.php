@@ -19,7 +19,7 @@ App::uses('FaqSettingTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqSettingTestValidateFaqSetting extends FaqSettingTest {
+class FaqSettingValidateFaqSettingTest extends FaqSettingTest {
 
 /**
  * Default save data

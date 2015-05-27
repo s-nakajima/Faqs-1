@@ -1,6 +1,6 @@
 <?php
 /**
- * Edit test on FaqQuestionsController
+ * View test on FaqQuestionsController
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -13,12 +13,12 @@ App::uses('FaqQuestionsController', 'Faqs.Controller');
 App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 
 /**
- * Edit test on FaqQuestionsController
+ * View test on FaqQuestionsController
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionsControllerTestEdit extends FaqsBaseController {
+class FaqQuestionsControllerViewTest extends FaqsBaseController {
 
 /**
  * setUp
@@ -40,11 +40,11 @@ class FaqQuestionsControllerTestEdit extends FaqsBaseController {
 	}
 
 /**
- * Expect edit action
+ * Expect view action
  *
  * @return void
  */
-	public function testEdit() {
+	public function testView() {
 		//RolesControllerTest::login($this);
 		//
 		//$frameId = '100';

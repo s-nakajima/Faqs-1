@@ -18,7 +18,7 @@ App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionsControllerTestAdd extends FaqsBaseController {
+class FaqQuestionsControllerAddTest extends FaqsBaseController {
 
 /**
  * setUp

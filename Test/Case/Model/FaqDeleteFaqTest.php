@@ -19,7 +19,7 @@ App::uses('FaqTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqTestDeleteFaq extends FaqTest {
+class FaqDeleteFaqTest extends FaqTest {
 
 /**
  * Default save data

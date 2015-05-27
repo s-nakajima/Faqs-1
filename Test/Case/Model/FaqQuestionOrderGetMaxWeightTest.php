@@ -19,7 +19,7 @@ App::uses('FaqQuestionOrderTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqQuestionOrderTestGetMaxWeight extends FaqQuestionOrderTest {
+class FaqQuestionOrderGetMaxWeightTest extends FaqQuestionOrderTest {
 
 /**
  * Expect to get max weight the FaqQuestionOrder

@@ -19,7 +19,7 @@ App::uses('FaqTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqTestGetFaq extends FaqTest {
+class FaqGetFaqTest extends FaqTest {
 
 /**
  * Expect to get the Faq

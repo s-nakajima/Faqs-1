@@ -1,6 +1,6 @@
 <?php
 /**
- * Edit test on BlocksController
+ * Index test on FaqQuestionsController
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -9,16 +9,16 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('BlocksController', 'Faqs.Controller');
+App::uses('FaqQuestionsController', 'Faqs.Controller');
 App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 
 /**
- * Edit test on BlocksController
+ * Index test on FaqQuestionsController
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class BlocksControllerTestEdit extends FaqsBaseController {
+class FaqQuestionsControllerIndexTest extends FaqsBaseController {
 
 /**
  * setUp
@@ -27,7 +27,7 @@ class BlocksControllerTestEdit extends FaqsBaseController {
  */
 	public function setUp() {
 		$this->generate(
-			'Faqs.Blocks',
+			'Faqs.FaqQuestions',
 			[
 				'components' => [
 					'Auth' => ['user'],
@@ -40,11 +40,11 @@ class BlocksControllerTestEdit extends FaqsBaseController {
 	}
 
 /**
- * Expect edit action
+ * Expect index action
  *
  * @return void
  */
-	public function testEdit() {
+	public function testIndex() {
 		//RolesControllerTest::login($this);
 		//
 		//$frameId = '100';

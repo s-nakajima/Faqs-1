@@ -19,7 +19,7 @@ App::uses('FaqQuestionOrderTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqQuestionOrderTestValidateFaqQuestionOrder extends FaqQuestionOrderTest {
+class FaqQuestionOrderValidateFaqQuestionOrderTest extends FaqQuestionOrderTest {
 
 /**
  * Default save data

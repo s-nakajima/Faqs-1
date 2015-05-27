@@ -19,7 +19,7 @@ App::uses('FaqQuestionTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqQuestionTestGetFaqQuestion extends FaqQuestionTest {
+class FaqQuestionGetFaqQuestionTest extends FaqQuestionTest {
 
 /**
  * Default expected data

@@ -19,7 +19,7 @@ App::uses('FaqQuestionOrderTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqQuestionOrderTestBeforeDelete extends FaqQuestionOrderTest {
+class FaqQuestionOrderBeforeDeleteTest extends FaqQuestionOrderTest {
 
 /**
  * Expect to delete the FaqQuestion

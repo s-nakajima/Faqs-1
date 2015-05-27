@@ -1,6 +1,6 @@
 <?php
 /**
- * View test on FaqQuestionsController
+ * Add test on BlocksController
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -9,16 +9,16 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FaqQuestionsController', 'Faqs.Controller');
+App::uses('BlocksController', 'Faqs.Controller');
 App::uses('FaqsBaseController', 'Faqs.Test/Case/Controller');
 
 /**
- * View test on FaqQuestionsController
+ * Add test on BlocksController
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class FaqQuestionsControllerTestView extends FaqsBaseController {
+class BlocksControllerAddTest extends FaqsBaseController {
 
 /**
  * setUp
@@ -27,7 +27,7 @@ class FaqQuestionsControllerTestView extends FaqsBaseController {
  */
 	public function setUp() {
 		$this->generate(
-			'Faqs.FaqQuestions',
+			'Faqs.Blocks',
 			[
 				'components' => [
 					'Auth' => ['user'],
@@ -40,11 +40,11 @@ class FaqQuestionsControllerTestView extends FaqsBaseController {
 	}
 
 /**
- * Expect view action
+ * Expect add action
  *
  * @return void
  */
-	public function testView() {
+	public function testAdd() {
 		//RolesControllerTest::login($this);
 		//
 		//$frameId = '100';

@@ -19,7 +19,7 @@ App::uses('FaqSettingTest', 'Faqs.Test/Case/Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Model
  */
-class FaqSettingTestGetFaqSetting extends FaqSettingTest {
+class FaqSettingGetFaqSettingTest extends FaqSettingTest {
 
 /**
  * Expect to get the FaqSetting
