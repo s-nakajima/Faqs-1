@@ -97,6 +97,8 @@ class Faqs extends CakeMigration {
 				'namespace' => 'netcommons/faqs',
 				'name' => 'FAQ',
 				'type' => 1,
+				'default_action' => 'faq_questions/index',
+				'default_setting_action' => 'faq_blocks/index',
 			),
 		),
 
