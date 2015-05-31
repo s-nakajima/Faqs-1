@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('BlockRolePermissionsController', 'Faqs.Controller');
+App::uses('FaqBlockRolePermissionsController', 'Faqs.Controller');
 App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
 
 /**
@@ -27,7 +27,7 @@ class BlockRolePermissionsControllerEditTest extends FaqsControllerTestBase {
  */
 	public function setUp() {
 		$this->generate(
-			'Faqs.BlockRolePermissions',
+			'Faqs.FaqBlockRolePermissions',
 			[
 				'components' => [
 					'Auth' => ['user'],
@@ -59,8 +59,8 @@ class BlockRolePermissionsControllerEditTest extends FaqsControllerTestBase {
 			);
 		$this->assertTextEquals('edit', $this->controller->view);
 
-		$this->assertTextContains('/faqs/block_role_permissions/edit/' . $frameId . '/' . $blockId, $view);
-		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/' . $blockId, $view);
+		$this->assertTextContains('/faqs/faq_block_role_permissions/edit/' . $frameId . '/' . $blockId, $view);
+		$this->assertTextContains('/faqs/faq_blocks/edit/' . $frameId . '/' . $blockId, $view);
 		$this->assertTextContains('name="data[Block][id]"', $view);
 		$this->assertTextContains('name="data[FaqSetting][faq_key]"', $view);
 		$this->assertTextContains('name="data[FaqSetting][id]"', $view);

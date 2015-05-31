@@ -79,7 +79,7 @@ class FaqsAppController extends AppController {
 				'block_index' => array(
 					'url' => array(
 						'plugin' => $this->params['plugin'],
-						'controller' => 'blocks',
+						'controller' => 'faq_blocks',
 						'action' => 'index',
 						$this->viewVars['frameId'],
 					)
@@ -94,7 +94,7 @@ class FaqsAppController extends AppController {
 				'block_settings' => array(
 					'url' => array(
 						'plugin' => $this->params['plugin'],
-						'controller' => 'blocks',
+						'controller' => 'faq_blocks',
 						'action' => $this->params['action'],
 						$this->viewVars['frameId'],
 						$blockId
@@ -103,7 +103,7 @@ class FaqsAppController extends AppController {
 				'role_permissions' => array(
 					'url' => array(
 						'plugin' => $this->params['plugin'],
-						'controller' => 'block_role_permissions',
+						'controller' => 'faq_block_role_permissions',
 						'action' => 'edit',
 						$this->viewVars['frameId'],
 						$blockId

@@ -17,7 +17,7 @@ App::uses('FaqsAppController', 'Faqs.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Controller
  */
-class BlockRolePermissionsController extends FaqsAppController {
+class FaqBlockRolePermissionsController extends FaqsAppController {
 
 /**
  * layout
@@ -114,7 +114,7 @@ class BlockRolePermissionsController extends FaqsAppController {
 			$this->FaqSetting->saveFaqSetting($data);
 			if ($this->handleValidationError($this->FaqSetting->validationErrors)) {
 				if (! $this->request->is('ajax')) {
-					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+					$this->redirect('/faqs/faq_blocks/index/' . $this->viewVars['frameId']);
 				}
 				return;
 			}

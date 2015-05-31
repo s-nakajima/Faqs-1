@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('BlocksController', 'Faqs.Controller');
+App::uses('FaqBlocksController', 'Faqs.Controller');
 App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
 
 /**
@@ -18,7 +18,7 @@ App::uses('FaqsControllerTestBase', 'Faqs.Test/Case/Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Faqs\Test\Case\Controller
  */
-class BlocksControllerIndexTest extends FaqsControllerTestBase {
+class FaqBlocksControllerIndexTest extends FaqsControllerTestBase {
 
 /**
  * setUp
@@ -27,7 +27,7 @@ class BlocksControllerIndexTest extends FaqsControllerTestBase {
  */
 	public function setUp() {
 		$this->generate(
-			'Faqs.Blocks',
+			'Faqs.FaqBlocks',
 			[
 				'components' => [
 					'Auth' => ['user'],
@@ -49,7 +49,7 @@ class BlocksControllerIndexTest extends FaqsControllerTestBase {
 
 		$frameId = '100';
 		$view = $this->testAction(
-				'/faqs/blocks/index/' . $frameId,
+				'/faqs/faq_blocks/index/' . $frameId,
 				array(
 					'method' => 'get',
 					'return' => 'view',
@@ -58,9 +58,9 @@ class BlocksControllerIndexTest extends FaqsControllerTestBase {
 		$this->assertTextEquals('index', $this->controller->view);
 
 		$this->assertTextContains('/frames/frames/edit/' . $frameId, $view);
-		$this->assertTextContains('/faqs/blocks/add/' . $frameId, $view);
-		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/100', $view);
-		$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/101', $view);
+		$this->assertTextContains('/faqs/faq_blocks/add/' . $frameId, $view);
+		$this->assertTextContains('/faqs/faq_blocks/edit/' . $frameId . '/100', $view);
+		$this->assertTextContains('/faqs/faq_blocks/edit/' . $frameId . '/101', $view);
 
 		AuthGeneralControllerTest::logout($this);
 	}
@@ -75,15 +75,15 @@ class BlocksControllerIndexTest extends FaqsControllerTestBase {
 
 		$frameId = '103';
 		$view = $this->testAction(
-				'/faqs/blocks/index/' . $frameId,
+				'/faqs/faq_blocks/index/' . $frameId,
 				array(
 					'method' => 'get',
 					'return' => 'view',
 				)
 			);
-		$this->assertTextEquals('Blocks/not_found', $this->controller->view);
+		$this->assertTextEquals('not_found', $this->controller->view);
 
-		$this->assertTextContains('/faqs/blocks/add/' . $frameId, $view);
+		$this->assertTextContains('/faqs/faq_blocks/add/' . $frameId, $view);
 
 		AuthGeneralControllerTest::logout($this);
 	}
@@ -94,11 +94,13 @@ class BlocksControllerIndexTest extends FaqsControllerTestBase {
  * @return void
  */
 	public function testPageError() {
+		$this->setExpectedException('NotFoundException');
+
 		RolesControllerTest::login($this);
 
 		$frameId = '100';
 		$this->testAction(
-				'/faqs/blocks/index/' . $frameId . '/page:2',
+				'/faqs/faq_blocks/index/' . $frameId . '/page:2',
 				array(
 					'method' => 'get',
 					'return' => 'view',

@@ -19,10 +19,10 @@
 		<?php echo $this->element('Blocks.setting_tabs', $blockSettingTabs); ?>
 
 		<?php echo $this->element('Blocks.edit_form', array(
-				'controller' => 'BlockRolePermission',
+				'controller' => 'FaqBlockRolePermission',
 				'action' => 'edit' . '/' . $frameId . '/' . $blockId,
-				'callback' => 'Faqs.BlockRolePermissions/edit_form',
-				'cancelUrl' => '/faqs/blocks/index/' . $frameId,
+				'callback' => 'Faqs.FaqBlockRolePermissions/edit_form',
+				'cancelUrl' => '/faqs/faq_blocks/index/' . $frameId,
 			)); ?>
 	</div>
 </div>

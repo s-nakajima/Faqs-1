@@ -17,17 +17,17 @@
 		<?php echo $this->element('Blocks.setting_tabs', $blockSettingTabs); ?>
 
 		<?php echo $this->element('Blocks.edit_form', array(
-				'controller' => 'Blocks',
+				'controller' => 'FaqBlocks',
 				'action' => h($this->request->params['action']) . '/' . $frameId . '/' . $blockId,
-				'callback' => 'Faqs.Blocks/edit_form',
-				'cancelUrl' => '/faqs/blocks/index/' . $frameId
+				'callback' => 'Faqs.FaqBlocks/edit_form',
+				'cancelUrl' => '/faqs/faq_blocks/index/' . $frameId
 			)); ?>
 
 		<?php if ($this->request->params['action'] === 'edit') : ?>
 			<?php echo $this->element('Blocks.delete_form', array(
-					'controller' => 'Blocks',
+					'controller' => 'FaqBlocks',
 					'action' => 'delete/' . $frameId . '/' . $blockId,
-					'callback' => 'Faqs.Blocks/delete_form'
+					'callback' => 'Faqs.FaqBlocks/delete_form'
 				)); ?>
 		<?php endif; ?>
 	</div>

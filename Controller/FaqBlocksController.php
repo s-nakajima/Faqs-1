@@ -17,7 +17,7 @@ App::uses('FaqsAppController', 'Faqs.Controller');
  * @author Ryo Ozawa <ozawa.ryo@withone.co.jp>
  * @package NetCommons\Faqs\Controller
  */
-class BlocksController extends FaqsAppController {
+class FaqBlocksController extends FaqsAppController {
 
 /**
  * layout
@@ -97,19 +97,9 @@ class BlocksController extends FaqsAppController {
 			)
 		);
 
-		try {
-			$faqs = $this->Paginator->paginate('Faq');
-		} catch (Exception $ex) {
-			if (isset($this->request['paging']) && $this->params['named']) {
-				$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
-				return;
-			}
-			CakeLog::error($ex);
-			throw $ex;
-		}
-
+		$faqs = $this->Paginator->paginate('Faq');
 		if (! $faqs) {
-			$this->view = 'Blocks/not_found';
+			$this->view = 'not_found';
 			return;
 		}
 
@@ -126,7 +116,7 @@ class BlocksController extends FaqsAppController {
  * @return void
  */
 	public function add() {
-		$this->view = 'Blocks/edit';
+		$this->view = 'edit';
 
 		$this->set('blockId', null);
 		$faq = $this->Faq->create(
@@ -149,7 +139,7 @@ class BlocksController extends FaqsAppController {
 			$this->Faq->saveFaq($data);
 			if ($this->handleValidationError($this->Faq->validationErrors)) {
 				if (! $this->request->is('ajax')) {
-					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+					$this->redirect('/faqs/faq_blocks/index/' . $this->viewVars['frameId']);
 				}
 				return;
 			}
@@ -186,7 +176,7 @@ class BlocksController extends FaqsAppController {
 			$this->Faq->saveFaq($data);
 			if ($this->handleValidationError($this->Faq->validationErrors)) {
 				if (! $this->request->is('ajax')) {
-					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+					$this->redirect('/faqs/faq_blocks/index/' . $this->viewVars['frameId']);
 				}
 				return;
 			}
@@ -216,7 +206,7 @@ class BlocksController extends FaqsAppController {
 		if ($this->request->isDelete()) {
 			if ($this->Faq->deleteFaq($this->data)) {
 				if (! $this->request->is('ajax')) {
-					$this->redirect('/faqs/blocks/index/' . $this->viewVars['frameId']);
+					$this->redirect('/faqs/faq_blocks/index/' . $this->viewVars['frameId']);
 				}
 				return;
 			}

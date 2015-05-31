@@ -49,7 +49,7 @@ class FaqQuestionsControllerEditTest extends FaqsControllerTestBase {
 		//
 		//$frameId = '100';
 		//$view = $this->testAction(
-		//		'/faqs/blocks/index/' . $frameId,
+		//		'/faqs/faq_blocks/index/' . $frameId,
 		//		array(
 		//			'method' => 'get',
 		//			'return' => 'view',
@@ -58,9 +58,9 @@ class FaqQuestionsControllerEditTest extends FaqsControllerTestBase {
 		//$this->assertTextEquals('index', $this->controller->view);
 		//
 		//$this->assertTextContains('/frames/frames/edit/' . $frameId, $view);
-		//$this->assertTextContains('/faqs/blocks/add/' . $frameId, $view);
-		//$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/100', $view);
-		//$this->assertTextContains('/faqs/blocks/edit/' . $frameId . '/101', $view);
+		//$this->assertTextContains('/faqs/faq_blocks/add/' . $frameId, $view);
+		//$this->assertTextContains('/faqs/faq_blocks/edit/' . $frameId . '/100', $view);
+		//$this->assertTextContains('/faqs/faq_blocks/edit/' . $frameId . '/101', $view);
 		//
 		//AuthGeneralControllerTest::logout($this);
 	}
